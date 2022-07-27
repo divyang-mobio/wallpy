@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "68139043137",
+    "project_id": "wallpy-72a92",
+    "storage_bucket": "wallpy-72a92.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68139043137:android:7fe7a65eb1435d4fad79c0",
+        "android_client_info": {
+          "package_name": "com.example.wallpy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68139043137-osppcnl5sc6rkh0jj84bp1ehgk1laghm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wallpy",
+            "certificate_hash": "40ba2b36c3b2132b02e6cd25f6b9727f942e6839"
+          }
+        },
+        {
+          "client_id": "68139043137-hq42je2vf7417q3n5a8ps7ov959e0lcc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1tnxi_vieE47hUbKTTuvcWoKFk0z49Wo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "68139043137-hq42je2vf7417q3n5a8ps7ov959e0lcc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
