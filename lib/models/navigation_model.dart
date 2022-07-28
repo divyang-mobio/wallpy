@@ -1,5 +1,7 @@
-class DetailScreenArgument {
-  String link;
+import 'data_model.dart';
 
-  DetailScreenArgument({required this.link});
+class DetailScreenArgument {
+  DataModel dataModel;
+
+  DetailScreenArgument({required this.dataModel});
 }

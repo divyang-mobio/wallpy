@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import '../models/data_model.dart';
 import 'grid_card.dart';
 
-GridView gridView() {
+GridView gridView(List<DataModel> data, ScrollController? controller , bool isLoading) {
   return GridView.builder(
-    itemCount: 10,
+    controller: controller,
+    shrinkWrap: true,
+    itemCount: isLoading ? 10 : data.length,
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         childAspectRatio: 4 / 6.5,
         mainAxisSpacing: 3,
         crossAxisSpacing: 3,
         crossAxisCount: 2),
-    itemBuilder: (context, index) => gridCard(context),
+    itemBuilder: (context, index) => gridCard(context , data[index]),
   );
 }

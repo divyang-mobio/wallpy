@@ -36,7 +36,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^1.19.2
   firebase_storage: ^10.3.3
-  firebase_analytics: ^9.3.0
+  cloud_firestore: ^3.4.1
+  flutter_bloc: ^8.0.1
+  bloc: ^8.0.3
+  cached_network_image: ^3.2.1
+  gallery_saver: ^2.3.2
+  dio: ^4.0.6
+  path_provider: ^2.0.11
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
