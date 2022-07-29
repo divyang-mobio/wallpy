@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../models/data_model.dart';
 import 'grid_card.dart';
 
-GridView gridView(List<DataModel> data, ScrollController? controller , bool isLoading) {
+GridView gridView(
+    List<DataModel> data, ScrollController? controller, bool isLoading) {
   return GridView.builder(
     controller: controller,
     shrinkWrap: true,
@@ -12,6 +13,18 @@ GridView gridView(List<DataModel> data, ScrollController? controller , bool isLo
         mainAxisSpacing: 3,
         crossAxisSpacing: 3,
         crossAxisCount: 2),
-    itemBuilder: (context, index) => gridCard(context , data[index]),
+    itemBuilder: (context, index) => gridCard(
+        context,
+        (isLoading)
+            ? DataModel(
+                id: 0,
+                name: "loading",
+                uid: "loading",
+                category: "loading",
+                fav: false,
+                timestamp: DateTime.now(),
+                url: "loading")
+            : data[index],
+        isLoading),
   );
 }

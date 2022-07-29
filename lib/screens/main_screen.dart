@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:wallpy/models/data_model.dart';
+import '../utils/firestore_database_calling.dart';
 import '../controllers/data_fetch_bloc.dart';
 import '../resources/resources.dart';
+import '../widgets/background_service.dart';
 import '../widgets/gridview.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -24,8 +25,15 @@ class _MyHomePageState extends State<MyHomePage> {
           _scrollController.position.maxScrollExtent) {
         print("scroll");
         BlocProvider.of<DataFetchBloc>(context).add(GetAllData());
+        snackBar((RepositoryProvider.of<FirebaseDatabase>(context).isMore)
+            ? TextResources().snackBarLoadingInPagination
+            : TextResources().snackBarAllDataFetchInPagination);
       }
     });
+  }
+
+  void snackBar(String data) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
   }
 
   @override
@@ -59,10 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
             return Shimmer.fromColors(
                 baseColor: ColorResources().shimmerBase,
                 highlightColor: ColorResources().shimmerHighlight,
-                child: gridView([] , null , true));
-            return const Center(child: CircularProgressIndicator.adaptive());
+                child: gridView([], null, true));
           } else if (state is DataFetchLoaded) {
-            return gridView(state.data, _scrollController , false);
+            return gridView(state.data, _scrollController, false);
           } else if (state is DataFetchError) {
             return const Center(child: Text("Error :("));
           } else {
@@ -70,87 +77,22 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         },
       ),
-      // Column(
-      //   children: [
-      //     Container(
-      //       height: 80,
-      //       child: ListView.builder(
-      //           shrinkWrap: true,
-      //           scrollDirection: Axis.horizontal,
-      //           itemCount: categoryData.length,
-      //           itemBuilder: (context, index) => Container(
-      //                 margin: const EdgeInsets.all(5),
-      //                 decoration: BoxDecoration(
-      //                     borderRadius:
-      //                         const BorderRadius.all(Radius.circular(20)),
-      //                     color: ColorResources().categoryContainer,
-      //                     border: Border.all(
-      //                         color:
-      //                             ColorResources().categoryContainerBorder)),
-      //                 child: TextButton(
-      //                   onPressed: () {},
-      //                   child: Text(categoryData[index].name,
-      //                       style: Theme.of(context).textTheme.subtitle1),
-      //                 ),
-      //               )),
-      //     ),
-      //     const SizedBox(height: 10),
-      //     Container(
-      //       child: BlocBuilder<DataFetchBloc, DataFetchState>(
-      //         builder: (context, state) {
-      //           if (state is DataFetchLoading) {
-      //             return const Center(child: CircularProgressIndicator.adaptive());
-      //           } else if (state is DataFetchLoaded) {
-      //             return gridView(state.data);
-      //           } else if (state is DataFetchError) {
-      //             return const Center(child: Text("Error :("));
-      //           } else {
-      //             return const Center(child: Text("Error No Data :("));
-      //           }
-      //         },
-      //       ),
-      //     ),
-      //   ],
-      // ),
-      // floatingActionButton: Row(
-      //   children: [
-      //     FloatingActionButton(
-      //       onPressed: () {
-      //         BlocProvider.of<DataFetchBloc>(context)
-      //             .add(GetCategoryAllData(category: "nature"));
-      //       },
-      //       child: const Icon(Icons.add),
-      //     ),
-      //     FloatingActionButton(
-      //       onPressed: () {
-      //         BlocProvider.of<DataFetchBloc>(context)
-      //             .add(GetCategoryAllData(category: "city"));
-      //       },
-      //       child: const Icon(Icons.add),
-      //     ),
-      //     FloatingActionButton(
-      //       onPressed: () {
-      //         BlocProvider.of<DataFetchBloc>(context)
-      //             .add(GetCategoryAllData(category: "flower"));
-      //       },
-      //       child: const Icon(Icons.add),
-      //     ),
-      //     FloatingActionButton(
-      //       onPressed: () {
-      //         BlocProvider.of<DataFetchBloc>(context)
-      //             .add(GetCategoryAllData(category: "movie"));
-      //       },
-      //       child: const Icon(Icons.add),
-      //     ),
-      //     FloatingActionButton(
-      //       onPressed: () {
-      //         BlocProvider.of<DataFetchBloc>(context)
-      //             .add(GetCategoryAllData(category: "outside"));
-      //       },
-      //       child: const Icon(Icons.add),
-      //     ),
-      //   ],
-      // ),
+      floatingActionButton: Row(
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              BackgroundService().startService();
+            },
+            child: const Icon(Icons.add),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              BackgroundService().stopService();
+            },
+            child: const Icon(Icons.add),
+          ),
+        ],
+      ),
     );
   }
 }

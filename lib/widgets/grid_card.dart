@@ -4,9 +4,9 @@ import '../resources/resources.dart';
 import 'network_image.dart';
 import '../models/navigation_model.dart';
 
-gridCard(BuildContext context, DataModel dataModel) {
+gridCard(BuildContext context, DataModel dataModel , isLoading) {
   return GestureDetector(
-    onTap: () => Navigator.pushNamed(
+    onTap: () => isLoading ? {} : Navigator.pushNamed(
       context,
       TextResources().detailScreenRoute,
       arguments: DetailScreenArgument(dataModel: dataModel),
@@ -17,7 +17,7 @@ gridCard(BuildContext context, DataModel dataModel) {
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 10,
-      child: networkImages(dataModel.url),
+      child: isLoading ? null : networkImages(dataModel.url),
     ),
   );
 }
