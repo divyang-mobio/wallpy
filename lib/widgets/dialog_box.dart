@@ -1,0 +1,28 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import '../models/setting_model.dart';
+
+dialog(context, String title , List<SettingModel> dialogData) {
+  if (Platform.isIOS) {
+  } else {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text(title, style: Theme.of(context).textTheme.headline2),
+            children: <Widget>[
+              for (var i in dialogData)
+                SimpleDialogOption(
+                  onPressed: () {
+                    Navigator.pop(context, i.onclick);
+                  },
+                  child: Text(i.title),
+                ),
+            ],
+          );
+        });
+  }
+}

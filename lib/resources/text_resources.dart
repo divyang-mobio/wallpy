@@ -16,4 +16,35 @@ class TextResources {
   final String methodChannelCallingServiceName = "StartService";
   final String methodChannelStopServiceName = "StopService";
   final int androidAlarmManagerId = 0;
+  final String bottomSheetTitle = "Select Screen";
+  final String homeScreenWallpaper = "On Home Screen";
+  final String lockScreenWallpaper = "On Lock Screen";
+  final String bothScreenWallpaper = "On Both Screen";
+  final String changeWallpaperTitle = "Auto change wallpaper";
+  final String changeWallpaperDec =
+      "Change wallpaper periodically, based on below condition";
+  final String intervalTitle = "Interval";
+  final String intervalDec =
+      "Wallpaper Change as per selected Time. By default it is 15 min.";
+  final String screenTitle = "Interval";
+  final String screenDec = "Home & Lock Screen";
+  final String screenHomeDec = "Home Screen";
+  final String screenLockDec = "Lock Screen";
 }
+
+List<SettingModel> dialogDataForTimeLine = [
+  SettingModel(title: "15 minutes", onclick: 15),
+  SettingModel(title: "30 minutes", onclick: 30),
+  SettingModel(title: "60 minutes", onclick: 60),
+  SettingModel(title: "6 hours", onclick: 360),
+  SettingModel(title: "24 hours", onclick: 1440),
+];
+
+List<SettingModel> bottomSheetScreenData = [
+  SettingModel(title: TextResources().homeScreenWallpaper,
+      onclick: WallpaperManagerFlutter.HOME_SCREEN),
+  SettingModel(title: TextResources().lockScreenWallpaper,
+      onclick: WallpaperManagerFlutter.LOCK_SCREEN),
+  SettingModel(title: TextResources().bothScreenWallpaper,
+      onclick: WallpaperManagerFlutter.BOTH_SCREENS)
+];

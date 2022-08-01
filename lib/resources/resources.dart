@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper_manager_flutter/wallpaper_manager_flutter.dart';
+
+import '../models/setting_model.dart';
 
 part 'text_resources.dart';
 
