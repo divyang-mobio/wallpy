@@ -4,7 +4,6 @@ import 'package:shimmer/shimmer.dart';
 import '../utils/firestore_database_calling.dart';
 import '../controllers/data_fetch_bloc.dart';
 import '../resources/resources.dart';
-import '../widgets/background_service.dart';
 import '../widgets/gridview.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -44,24 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorResources().background,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: ColorResources().appBar,
-        centerTitle: true,
-        title: Text(
-          TextResources().appTitle,
-          style: TextStyle(color: ColorResources().appBarTextIcon),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(IconsResources().search,
-                  color: ColorResources().appBarTextIcon))
-        ],
-      ),
-      body: BlocBuilder<DataFetchBloc, DataFetchState>(
+    return BlocBuilder<DataFetchBloc, DataFetchState>(
         builder: (context, state) {
           if (state is DataFetchLoading) {
             return Shimmer.fromColors(
@@ -76,23 +58,25 @@ class _MyHomePageState extends State<MyHomePage> {
             return const Center(child: Text("Error No Data :("));
           }
         },
-      ),
-      floatingActionButton: Row(
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              BackgroundService().startService();
-            },
-            child: const Icon(Icons.add),
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              BackgroundService().stopService();
-            },
-            child: const Icon(Icons.add),
-          ),
-        ],
-      ),
-    );
+      );
+      // floatingActionButton: Row(
+      //   children: [
+      //     FloatingActionButton(
+      //       onPressed: () async {
+      //         await AndroidAlarmManager.periodic(const Duration(minutes: 1),
+      //             TextResources().androidAlarmManagerId, callWallpaperSetter);
+      //         // BackgroundService().startService();
+      //       },
+      //       child: const Icon(Icons.add),
+      //     ),
+      //     FloatingActionButton(
+      //       onPressed: () {
+      //         AndroidAlarmManager.cancel(TextResources().androidAlarmManagerId);
+      //         // BackgroundService().stopService();
+      //       },
+      //       child: const Icon(Icons.add),
+      //     ),
+      //   ],
+      // ),
   }
 }

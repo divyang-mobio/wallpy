@@ -2,8 +2,8 @@ part of 'resources.dart';
 
 class ColorResources{
   final Color splashWord = Colors.black;
-  final Color detailScreenContainer = Colors.white;
-  final Color downloadIcon = Colors.black;
+  final Color detailScreenContainer = Colors.white.withOpacity(0.4);
+  final Color detailScreenIcons = Colors.black;
   final Color categoryContainerBorder = Colors.grey;
   final Color categoryContainer = Colors.grey.shade100;
   final Color categoryText = Colors.black;

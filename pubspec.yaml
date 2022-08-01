@@ -44,9 +44,14 @@ dependencies:
   dio: ^4.0.6
   path_provider: ^2.0.11
   shimmer: ^2.0.0
+  android_alarm_manager_plus: ^2.0.6
+  wallpaper_manager_flutter: ^0.0.2
+  flutter_cache_manager: ^3.3.0
+#  async_wallpaper: ^1.0.1
+#  wallpaper_manager: ^1.0.10
 
 
-#  if implementing in ios & android this package is usefull.
+#  if implementing in ios & android this package is useful.
 #  background_fetch:
 #  android_alarm_manager_plus:
 

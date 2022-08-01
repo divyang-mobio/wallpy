@@ -1,16 +1,19 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'screens/detail_screen.dart';
+import 'models/navigation_model.dart';
+import 'screens/bottom_navigation_screen.dart';
 import 'controllers/data_fetch_bloc.dart';
 import 'utils/firestore_database_calling.dart';
-import 'models/navigation_model.dart';
-import 'screens/detail_screen.dart';
 import 'screens/main_screen.dart';
 import 'screens/splash_screen.dart';
 import 'resources/resources.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await AndroidAlarmManager.initialize();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -42,9 +45,9 @@ class MyApp extends StatelessWidget {
               case "/":
                 return MaterialPageRoute(
                     builder: (context) => const SplashScreen());
-              case "/home":
+              case "/bottomBar":
                 return MaterialPageRoute(
-                    builder: (context) => const MyHomePage());
+                    builder: (context) => const BottomNavigationBarScreen());
               case "/detail":
                 final args = setting.arguments as DetailScreenArgument;
                 return MaterialPageRoute(

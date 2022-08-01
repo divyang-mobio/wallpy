@@ -17,7 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _navigation() async {
     await Future.delayed(const Duration(milliseconds: 100)).whenComplete(() =>
-        Navigator.pushReplacementNamed(context, '/home'));
+        Navigator.pushReplacementNamed(
+            context, TextResources().homeScreenRoute));
   }
 
   @override
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Text(
-          TextResources().appTitle,
+          TextResources().splashScreenTile,
           style: Theme.of(context).textTheme.headline1,
         ),
       ),

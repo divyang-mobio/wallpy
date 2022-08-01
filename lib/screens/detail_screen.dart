@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:wallpy/widgets/wallpaper_setter.dart';
 import '../resources/resources.dart';
 import '../models/data_model.dart';
 import '../widgets/network_image.dart';
@@ -40,23 +41,38 @@ class _DetailScreenState extends State<DetailScreen> {
                   IconButton(
                       onPressed: () async {
                         final tempDir = await getTemporaryDirectory();
-                        final path =
-                            '${tempDir.path}/${widget.dataModel.name}';
+                        final path = '${tempDir.path}/${widget.dataModel.name}';
                         await Dio().download(widget.dataModel.url, path);
 
-                        GallerySaver.saveImage(path)
-                            .whenComplete(
+                        GallerySaver.saveImage(path).whenComplete(
                           () => ScaffoldMessenger.of(context)
                               .showSnackBar(SnackBar(
-                            content: Text(
-                                "Save Image ${widget.dataModel.name}"),
+                            content:
+                                Text("Save Image ${widget.dataModel.name}"),
                           )),
                         );
                       },
                       icon: Icon(
                         size: 30,
                         IconsResources().download,
-                        color: ColorResources().downloadIcon,
+                        color: ColorResources().detailScreenIcons,
+                      )),
+                  IconButton(
+                      onPressed: () async {
+                        final tempDir = await getTemporaryDirectory();
+                        final path = '${tempDir.path}/${widget.dataModel.name}';
+                        await Dio().download(widget.dataModel.url, path);
+
+                        wallpaperSetter(widget.dataModel.url);
+
+                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        //   content: Text("Save Image ${widget.dataModel.name}"),
+                        // ));
+                      },
+                      icon: Icon(
+                        size: 30,
+                        IconsResources().setWallpaperFromDetailScreen,
+                        color: ColorResources().detailScreenIcons,
                       ))
                 ],
               ),
