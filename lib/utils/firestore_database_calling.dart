@@ -8,6 +8,10 @@ class FirebaseDatabase {
   bool isMore = true;
   List<DataModel> data = [];
 
+  void update(DataModel dataModel) async {
+    await instances.doc(dataModel.id.toString()).update({"image_fav" : dataModel.fav});
+  }
+
   Future<List<DataModel>> getAllData(String? category) async {
     final cat = (category == null)
         ? instances

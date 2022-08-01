@@ -8,5 +8,7 @@ class IconsResources{
   final homeScreenSelected = Icons.home;
   final settingScreenUnSelected = Icons.settings_outlined;
   final settingScreenSelected = Icons.settings;
+  final favouriteScreenUnSelected = Icons.favorite_border;
+  final favouriteScreenSelected = Icons.favorite;
 
 }

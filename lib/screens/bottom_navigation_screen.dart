@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'favourite_screen.dart';
 import 'setting_screen.dart';
 import '../resources/resources.dart';
 import 'main_screen.dart';
@@ -15,6 +16,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     MyHomePage(),
+    FavouriteScreen(),
     SettingScreen()
   ];
 
@@ -43,6 +45,10 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                 icon: Icon(IconsResources().homeScreenUnSelected),
                 activeIcon: Icon(IconsResources().homeScreenSelected),
                 label: TextResources().homeScreenLabel),
+            BottomNavigationBarItem(
+                icon: Icon(IconsResources().favouriteScreenUnSelected),
+                activeIcon: Icon(IconsResources().favouriteScreenSelected),
+                label: TextResources().favouriteScreenLabel),
             BottomNavigationBarItem(
                 icon: Icon(IconsResources().settingScreenUnSelected),
                 activeIcon: Icon(IconsResources().settingScreenSelected),
