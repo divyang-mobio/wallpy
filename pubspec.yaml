@@ -47,6 +47,7 @@ dependencies:
   android_alarm_manager_plus: ^2.0.6
   wallpaper_manager_flutter: ^0.0.2
   flutter_cache_manager: ^3.3.0
+  easy_debounce: ^2.0.2+1
 #  async_wallpaper: ^1.0.1
 #  wallpaper_manager: ^1.0.10
 

@@ -6,7 +6,8 @@ networkImages(String link) {
   return CachedNetworkImage(
     imageUrl: link,
     fit: BoxFit.fill,
-    placeholder: (context, url) =>  const Center(child: CircularProgressIndicator.adaptive()),
+    placeholder: (context, url) =>
+        const Center(child: CircularProgressIndicator.adaptive()),
     errorWidget: (context, url, error) =>
         Image.asset(ImageResources().loadingError, fit: BoxFit.fill),
   );

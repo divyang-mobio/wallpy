@@ -5,6 +5,6 @@ import '../utils/firestore_database_calling.dart';
 
 Future<void> callWallpaperSetter() async {
   await Firebase.initializeApp();
-  List<DataModel> data = await FirebaseDatabase().getAllData(null);
+  List<DataModel> data = await FirebaseDatabase().getAllData(null , false);
   wallpaperSetter(data.first.url, 3);
 }

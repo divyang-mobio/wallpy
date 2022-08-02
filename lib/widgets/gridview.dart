@@ -28,3 +28,7 @@ GridView gridView(
         isLoading),
   );
 }
+
+void snackBar(String data , context) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
+}

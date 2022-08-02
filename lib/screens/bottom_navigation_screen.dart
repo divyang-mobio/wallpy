@@ -55,7 +55,9 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                 label: TextResources().settingAppTitle),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.black,
+          selectedItemColor: (_selectedIndex == 1)
+              ? ColorResources().selectedFavoriteItemInNavigationBar
+              : ColorResources().selectedItemInNavigationBar,
           onTap: _onItemTapped),
     );
   }

@@ -11,26 +11,17 @@ class DataFetchBloc extends Bloc<DataFetchEvent, DataFetchState> {
 
   DataFetchBloc(this._firebaseDatabase) : super(DataFetchLoading()) {
     on<GetAllData>(_getAllData);
-    on<GetCategoryAllData>(_getCategoryData);
   }
 
   void _getAllData(GetAllData event, Emitter<DataFetchState> emit) async {
     try {
-      emit(await _getData(null));
+      emit(await _getData(event.category, event.isFavorite));
     } catch (e) {
       emit(DataFetchError());
     }
   }
 
-  void _getCategoryData(
-      GetCategoryAllData event, Emitter<DataFetchState> emit) async {
-    try {
-      emit(await _getData(event.category));
-    } catch (e) {
-      emit(DataFetchError());
-    }
-  }
-
-  Future<DataFetchLoaded> _getData(String? category) async =>
-      DataFetchLoaded(data: await _firebaseDatabase.getAllData(category));
+  Future<DataFetchLoaded> _getData(String? category, bool isFavorite) async =>
+      DataFetchLoaded(
+          data: await _firebaseDatabase.getAllData(category, isFavorite));
 }

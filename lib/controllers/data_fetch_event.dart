@@ -2,10 +2,9 @@ part of 'data_fetch_bloc.dart';
 
 abstract class DataFetchEvent {}
 
-class GetAllData extends DataFetchEvent {}
+class GetAllData extends DataFetchEvent {
+  String? category;
+  bool isFavorite;
 
-class GetCategoryAllData extends DataFetchEvent {
-  String category;
-
-  GetCategoryAllData({required this.category});
+  GetAllData({this.category,required this.isFavorite});
 }

@@ -9,13 +9,23 @@ class FirebaseDatabase {
   List<DataModel> data = [];
 
   void update(DataModel dataModel) async {
-    await instances.doc(dataModel.id.toString()).update({"image_fav" : dataModel.fav});
+    await instances
+        .doc(dataModel.id.toString())
+        .update({"image_fav": dataModel.fav});
   }
 
-  Future<List<DataModel>> getAllData(String? category) async {
-    final cat = (category == null)
+  Future<List<DataModel>> getAllData(String? category, bool isFavorite) async {
+    final cat = (category == null && isFavorite == false)
         ? instances
-        : instances.where("image_category", isEqualTo: category);
+        : (category != null && isFavorite == false)
+            ? instances.where("image_category", isEqualTo: category)
+            : (category == null && isFavorite == true)
+                ? instances.where("image_fav", isEqualTo: true)
+                : (category != null && isFavorite == true)
+                    ? instances
+                        .where("image_fav", isEqualTo: true)
+                        .where("image_category", isEqualTo: category)
+                    : instances;
     data.addAll(await getData(cat));
     return data;
   }

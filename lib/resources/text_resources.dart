@@ -4,7 +4,7 @@ class TextResources {
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
   final String homeScreenLabel = "Home";
-  final String favouriteScreenLabel = "Home";
+  final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String splashScreenTile = "Wallpy";
   final int itemLimit = 5;

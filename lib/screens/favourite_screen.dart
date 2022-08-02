@@ -1,6 +1,9 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../controllers/favorite_bloc.dart';
+import '../widgets/shimmer_loading.dart';
+import '../controllers/data_fetch_bloc.dart';
+import '../widgets/gridview.dart';
 
 class FavouriteScreen extends StatefulWidget {
   const FavouriteScreen({Key? key}) : super(key: key);
@@ -10,8 +13,44 @@ class FavouriteScreen extends StatefulWidget {
 }
 
 class _FavouriteScreenState extends State<FavouriteScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent) {
+        print("scroll");
+        BlocProvider.of<FavoriteBloc>(context)
+            .add(GetFavoriteData(isFavorite: true, category: null));
+      }
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    BlocProvider.of<DataFetchBloc>(context)
+        .add(GetAllData(isFavorite: true, category: null));
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return BlocBuilder<FavoriteBloc, FavoriteState>(
+      builder: (context, state) {
+        if (state is FavoriteLoading) {
+          return shimmer();
+        } else if (state is FavoriteLoaded) {
+          return (state.data.isEmpty)
+              ? const Center(child: Text("No Data in Favorite"))
+              : gridView(state.data, _scrollController, false);
+        } else if (state is FavoriteError) {
+          return const Center(child: Text("Error :("));
+        } else {
+          return const Center(child: Text("Error No Data :("));
+        }
+      },
+    );
   }
 }

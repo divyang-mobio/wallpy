@@ -1,6 +1,6 @@
 part of 'resources.dart';
 
-class IconsResources{
+class IconsResources {
   final search = Icons.search;
   final download = Icons.download;
   final setWallpaperFromDetailScreen = Icons.now_wallpaper_rounded;
@@ -10,5 +10,6 @@ class IconsResources{
   final settingScreenSelected = Icons.settings;
   final favouriteScreenUnSelected = Icons.favorite_border;
   final favouriteScreenSelected = Icons.favorite;
-
+  final addFavorite = Icons.favorite_border;
+  final removeFavorite = Icons.favorite;
 }
