@@ -7,7 +7,7 @@ dialog(context, String title , List<SettingModel> dialogData) {
   } else {
     return showDialog<void>(
         context: context,
-        barrierDismissible: true, // user must tap button!
+        barrierDismissible: true,
         builder: (BuildContext context) {
           return SimpleDialog(
             title: Text(title, style: Theme.of(context).textTheme.headline5),

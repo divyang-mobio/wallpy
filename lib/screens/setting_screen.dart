@@ -69,6 +69,13 @@ class _SettingScreenState extends State<SettingScreen> {
                 TextResources().androidAlarmManagerId, callWallpaperSetter);
           },
           child: const Text("Start service"),
+        ),
+        MaterialButton(
+          onPressed: () async {
+            await AndroidAlarmManager.cancel(
+                TextResources().androidAlarmManagerId);
+          },
+          child: const Text("stop service"),
         )
       ],
     );
