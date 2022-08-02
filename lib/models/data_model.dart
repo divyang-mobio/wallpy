@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class DataModel {
   int id;
   String category, name, uid, url;
@@ -24,14 +22,4 @@ class DataModel {
       timestamp:
           DateTime.parse(json["image_timestamp"].toDate().toString()),
       url: json["image_url"]);
-
-  Map<String, dynamic> toJson() => {
-        "image_id": id,
-        "image_name": name,
-        "image_uid": uid,
-        "image_category": category,
-        "image_fav": fav,
-        "image_timestamp": Timestamp.fromDate(timestamp),
-        'image_url': url
-      };
 }

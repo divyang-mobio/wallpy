@@ -1,6 +1,4 @@
-
 import 'package:shimmer/shimmer.dart';
-
 import '../resources/resources.dart';
 import 'gridview.dart';
 

@@ -35,11 +35,14 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
           title: Text(
               _selectedIndex == 0
                   ? TextResources().appTitle
-                  : TextResources().settingAppTitle,
+                  : _selectedIndex == 1
+                      ? TextResources().favoriteAppTitle
+                      : TextResources().settingAppTitle,
               style: Theme.of(context).textTheme.headline1),
-          elevation: 8.0),
+          elevation: 6.0),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+          showUnselectedLabels: false,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(IconsResources().homeScreenUnSelected),

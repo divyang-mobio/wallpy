@@ -1,5 +1,3 @@
-
-
 class SettingModel{
   String title;
   int onclick;

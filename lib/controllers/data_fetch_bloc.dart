@@ -21,7 +21,9 @@ class DataFetchBloc extends Bloc<DataFetchEvent, DataFetchState> {
     }
   }
 
-  Future<DataFetchLoaded> _getData(String? category, bool isFavorite) async =>
+  Future<DataFetchLoaded> _getData(
+          String? category, bool isFavorite) async =>
       DataFetchLoaded(
-          data: await _firebaseDatabase.getAllData(category, isFavorite));
+          data: await _firebaseDatabase.getAllData(
+              category, isFavorite));
 }

@@ -97,8 +97,8 @@ Icon icons(IconData iconData) {
 }
 
 class FavoriteIcon extends StatefulWidget {
-  const FavoriteIcon({Key? key, required this.dataModel}) : super(key: key);
-  final DataModel dataModel;
+  FavoriteIcon({Key? key, required this.dataModel}) : super(key: key);
+  DataModel dataModel;
 
   @override
   State<FavoriteIcon> createState() => _FavoriteIconState();
@@ -115,8 +115,10 @@ class _FavoriteIconState extends State<FavoriteIcon> {
           EasyDebounce.debounce(
               'debounce',
               const Duration(seconds: 1),
-              () => BlocProvider.of<FavoriteBloc>(context)
-                  .add(AddFavorite(dataModel: widget.dataModel)));
+              () => BlocProvider.of<FavoriteBloc>(context).add(AddFavorite(
+                  dataModel: widget.dataModel,
+                  isFavorite: true,
+                  category: null)));
         },
         icon: icons((widget.dataModel.fav)
             ? IconsResources().removeFavorite

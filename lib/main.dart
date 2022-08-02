@@ -31,17 +31,19 @@ class MyApp extends StatelessWidget {
           BlocProvider<DataFetchBloc>(
             create: (context) =>
                 DataFetchBloc(RepositoryProvider.of<FirebaseDatabase>(context))
-                  ..add(GetAllData(isFavorite: false, category: null)),
+                  ..add(GetAllData(
+                      isFavorite: false, category: null)),
           ),
           BlocProvider<FavoriteBloc>(
             create: (context) => FavoriteBloc(FirebaseDatabase())
-              ..add(GetFavoriteData(isFavorite: true, category: null)),
+              ..add(GetFavoriteData(
+                  isFavorite: true, category: null)),
           ),
         ],
         child: MaterialApp(
           title: TextResources().appTitle,
           theme: ThemeData(
-            primarySwatch: Colors.grey,
+            primarySwatch: Colors.blue,
             textTheme: TextTheme(
                 subtitle1: TextStyle(color: ColorResources().categoryText),
                 headline1: TextStyle(

@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
         } else if (state is DataFetchLoaded) {
           return gridView(state.data, _scrollController, false);
         } else if (state is DataFetchError) {
-          return const Center(child: Text("Error :("));
+          return Center(child: Text(TextResources().blocError));
         } else {
           return const Center(child: Text("Error No Data :("));
         }

@@ -1,13 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wallpaper_manager_flutter/wallpaper_manager_flutter.dart';
-import 'package:wallpy/models/setting_model.dart';
-
-import '../resources/resources.dart';
-
-
+import '../models/setting_model.dart';
 
 bottomSheet(context, String title , List<SettingModel> bottomSheetData) {
   if (Platform.isIOS) {
@@ -52,18 +46,6 @@ bottomSheet(context, String title , List<SettingModel> bottomSheetData) {
                           Navigator.pop(
                               context, i.onclick),
                     ),
-                    // MaterialButton(
-                    //   child: Text(lock),
-                    //   onPressed: () =>
-                    //       Navigator.pop(
-                    //           context, WallpaperManagerFlutter.LOCK_SCREEN),
-                    // ),
-                    // MaterialButton(
-                    //   child: Text(both),
-                    //   onPressed: () =>
-                    //       Navigator.pop(
-                    //           context, WallpaperManagerFlutter.BOTH_SCREENS),
-                    // )
                   ],
                 ),
               ],

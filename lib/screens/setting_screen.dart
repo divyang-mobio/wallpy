@@ -1,5 +1,8 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../utils/firestore_database_calling.dart';
+import '../utils/store_data.dart';
 import '../resources/resources.dart';
 import '../widgets/background_service.dart';
 import '../widgets/dialog_box.dart';
@@ -38,19 +41,21 @@ class _SettingScreenState extends State<SettingScreen> {
           },
           child: listsTiles(
             TextResources().screenTitle,
-            (screen == null)
+            (screen == null || screen == 3)
                 ? TextResources().screenDec
-                : (screen == 3)
-                    ? TextResources().screenDec
-                    : (screen == 1)
-                        ? TextResources().screenHomeDec
-                        : TextResources().screenLockDec,
+                : (screen == 1)
+                    ? TextResources().screenHomeDec
+                    : TextResources().screenLockDec,
           ),
         ),
         MaterialButton(
           onPressed: () async {
-            await AndroidAlarmManager.periodic(const Duration(minutes: 1),
-                            TextResources().androidAlarmManagerId, callWallpaperSetter);
+            final pref = PreferenceServices();
+            pref.setScreen(screen ?? 3);
+            pref.setList(RepositoryProvider.of<FirebaseDatabase>(context).data);
+            pref.setNo(0);
+            await AndroidAlarmManager.periodic(Duration(minutes: time ?? 15),
+                TextResources().androidAlarmManagerId, callWallpaperSetter);
           },
           child: const Text("Start service"),
         )

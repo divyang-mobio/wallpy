@@ -54,7 +54,6 @@ class FirebaseDatabase {
                 return value.docChanges.map((e) => e.doc.data());
               }
             });
-
       if (isMore) {
         rawData = rawList
             ?.map((e) => DataModel.fromJson(e as Map<String, dynamic>))

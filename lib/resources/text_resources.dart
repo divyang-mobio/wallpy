@@ -3,6 +3,7 @@ part of 'resources.dart';
 class TextResources {
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
+  final String favoriteAppTitle = "Favorite";
   final String homeScreenLabel = "Home";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
@@ -31,6 +32,8 @@ class TextResources {
   final String screenDec = "Home & Lock Screen";
   final String screenHomeDec = "Home Screen";
   final String screenLockDec = "Lock Screen";
+  final String emptyCart = "No Data in Favorite :(";
+  final String blocError = "Error :(";
 }
 
 List<SettingModel> dialogDataForTimeLine = [
