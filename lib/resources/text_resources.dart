@@ -28,10 +28,13 @@ class TextResources {
   final String intervalTitle = "Interval";
   final String intervalDec =
       "Wallpaper Change as per selected Time. By default it is 15 min.";
-  final String screenTitle = "Interval";
+  final String screenTitle = "Select Screen";
   final String screenDec = "Home & Lock Screen";
   final String screenHomeDec = "Home Screen";
   final String screenLockDec = "Lock Screen";
+  final String collectionTitle = "Collections";
+  final String collectionDec =
+      "Set wallpaper from Favorite/Random. By default it is Random.";
   final String emptyCart = "No Data in Favorite :(";
   final String blocError = "Error :(";
 }
@@ -45,10 +48,18 @@ List<SettingModel> dialogDataForTimeLine = [
 ];
 
 List<SettingModel> bottomSheetScreenData = [
-  SettingModel(title: TextResources().homeScreenWallpaper,
+  SettingModel(
+      title: TextResources().homeScreenWallpaper,
       onclick: WallpaperManagerFlutter.HOME_SCREEN),
-  SettingModel(title: TextResources().lockScreenWallpaper,
+  SettingModel(
+      title: TextResources().lockScreenWallpaper,
       onclick: WallpaperManagerFlutter.LOCK_SCREEN),
-  SettingModel(title: TextResources().bothScreenWallpaper,
+  SettingModel(
+      title: TextResources().bothScreenWallpaper,
       onclick: WallpaperManagerFlutter.BOTH_SCREENS)
+];
+
+List<SettingModel> dialogDataForCollection = [
+  SettingModel(title: "Home Screen", onclick: "homeScreen"),
+  SettingModel(title: "Favorite Screen", onclick: "favorite"),
 ];

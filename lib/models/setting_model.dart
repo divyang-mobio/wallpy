@@ -1,6 +1,6 @@
 class SettingModel{
   String title;
-  int onclick;
+  var onclick;
 
   SettingModel({required this.title ,required this.onclick});
 }

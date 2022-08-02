@@ -17,6 +17,7 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   int? time;
   int? screen;
+  String? collection;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,16 @@ class _SettingScreenState extends State<SettingScreen> {
                 : (screen == 1)
                     ? TextResources().screenHomeDec
                     : TextResources().screenLockDec,
+          ),
+        ),
+        GestureDetector(
+          onTap: () async {
+            collection = await dialog(context, TextResources().collectionTitle,
+                dialogDataForCollection);
+          },
+          child: listsTiles(
+            TextResources().collectionTitle,
+            TextResources().collectionDec,
           ),
         ),
         MaterialButton(

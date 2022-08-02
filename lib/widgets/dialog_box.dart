@@ -10,7 +10,7 @@ dialog(context, String title , List<SettingModel> dialogData) {
         barrierDismissible: true, // user must tap button!
         builder: (BuildContext context) {
           return SimpleDialog(
-            title: Text(title, style: Theme.of(context).textTheme.headline2),
+            title: Text(title, style: Theme.of(context).textTheme.headline5),
             children: <Widget>[
               for (var i in dialogData)
                 SimpleDialogOption(
