@@ -12,12 +12,12 @@ dialog(context, String title , List<SettingModel> dialogData) {
           return SimpleDialog(
             title: Text(title, style: Theme.of(context).textTheme.headline5),
             children: <Widget>[
-              for (var i in dialogData)
+              for (var data in dialogData)
                 SimpleDialogOption(
                   onPressed: () {
-                    Navigator.pop(context, i.onclick);
+                    Navigator.pop(context, data.onclick);
                   },
-                  child: Text(i.title),
+                  child: Text(data.title),
                 ),
             ],
           );

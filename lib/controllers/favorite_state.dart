@@ -5,7 +5,7 @@ abstract class FavoriteState {}
 class FavoriteLoading extends FavoriteState {}
 
 class FavoriteLoaded extends FavoriteState {
-  List<DataModel> data;
+  List<Object> data;
 
   FavoriteLoaded({required this.data});
 }

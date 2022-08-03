@@ -30,10 +30,13 @@ class _DetailScreenState extends State<DetailScreen> {
           GestureDetector(
             onLongPressStart: (start) => setState(() => vis = false),
             onLongPressEnd: (end) => setState(() => vis = true),
-            child: SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: networkImages(widget.dataModel.url),
+            child: Hero(
+              tag: widget.dataModel.name,
+              child: SizedBox(
+                height: double.infinity,
+                width: double.infinity,
+                child: networkImages(widget.dataModel.url),
+              ),
             ),
           ),
           Visibility(

@@ -55,24 +55,5 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       },
     );
-    // floatingActionButton: Row(
-    //   children: [
-    //     FloatingActionButton(
-    //       onPressed: () async {
-    //         await AndroidAlarmManager.periodic(const Duration(minutes: 1),
-    //             TextResources().androidAlarmManagerId, callWallpaperSetter);
-    //         // BackgroundService().startService();
-    //       },
-    //       child: const Icon(Icons.add),
-    //     ),
-    //     FloatingActionButton(
-    //       onPressed: () {
-    //         AndroidAlarmManager.cancel(TextResources().androidAlarmManagerId);
-    //         // BackgroundService().stopService();
-    //       },
-    //       child: const Icon(Icons.add),
-    //     ),
-    //   ],
-    // ),
   }
 }

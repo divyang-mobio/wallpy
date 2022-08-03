@@ -5,7 +5,7 @@ abstract class DataFetchState {}
 class DataFetchLoading extends DataFetchState {}
 
 class DataFetchLoaded extends DataFetchState {
-  List<DataModel> data;
+  List<Object> data;
 
   DataFetchLoaded({required this.data});
 }

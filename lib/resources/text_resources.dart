@@ -17,7 +17,6 @@ class TextResources {
   final String methodChannelName = "wallpyBackgroundService";
   final String methodChannelCallingServiceName = "StartService";
   final String methodChannelStopServiceName = "StopService";
-  final int androidAlarmManagerId = 0;
   final String bottomSheetTitle = "Select Screen";
   final String homeScreenWallpaper = "On Home Screen";
   final String lockScreenWallpaper = "On Lock Screen";
@@ -37,6 +36,10 @@ class TextResources {
       "Set wallpaper from Favorite/Random. By default it is Random.";
   final String emptyCart = "No Data in Favorite :(";
   final String blocError = "Error :(";
+  final String startService = "Start Service";
+  final String stopService = "Stop Service";
+  final int adsInternalInList = 2;
+  final int androidAlarmManagerId = 0;
 }
 
 List<SettingModel> dialogDataForTimeLine = [
@@ -63,3 +66,11 @@ List<SettingModel> dialogDataForCollection = [
   SettingModel(title: "Home Screen", onclick: "homeScreen"),
   SettingModel(title: "Favorite Screen", onclick: "favorite"),
 ];
+
+DataModel loadingDataModel = DataModel(id: 1,
+    name: "Loading",
+    uid: "Loading",
+    category: "Loading",
+    fav: false,
+    timestamp: DateTime(2022-08-03,1,3),
+    url: "Loading");

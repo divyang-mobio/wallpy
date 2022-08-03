@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import '../models/data_model.dart';
+import '../resources/resources.dart';
 import '../utils/firestore_database_calling.dart';
 
 part 'data_fetch_event.dart';
@@ -15,15 +16,12 @@ class DataFetchBloc extends Bloc<DataFetchEvent, DataFetchState> {
 
   void _getAllData(GetAllData event, Emitter<DataFetchState> emit) async {
     try {
-      emit(await _getData(event.category, event.isFavorite));
+      List<Object> data = [];
+      data.addAll(
+          await _firebaseDatabase.getAllData(event.category, event.isFavorite));
+      emit(DataFetchLoaded(data: data));
     } catch (e) {
       emit(DataFetchError());
     }
   }
-
-  Future<DataFetchLoaded> _getData(
-          String? category, bool isFavorite) async =>
-      DataFetchLoaded(
-          data: await _firebaseDatabase.getAllData(
-              category, isFavorite));
 }

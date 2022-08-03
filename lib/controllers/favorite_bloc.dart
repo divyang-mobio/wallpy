@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:wallpy/resources/resources.dart';
 import '../models/data_model.dart';
 import '../utils/firestore_database_calling.dart';
 
@@ -13,13 +14,20 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     on<GetFavoriteData>(_getAllData);
     on<AddFavorite>(_addFavorite);
   }
+  int ads = 0;
 
   _addFavorite(AddFavorite event, Emitter<FavoriteState> emit) async {
     _firebaseDatabase.update(event.dataModel);
     if (event.dataModel.fav) {
       _firebaseDatabase.data.add(event.dataModel);
+      /// if ads need to add in Favorite
+      // ads += 1;
+      // if(ads == TextResources().adsInternalInList) {
+      //   _firebaseDatabase.data.add("list");
+      // }
     } else {
       _firebaseDatabase.data.remove(event.dataModel);
+      // ads -= 1;
     }
     emit(FavoriteLoaded(data: _firebaseDatabase.data));
   }

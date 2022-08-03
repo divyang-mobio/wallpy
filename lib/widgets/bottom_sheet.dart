@@ -3,20 +3,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/setting_model.dart';
 
-bottomSheet(context, String title , List<SettingModel> bottomSheetData) {
+bottomSheet(context, String title, List<SettingModel> bottomSheetData) {
   if (Platform.isIOS) {
     return CupertinoPageScaffold(
       child: CupertinoActionSheet(
         title: Text(title, style: Theme
             .of(context)
             .textTheme
-            .headline6),
+            .headline5),
         actions: <CupertinoActionSheetAction>[
-          for(var i in bottomSheetData)
+          for(var data in bottomSheetData)
           CupertinoActionSheetAction(
-            child: Text(i.title),
+            child: Text(data.title),
             onPressed: () =>
-                Navigator.pop(context , i.onclick),
+                Navigator.pop(context , data.onclick),
           ),
         ],
       ),
@@ -27,7 +27,6 @@ bottomSheet(context, String title , List<SettingModel> bottomSheetData) {
       builder: (BuildContext context) {
         return Container(
           height: 200,
-          color: Colors.white,
           child: Center(
             child: ListView(
               children: [
@@ -39,12 +38,12 @@ bottomSheet(context, String title , List<SettingModel> bottomSheetData) {
                         .of(context)
                         .textTheme
                         .headline5),
-                    for(var i in bottomSheetData)
+                    for(var data in bottomSheetData)
                       MaterialButton(
-                      child: Text(i.title),
+                      child: Text(data.title),
                       onPressed: () =>
                           Navigator.pop(
-                              context, i.onclick),
+                              context, data.onclick),
                     ),
                   ],
                 ),
