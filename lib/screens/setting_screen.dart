@@ -1,7 +1,6 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wallpy/models/data_model.dart';
+import '../models/data_model.dart';
 import '../utils/firestore_database_calling.dart';
 import '../utils/store_data.dart';
 import '../resources/resources.dart';
