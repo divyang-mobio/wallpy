@@ -3,12 +3,12 @@ part of 'resources.dart';
 class TextResources {
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
+  final String categoryAppTitle = "Category";
   final String favoriteAppTitle = "Favorite";
   final String homeScreenLabel = "Home";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String splashScreenTile = "Wallpy";
-  final int itemLimit = 5;
   final String splashScreenRoute = '/';
   final String homeScreenRoute = '/bottomBar';
   final String detailScreenRoute = '/detail';
@@ -40,6 +40,7 @@ class TextResources {
   final String stopService = "Stop Service";
   final int adsInternalInList = 2;
   final int androidAlarmManagerId = 0;
+  final int itemLimit = 5;
 }
 
 List<SettingModel> dialogDataForTimeLine = [
@@ -70,7 +71,7 @@ List<SettingModel> dialogDataForCollection = [
 DataModel loadingDataModel = DataModel(id: 1,
     name: "Loading",
     uid: "Loading",
-    category: "Loading",
+    category: [],
     fav: false,
     timestamp: DateTime(2022-08-03,1,3),
     url: "Loading");

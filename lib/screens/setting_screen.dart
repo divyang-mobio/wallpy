@@ -71,7 +71,7 @@ class _SettingScreenState extends State<SettingScreen> {
               wallpaperSetter(
                   data[0].url,
                   screen ?? 3);
-              await AndroidAlarmManager.periodic(Duration(minutes: 1),
+              await AndroidAlarmManager.periodic(const Duration(minutes: 1),
                   TextResources().androidAlarmManagerId, callWallpaperSetter);
             },
             child: Text(TextResources().startService),

@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:wallpy/resources/resources.dart';
 import '../models/data_model.dart';
 import '../utils/firestore_database_calling.dart';
 
@@ -44,5 +43,5 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
           String? category, bool isFavorite) async =>
       FavoriteLoaded(
           data: await _firebaseDatabase.getAllData(
-              category, isFavorite));
+              category, isFavorite , null, false, false));
 }

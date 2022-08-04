@@ -14,6 +14,6 @@ class ColorResources{
   final Color shimmerHighlight = Colors.grey.shade100;
   final Color selectedItemInNavigationBar = Colors.black;
   final Color selectedFavoriteItemInNavigationBar = Colors.red;
-
+  final Color search = Colors.black;
 
 }

@@ -2,6 +2,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/controllers/search_bloc.dart';
 import 'controllers/favorite_bloc.dart';
 import 'screens/detail_screen.dart';
 import 'models/navigation_model.dart';
@@ -31,14 +32,13 @@ class MyApp extends StatelessWidget {
           BlocProvider<DataFetchBloc>(
             create: (context) =>
                 DataFetchBloc(RepositoryProvider.of<FirebaseDatabase>(context))
-                  ..add(GetAllData(
-                      isFavorite: false, category: null)),
+                  ..add(GetAllData(isFavorite: false, category: null)),
           ),
           BlocProvider<FavoriteBloc>(
-            create: (context) => FavoriteBloc(FirebaseDatabase())
-              ..add(GetFavoriteData(
-                  isFavorite: true, category: null)),
-          ),
+              create: (context) => FavoriteBloc(FirebaseDatabase())
+                ..add(GetFavoriteData(isFavorite: true, category: null))),
+          BlocProvider<SearchBloc>(
+              create: (context) => SearchBloc()),
         ],
         child: MaterialApp(
           title: TextResources().appTitle,

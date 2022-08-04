@@ -14,24 +14,34 @@ class FirebaseDatabase {
         .update({"image_fav": dataModel.fav});
   }
 
-  Future<List<Object>> getAllData(String? category, bool isFavorite) async {
-    final cat = (category == null && isFavorite == false)
+  Future<List<Object>> getAllData(String? category, bool isFavorite,
+      String? query, bool isSearch, bool showAds) async {
+    final cat = (category == null && isFavorite == false && query == null)
         ? instances
-        : (category != null && isFavorite == false)
+        : (category != null && isFavorite == false && query == null)
             ? instances.where("image_category", isEqualTo: category)
-            : (category == null && isFavorite == true)
+            : (category == null && isFavorite == true && query == null)
                 ? instances.where("image_fav", isEqualTo: true)
-                : (category != null && isFavorite == true)
+                : (category != null && isFavorite == true && query == null)
                     ? instances
                         .where("image_fav", isEqualTo: true)
                         .where("image_category", isEqualTo: category)
-                    : instances;
-    data.addAll(await getData(cat, isFavorite));
+                    : (query != null && isFavorite == false)
+                        ? instances.where("image_category", arrayContains: query)
+                        : (query != null && isFavorite == true)
+                            ? instances
+                                .where("image_category", isEqualTo: query)
+                                .where("image_fav", isEqualTo: true)
+                            : instances;
+    if (isSearch) {
+      paginationData == null;
+      isMore = true;
+    }
+    data.addAll(await getData(cat, showAds));
     return data;
   }
 
-  Future<List<Object>> getData(
-      Query<Map<String, dynamic>> instance, bool isFavorite) async {
+  Future<List<Object>> getData(Query<Map<String, dynamic>> instance, bool showAds) async {
     List<Object> rawData = [];
     if (isMore) {
       var rawList = (paginationData?.data() == null)
@@ -62,13 +72,13 @@ class FirebaseDatabase {
         if (rawData.length != TextResources().itemLimit) {
           isMore = false;
         }
-        if (!isFavorite) {
-          for (var i = rawData.length - 1;
-              i >= 1;
-              i -= TextResources().adsInternalInList) {
-            rawData.insert(i, "list");
-          }
-        }
+        // if (showAds) {
+        //   for (var i = rawData.length - 1;
+        //       i >= 1;
+        //       i -= TextResources().adsInternalInList) {
+        //     rawData.insert(i, "list");
+        //   }
+        // }
       }
     }
     return rawData;
@@ -84,14 +94,14 @@ class FirebaseSave {
 
   Future<List<DataModel>> getData() async {
     List<DataModel>? rawData;
-      var rawList = await instances.limit(TextResources().itemLimit).get().then((value) {
-          return value.docChanges.map((e) => e.doc.data());
+    var rawList =
+        await instances.limit(TextResources().itemLimit).get().then((value) {
+      return value.docChanges.map((e) => e.doc.data());
+    });
 
-      });
-
-        rawData =
-            rawList.map((e) => DataModel.fromJson(e as Map<String, dynamic>)).toList();
-
+    rawData = rawList
+        .map((e) => DataModel.fromJson(e as Map<String, dynamic>))
+        .toList();
 
     return rawData;
   }

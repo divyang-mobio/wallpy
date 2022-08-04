@@ -1,6 +1,7 @@
 class DataModel {
   int id;
-  String category, name, uid, url;
+  String name, uid, url;
+  List category;
   bool fav;
   DateTime timestamp;
 

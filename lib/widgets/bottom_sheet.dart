@@ -25,8 +25,8 @@ bottomSheet(context, String title, List<SettingModel> bottomSheetData) {
     return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          height: 200,
+        return SizedBox(
+          height: MediaQuery.of(context).size.height*.3,
           child: Center(
             child: ListView(
               children: [
