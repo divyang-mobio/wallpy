@@ -17,9 +17,7 @@ class CustomSearchDelegate extends SearchDelegate {
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-        onPressed: () {
-          query = '';
-        },
+        onPressed: () => query = '',
         icon: Icon(IconsResources().searchClear),
       ),
     ];
@@ -28,9 +26,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      onPressed: () {
-        close(context, null);
-      },
+      onPressed: () => close(context, null),
       icon: Icon(IconsResources().searchBack),
     );
   }

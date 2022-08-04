@@ -7,7 +7,7 @@ networkImages(String link) {
     imageUrl: link,
     fit: BoxFit.fill,
     placeholder: (context, url) =>
-        const Center(child: CircularProgressIndicator.adaptive()),
+         Image.asset("assets/99318-hms-loading.gif", fit: BoxFit.fill),
     errorWidget: (context, url, error) =>
         Image.asset(ImageResources().loadingError, fit: BoxFit.fill),
   );

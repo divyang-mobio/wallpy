@@ -24,11 +24,9 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
     SettingScreen()
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  void _onItemTapped(int index) => setState(() {
+        _selectedIndex = index;
+      });
 
   @override
   void initState() {
@@ -67,12 +65,10 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
             ? []
             : [
                 IconButton(
-                    onPressed: () {
-                      showSearch(
-                          context: context,
-                          delegate: CustomSearchDelegate(
-                              _scrollController, _selectedIndex));
-                    },
+                    onPressed: () => showSearch(
+                        context: context,
+                        delegate: CustomSearchDelegate(
+                            _scrollController, _selectedIndex)),
                     icon: Icon(IconsResources().search,
                         color: ColorResources().search))
               ],
