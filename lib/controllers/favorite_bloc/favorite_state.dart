@@ -11,4 +11,3 @@ class FavoriteLoaded extends FavoriteState {
 }
 
 class FavoriteError extends FavoriteState {}
-

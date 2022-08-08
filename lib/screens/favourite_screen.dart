@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../resources/resources.dart';
-import '../controllers/favorite_bloc.dart';
+import '../controllers/favorite_bloc/favorite_bloc.dart';
 import '../widgets/shimmer_loading.dart';
 import '../widgets/gridview.dart';
 

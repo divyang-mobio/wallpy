@@ -2,11 +2,12 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'controllers/favorite_bloc.dart';
+import 'package:wallpy/screens/welcome_screen.dart';
+import 'controllers/favorite_bloc/favorite_bloc.dart';
 import 'screens/detail_screen.dart';
 import 'models/navigation_model.dart';
 import 'screens/bottom_navigation_screen.dart';
-import 'controllers/data_fetch_bloc.dart';
+import 'controllers/data_fetch_bloc/data_fetch_bloc.dart';
 import 'utils/firestore_database_calling.dart';
 import 'screens/main_screen.dart';
 import 'screens/splash_screen.dart';
@@ -31,16 +32,15 @@ class MyApp extends StatelessWidget {
           BlocProvider<DataFetchBloc>(
             create: (context) =>
                 DataFetchBloc(RepositoryProvider.of<FirebaseDatabase>(context))
-                  ..add(GetAllData(
-                      isFavorite: false, category: null)),
+                  ..add(GetAllData(isFavorite: false, category: null)),
           ),
           BlocProvider<FavoriteBloc>(
             create: (context) => FavoriteBloc(FirebaseDatabase())
-              ..add(GetFavoriteData(
-                  isFavorite: true, category: null)),
+              ..add(GetFavoriteData(isFavorite: true, category: null)),
           ),
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: TextResources().appTitle,
           theme: ThemeData(
             primarySwatch: Colors.blue,
@@ -64,6 +64,9 @@ class MyApp extends StatelessWidget {
                 return MaterialPageRoute(
                     builder: (context) =>
                         DetailScreen(dataModel: args.dataModel));
+              case "/welcome":
+                return MaterialPageRoute(
+                    builder: (context) => const WelcomeScreen());
               default:
                 return MaterialPageRoute(
                     builder: (context) => const MyHomePage());

@@ -11,6 +11,7 @@ class TextResources {
   final int itemLimit = 5;
   final String splashScreenRoute = '/';
   final String homeScreenRoute = '/bottomBar';
+  final String welcomeScreenRoute = '/welcome';
   final String detailScreenRoute = '/detail';
   final String snackBarLoadingInPagination = 'Loading';
   final String snackBarAllDataFetchInPagination = 'All Data Fetch';
@@ -67,10 +68,11 @@ List<SettingModel> dialogDataForCollection = [
   SettingModel(title: "Favorite Screen", onclick: "favorite"),
 ];
 
-DataModel loadingDataModel = DataModel(id: 1,
+DataModel loadingDataModel = DataModel(
+    id: 1,
     name: "Loading",
     uid: "Loading",
     category: "Loading",
     fav: false,
-    timestamp: DateTime(2022-08-03,1,3),
+    timestamp: DateTime(2022 - 08 - 03, 1, 3),
     url: "Loading");
