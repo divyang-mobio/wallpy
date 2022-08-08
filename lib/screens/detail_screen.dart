@@ -12,8 +12,10 @@ import '../widgets/bottom_sheet.dart';
 import '../widgets/network_image.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key, required this.dataModel}) : super(key: key);
+  const DetailScreen({Key? key, required this.dataModel, required this.index})
+      : super(key: key);
   final DataModel dataModel;
+  final int index;
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -56,30 +58,29 @@ class _DetailScreenState extends State<DetailScreen> {
                   children: [
                     IconButton(
                         onPressed: () async {
+                          snackBar("downloading", context);
                           final tempDir = await getTemporaryDirectory();
                           final path =
                               '${tempDir.path}/${widget.dataModel.name}';
                           await Dio().download(widget.dataModel.url, path);
                           GallerySaver.saveImage(path).whenComplete(
-                            () => ScaffoldMessenger.of(context)
-                                .showSnackBar(SnackBar(
-                              content:
-                                  Text("Save Image ${widget.dataModel.name}"),
-                            )),
-                          );
+                              () => snackBar("Save Image", context));
                         },
                         icon: icons(IconsResources().download)),
                     IconButton(
                         onPressed: () async {
-                          final location = await bottomSheet(
+                          int? location = await bottomSheet(
                               context,
                               TextResources().bottomSheetTitle,
                               bottomSheetScreenData);
-                          wallpaperSetter(widget.dataModel.url, location);
+                          if (location != null) {
+                            wallpaperSetter(widget.dataModel.url, location);
+                          }
                         },
                         icon: icons(
                             IconsResources().setWallpaperFromDetailScreen)),
-                    FavoriteIcon(dataModel: widget.dataModel)
+                    FavoriteIcon(
+                        dataModel: widget.dataModel, index: widget.index)
                   ],
                 ),
               ),
@@ -100,8 +101,10 @@ Icon icons(IconData iconData) {
 }
 
 class FavoriteIcon extends StatefulWidget {
-  FavoriteIcon({Key? key, required this.dataModel}) : super(key: key);
-  DataModel dataModel;
+  const FavoriteIcon({Key? key, required this.dataModel, required this.index})
+      : super(key: key);
+  final DataModel dataModel;
+  final int index;
 
   @override
   State<FavoriteIcon> createState() => _FavoriteIconState();
@@ -121,10 +124,15 @@ class _FavoriteIconState extends State<FavoriteIcon> {
               () => BlocProvider.of<FavoriteBloc>(context).add(AddFavorite(
                   dataModel: widget.dataModel,
                   isFavorite: true,
-                  category: null)));
+                  category: null,
+                  index: widget.index)));
         },
         icon: icons((widget.dataModel.fav)
             ? IconsResources().removeFavorite
             : IconsResources().addFavorite));
   }
+}
+
+void snackBar(String data, context) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
 }

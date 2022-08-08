@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../utils/firestore_database_calling.dart';
 import '../controllers/data_fetch_bloc.dart';
 import '../resources/resources.dart';
 import '../widgets/gridview.dart';
@@ -21,15 +20,12 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
-          _scrollController.position.maxScrollExtent) {
+          (_scrollController.position.maxScrollExtent)) {
+        print(_scrollController.position.maxScrollExtent);
+        print(MediaQuery.of(context).size.height);
         print("scroll");
         BlocProvider.of<DataFetchBloc>(context)
             .add(GetAllData(isFavorite: false, category: null));
-        snackBar(
-            (RepositoryProvider.of<FirebaseDatabase>(context).isMore)
-                ? TextResources().snackBarLoadingInPagination
-                : TextResources().snackBarAllDataFetchInPagination,
-            context);
       }
     });
   }

@@ -19,7 +19,7 @@ Padding gridView(
       itemBuilder: (context, index) {
         Object? item = isLoading ? loadingDataModel : data[index];
         return (item is DataModel)
-            ? gridCard(context, item, isLoading)
+            ? gridCard(context, item, isLoading , index)
             : const Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -27,8 +27,4 @@ Padding gridView(
       },
     ),
   );
-}
-
-void snackBar(String data, context) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
 }

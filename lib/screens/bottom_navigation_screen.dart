@@ -1,5 +1,6 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import '../widgets/search_service.dart';
+import 'search_screen.dart';
 import 'category_screen.dart';
 import 'favourite_screen.dart';
 import 'setting_screen.dart';
@@ -29,17 +30,6 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
       });
 
   @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels >=
-          _scrollController.position.maxScrollExtent) {
-        print("scroll");
-      }
-    });
-  }
-
-  @override
   void dispose() {
     _scrollController;
     super.dispose();
@@ -65,12 +55,17 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
             ? []
             : [
                 IconButton(
-                    onPressed: () => showSearch(
-                        context: context,
-                        delegate: CustomSearchDelegate(
-                            _scrollController, _selectedIndex)),
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) =>
+                                SearchScreen(screen: _selectedIndex))),
+                    // showSearch(
+                    // context: context,
+                    // delegate: CustomSearchDelegate(
+                    //     _scrollController, _selectedIndex)),
                     icon: Icon(IconsResources().search,
-                        color: ColorResources().search))
+                        size: 35, color: ColorResources().search))
               ],
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
@@ -85,7 +80,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
             BottomNavigationBarItem(
                 icon: Icon(IconsResources().categoryScreenUnSelected),
                 activeIcon: Icon(IconsResources().categoryScreenSelected),
-                label: TextResources().homeScreenLabel),
+                label: TextResources().categoryScreenLabel),
             BottomNavigationBarItem(
                 icon: Icon(IconsResources().favouriteScreenUnSelected),
                 activeIcon: Icon(IconsResources().favouriteScreenSelected),

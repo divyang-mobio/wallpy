@@ -6,6 +6,7 @@ class TextResources {
   final String categoryAppTitle = "Category";
   final String favoriteAppTitle = "Favorite";
   final String homeScreenLabel = "Home";
+  final String categoryScreenLabel = "Home";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String splashScreenTile = "Wallpy";
@@ -38,6 +39,8 @@ class TextResources {
   final String blocError = "Error :(";
   final String startService = "Start Service";
   final String stopService = "Stop Service";
+  final String onSearchNoDataFound = "No Data Found :(";
+  final String searchHint = "Search";
   final int adsInternalInList = 2;
   final int androidAlarmManagerId = 0;
   final int itemLimit = 5;

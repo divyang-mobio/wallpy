@@ -4,14 +4,14 @@ import '../resources/resources.dart';
 import 'network_image.dart';
 import '../models/navigation_model.dart';
 
-gridCard(BuildContext context, DataModel dataModel, isLoading) {
+gridCard(BuildContext context, DataModel dataModel, bool isLoading, int index) {
   return GestureDetector(
     onTap: () => isLoading
         ? {}
         : Navigator.pushNamed(
             context,
             TextResources().detailScreenRoute,
-            arguments: DetailScreenArgument(dataModel: dataModel),
+            arguments: DetailScreenArgument(dataModel: dataModel, index: index),
           ),
     child: Card(
       shape: const RoundedRectangleBorder(
