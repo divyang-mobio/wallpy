@@ -13,11 +13,9 @@ class AddFavorite extends FavoriteEvent {
   DataModel dataModel;
   String? category;
   bool isFavorite;
-  int index;
 
   AddFavorite(
       {required this.dataModel,
       required this.isFavorite,
-      this.category,
-      required this.index});
+      this.category});
 }

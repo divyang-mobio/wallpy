@@ -10,19 +10,18 @@ import 'models/navigation_model.dart';
 import 'screens/bottom_navigation_screen.dart';
 import 'controllers/data_fetch_bloc.dart';
 import 'utils/firestore_database_calling.dart';
-import 'screens/main_screen.dart';
 import 'screens/splash_screen.dart';
 import 'resources/resources.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
   print(message.data);
-  print(message.notification?.title ?? "no title in notification");
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AndroidAlarmManager.initialize();
   await Firebase.initializeApp();
+  // NotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   runApp(const MyApp());
 }
@@ -35,6 +34,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String initialRoute = TextResources().splashScreenRoute;
+
   @override
   void initState() {
     super.initState();
@@ -44,10 +45,9 @@ class _MyAppState extends State<MyApp> {
       if (event != null) {
         final route = event.data["route"];
         print(route);
-        // bottomnavbarController
-        // Navigator.pushNamed(context, "/bottomBar");
-        // _selectedIndex = int.parse(route);
-        // setState(() {});
+        if (route.toString() == "2") {
+          initialRoute == TextResources().homeScreenRoute;
+        }
       }
     });
 
@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onMessage.listen((event) {
       if (event.notification != null) {
         print(event.notification?.title);
-        print(event.notification?.body);
+        // NotificationService.display(event);
       }
     });
 
@@ -78,45 +78,42 @@ class _MyAppState extends State<MyApp> {
                   ..add(GetAllData(isFavorite: false, category: null)),
           ),
           BlocProvider<FavoriteBloc>(
-              create: (context) => FavoriteBloc(FirebaseDatabase(),
-                  RepositoryProvider.of<FirebaseDatabase>(context))
+              create: (context) => FavoriteBloc(FirebaseDatabase())
                 ..add(GetFavoriteData(isFavorite: true, category: null))),
           BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
         ],
         child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: TextResources().appTitle,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            textTheme: TextTheme(
-                subtitle1: TextStyle(color: ColorResources().categoryText),
-                headline1: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: ColorResources().splashWord)),
-          ),
-          onGenerateRoute: (RouteSettings setting) {
-            switch (setting.name) {
-              case "/":
-                return MaterialPageRoute(
-                    builder: (context) => const SplashScreen());
-              case "/bottomBar":
-                return MaterialPageRoute(
-                    builder: (context) => const BottomNavigationBarScreen());
-              case "/detail":
-                final args = setting.arguments as DetailScreenArgument;
-                return MaterialPageRoute(
-                    builder: (context) => DetailScreen(
-                          dataModel: args.dataModel,
-                          index: args.index,
-                        ));
-              default:
-                return MaterialPageRoute(
-                    builder: (context) => const MyHomePage());
-            }
-          },
-          initialRoute: TextResources().splashScreenRoute,
-        ),
+            debugShowCheckedModeBanner: false,
+            title: TextResources().appTitle,
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              textTheme: TextTheme(
+                  subtitle1: TextStyle(color: ColorResources().categoryText),
+                  headline1: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: ColorResources().splashWord)),
+            ),
+            onGenerateRoute: (RouteSettings setting) {
+              switch (setting.name) {
+                case "/":
+                  return MaterialPageRoute(
+                      builder: (context) => const SplashScreen());
+                case "/bottomBar":
+                  return MaterialPageRoute(
+                      builder: (context) => const BottomNavigationBarScreen());
+                case "/detail":
+                  final args = setting.arguments as DetailScreenArgument;
+                  return MaterialPageRoute(
+                      builder: (context) =>
+                          DetailScreen(dataModel: args.dataModel));
+                default:
+                  return MaterialPageRoute(
+                      builder: (context) => const BottomNavigationBarScreen());
+              }
+            },
+            initialRoute: initialRoute //TextResources().splashScreenRoute,
+            ),
       ),
     );
   }

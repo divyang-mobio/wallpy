@@ -12,10 +12,9 @@ import '../widgets/bottom_sheet.dart';
 import '../widgets/network_image.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key, required this.dataModel, required this.index})
+  const DetailScreen({Key? key, required this.dataModel})
       : super(key: key);
   final DataModel dataModel;
-  final int index;
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -80,7 +79,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         icon: icons(
                             IconsResources().setWallpaperFromDetailScreen)),
                     FavoriteIcon(
-                        dataModel: widget.dataModel, index: widget.index)
+                        dataModel: widget.dataModel)
                   ],
                 ),
               ),
@@ -101,10 +100,9 @@ Icon icons(IconData iconData) {
 }
 
 class FavoriteIcon extends StatefulWidget {
-  const FavoriteIcon({Key? key, required this.dataModel, required this.index})
+  const FavoriteIcon({Key? key, required this.dataModel})
       : super(key: key);
   final DataModel dataModel;
-  final int index;
 
   @override
   State<FavoriteIcon> createState() => _FavoriteIconState();
@@ -124,8 +122,7 @@ class _FavoriteIconState extends State<FavoriteIcon> {
               () => BlocProvider.of<FavoriteBloc>(context).add(AddFavorite(
                   dataModel: widget.dataModel,
                   isFavorite: true,
-                  category: null,
-                  index: widget.index)));
+                  category: null)));
         },
         icon: icons((widget.dataModel.fav)
             ? IconsResources().removeFavorite

@@ -8,31 +8,25 @@ part 'favorite_state.dart';
 
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   final FirebaseDatabase _firebaseDatabase;
-  final FirebaseDatabase _data_fetch_firebaseDatabase;
 
-  FavoriteBloc(this._firebaseDatabase, this._data_fetch_firebaseDatabase)
+  FavoriteBloc(this._firebaseDatabase)
       : super(FavoriteLoading()) {
     on<GetFavoriteData>(_getAllData);
     on<AddFavorite>(_addFavorite);
   }
 
-  int ads = 0;
+  // int ads = 0;
 
   _addFavorite(AddFavorite event, Emitter<FavoriteState> emit) async {
-    _firebaseDatabase.update(event.dataModel);
-    final data =  _data_fetch_firebaseDatabase.data[event.index];
-    if (event.dataModel.fav && data is DataModel) {
+    if (event.dataModel.fav) {
       _firebaseDatabase.data.add(event.dataModel);
-      data.fav = event.dataModel.fav;
-
       /// if ads need to add in Favorite
       // ads += 1;
       // if(ads == TextResources().adsInternalInList) {
       //   _firebaseDatabase.data.add("list");
       // }
-    } else if(data is DataModel) {
+    } else {
       _firebaseDatabase.data.remove(event.dataModel);
-      data.fav = event.dataModel.fav;
       // ads -= 1;
     }
     emit(FavoriteLoaded(data: _firebaseDatabase.data));

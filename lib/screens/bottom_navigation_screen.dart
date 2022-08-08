@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'search_screen.dart';
 import 'category_screen.dart';
@@ -60,10 +59,6 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                         MaterialPageRoute(
                             builder: (_) =>
                                 SearchScreen(screen: _selectedIndex))),
-                    // showSearch(
-                    // context: context,
-                    // delegate: CustomSearchDelegate(
-                    //     _scrollController, _selectedIndex)),
                     icon: Icon(IconsResources().search,
                         size: 35, color: ColorResources().search))
               ],
@@ -73,22 +68,11 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
           type: BottomNavigationBarType.fixed,
           showUnselectedLabels: false,
           items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(IconsResources().homeScreenUnSelected),
-                activeIcon: Icon(IconsResources().homeScreenSelected),
-                label: TextResources().homeScreenLabel),
-            BottomNavigationBarItem(
-                icon: Icon(IconsResources().categoryScreenUnSelected),
-                activeIcon: Icon(IconsResources().categoryScreenSelected),
-                label: TextResources().categoryScreenLabel),
-            BottomNavigationBarItem(
-                icon: Icon(IconsResources().favouriteScreenUnSelected),
-                activeIcon: Icon(IconsResources().favouriteScreenSelected),
-                label: TextResources().favouriteScreenLabel),
-            BottomNavigationBarItem(
-                icon: Icon(IconsResources().settingScreenUnSelected),
-                activeIcon: Icon(IconsResources().settingScreenSelected),
-                label: TextResources().settingAppTitle),
+            for (var i in bottomData)
+              BottomNavigationBarItem(
+                  icon: Icon(i.icon),
+                  activeIcon: Icon(i.actionIcon),
+                  label: i.label),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: (_selectedIndex == 2)

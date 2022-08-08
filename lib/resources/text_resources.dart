@@ -6,7 +6,7 @@ class TextResources {
   final String categoryAppTitle = "Category";
   final String favoriteAppTitle = "Favorite";
   final String homeScreenLabel = "Home";
-  final String categoryScreenLabel = "Home";
+  final String categoryScreenLabel = "Category";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String splashScreenTile = "Wallpy";
@@ -41,6 +41,7 @@ class TextResources {
   final String stopService = "Stop Service";
   final String onSearchNoDataFound = "No Data Found :(";
   final String searchHint = "Search";
+  final String placeHolderForLoadingImage = "assets/99318-hms-loading.gif";
   final int adsInternalInList = 2;
   final int androidAlarmManagerId = 0;
   final int itemLimit = 5;
@@ -57,24 +58,51 @@ List<SettingModel> dialogDataForTimeLine = [
 List<SettingModel> bottomSheetScreenData = [
   SettingModel(
       title: TextResources().homeScreenWallpaper,
-      onclick: WallpaperManagerFlutter.HOME_SCREEN),
+      onclick: AsyncWallpaper.HOME_SCREEN),
   SettingModel(
       title: TextResources().lockScreenWallpaper,
-      onclick: WallpaperManagerFlutter.LOCK_SCREEN),
+      onclick: AsyncWallpaper.LOCK_SCREEN),
   SettingModel(
       title: TextResources().bothScreenWallpaper,
-      onclick: WallpaperManagerFlutter.BOTH_SCREENS)
+      onclick: AsyncWallpaper.BOTH_SCREENS)
 ];
 
 List<SettingModel> dialogDataForCollection = [
-  SettingModel(title: "Home Screen", onclick: "homeScreen"),
-  SettingModel(title: "Favorite Screen", onclick: "favorite"),
+  SettingModel(title: "Random", onclick: "homeScreen"),
+  SettingModel(title: "Favorite", onclick: "favorite"),
 ];
 
-DataModel loadingDataModel = DataModel(id: 1,
+DataModel loadingDataModel = DataModel(
+    id: 1,
     name: "Loading",
     uid: "Loading",
     category: [],
     fav: false,
-    timestamp: DateTime(2022-08-03,1,3),
+    timestamp: DateTime(2022 - 08 - 03, 1, 3),
     url: "Loading");
+
+List<BottomNavigationModel> bottomData = [
+  BottomNavigationModel(
+      actionIcon: IconsResources().homeScreenSelected,
+      icon: IconsResources().homeScreenUnSelected,
+      label: TextResources().homeScreenLabel),
+  BottomNavigationModel(
+      actionIcon: IconsResources().categoryScreenSelected,
+      icon: IconsResources().categoryScreenUnSelected,
+      label: TextResources().categoryScreenLabel),
+  BottomNavigationModel(
+      actionIcon: IconsResources().favouriteScreenSelected,
+      icon: IconsResources().favouriteScreenUnSelected,
+      label: TextResources().favouriteScreenLabel),
+  BottomNavigationModel(
+      actionIcon: IconsResources().settingScreenSelected,
+      icon: IconsResources().settingScreenUnSelected,
+      label: TextResources().settingScreenLabel)
+];
+
+List<CollectionModel> collectionData = [
+  CollectionModel(name: "nature", link: "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/collection_cover%2Foutside-2.jpg?alt=media&token=5fe0cfb7-375d-4903-8498-223963b0d637"),
+  CollectionModel(name: "outside", link: "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/collection_cover%2Foutside-2.jpg?alt=media&token=5fe0cfb7-375d-4903-8498-223963b0d637"),
+  CollectionModel(name: "city", link: "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/collection_cover%2Foutside-2.jpg?alt=media&token=5fe0cfb7-375d-4903-8498-223963b0d637"),
+  CollectionModel(name: "movie", link: "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/collection_cover%2Foutside-2.jpg?alt=media&token=5fe0cfb7-375d-4903-8498-223963b0d637")
+];
