@@ -8,11 +8,8 @@ class TextResources {
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String splashScreenTile = "Wallpy";
-  final int itemLimit = 5;
-  final String splashScreenRoute = '/';
-  final String homeScreenRoute = '/bottomBar';
-  final String welcomeScreenRoute = '/welcome';
-  final String detailScreenRoute = '/detail';
+  final String email = "Email";
+  final String password = "Password";
   final String snackBarLoadingInPagination = 'Loading';
   final String snackBarAllDataFetchInPagination = 'All Data Fetch';
   final String methodChannelName = "wallpyBackgroundService";
@@ -39,8 +36,24 @@ class TextResources {
   final String blocError = "Error :(";
   final String startService = "Start Service";
   final String stopService = "Stop Service";
+
+  final String signUp = 'Sign_Up';
+  final String signIn = 'Sign-In';
+  final String welcomSubtitle =
+      'Walpy does not rely on fixed-time alarms that prevent your device from getting enough sleep. It lets Android figure out when is the best time to change wallpapers. You can configure constraints to only change wallpaper while your device is:';
+
+//Int type
   final int adsInternalInList = 2;
   final int androidAlarmManagerId = 0;
+  final int itemLimit = 5;
+
+//routes Strings
+  final String splashScreenRoute = '/';
+  final String homeScreenRoute = '/bottomBar';
+  final String welcomeScreenRoute = '/welcome';
+  final String detailScreenRoute = '/detail';
+  final String signUpScreenRoute = '/signUp';
+  final String signInScreenRoute = '/signIn';
 }
 
 List<SettingModel> dialogDataForTimeLine = [

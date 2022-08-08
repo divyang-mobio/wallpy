@@ -6,7 +6,8 @@ class Textfield extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
   Icon icon;
-  Icon? suffixIcon;
+
+  IconButton? suffixIcon;
   Textfield(
       {required this.controller,
       required this.hint,

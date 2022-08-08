@@ -2,6 +2,8 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/screens/sign_in_screen.dart';
+import 'package:wallpy/screens/sign_up_screen.dart';
 import 'package:wallpy/screens/welcome_screen.dart';
 import 'controllers/favorite_bloc/favorite_bloc.dart';
 import 'screens/detail_screen.dart';
@@ -67,6 +69,10 @@ class MyApp extends StatelessWidget {
               case "/welcome":
                 return MaterialPageRoute(
                     builder: (context) => const WelcomeScreen());
+              case "/signUp":
+                return MaterialPageRoute(builder: (context) => SignUp());
+              case "/signIn":
+                return MaterialPageRoute(builder: (context) => SignIn());
               default:
                 return MaterialPageRoute(
                     builder: (context) => const MyHomePage());

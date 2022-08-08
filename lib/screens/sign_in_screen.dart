@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallpy/resources/resources.dart';
 import 'package:wallpy/screens/bottom_navigation_screen.dart';
 import 'package:wallpy/screens/sign_up_screen.dart';
 import 'package:wallpy/utils/firebase_auth_methods.dart';
@@ -6,21 +7,27 @@ import 'package:wallpy/utils/firebase_auth_methods.dart';
 import '../widgets/sign_in_up_button.dart';
 import '../widgets/textfield_widget.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   SignIn({Key? key}) : super(key: key);
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
   TextEditingController textController = TextEditingController();
 
   TextEditingController passController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            color: Colors.amber,
-            child: Positioned(
-              // bottom: 10,
+          Positioned(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              color: Colors.amber,
               child: Image.asset(
                 'assets/images/welcome3.jpg',
                 fit: BoxFit.fill,
@@ -49,30 +56,25 @@ class SignIn extends StatelessWidget {
                   height: 20,
                 ),
                 Textfield(
-                  controller: passController,
-                  icon: const Icon(
-                    Icons.lock,
-                    color: Colors.black,
-                  ),
-                  hint: 'Password',
-                  suffixIcon: Icon(Icons.visibility_off_rounded),
-                ),
+                    controller: passController,
+                    icon: const Icon(
+                      Icons.lock,
+                      color: Colors.black,
+                    ),
+                    hint: 'Password',
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.visibility_off_rounded),
+                      onPressed: () {},
+                    )),
                 const SizedBox(
                   height: 40,
                 ),
                 SignInUpButton(
-                    text: 'Sign-In',
+                    text: TextResources().signIn,
                     color: Colors.amber,
                     onTap: () async {
-                      final newUser = await FireBaseAuthMethods.signInWithEmail(
-                          textController.text, passController.text);
-                      if (newUser != null) {
-                        // ignore: use_build_context_synchronously
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return BottomNavigationBarScreen();
-                        }));
-                      }
+                      await FireBaseAuthMethods.signInWithEmail(
+                          textController.text, passController.text, context);
                     }),
                 const Center(
                     child: Text(
@@ -80,14 +82,14 @@ class SignIn extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 )),
                 SignInUpButton(
-                    text: 'Sign-Up',
+                    text: TextResources().signUp,
                     textColor: Colors.white,
                     color: Color.fromARGB(106, 255, 255, 255),
                     onTap: () {
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (context) {
-                      //   return SignUp();
-                      // }));
+                      Navigator.pushReplacementNamed(
+                        context,
+                        TextResources().signUpScreenRoute,
+                      );
                     })
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wallpy/resources/resources.dart';
 
 class FireBaseAuthMethods {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -30,13 +31,26 @@ class FireBaseAuthMethods {
   static Future<User> signInWithEmail(
     String email,
     String password,
+    BuildContext context,
   ) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
+      if (result.user != null) {
+        Navigator.popAndPushNamed(context, TextResources().homeScreenRoute);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            'SignIn Successfully!',
+          ),
+          backgroundColor: Colors.green,
+        ));
+      }
       return result.user!;
     } on FirebaseAuthException catch (e) {
       print('Failed with error code: ${e.code}');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: const Color.fromARGB(143, 255, 255, 255),
+          content: Text(e.message.toString())));
       print(e.message);
       throw e.message.toString();
     }
@@ -52,13 +66,28 @@ class FireBaseAuthMethods {
     }
   }
 
-  static Future<User> signUpWithEmail(String email, String password) async {
+  static Future<User> signUpWithEmail(
+      String email, String password, BuildContext context) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      if (result.user != null) {
+        Navigator.popAndPushNamed(context, TextResources().homeScreenRoute);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.green,
+          content: Text(
+            'SignUp Successfully!',
+          ),
+        ));
+      }
+
       return result.user!;
     } on FirebaseAuthException catch (e) {
       print('Failed with error code: ${e.code}');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Color.fromARGB(143, 255, 255, 255),
+          content: Text(e.message.toString())));
+
       print(e.message);
       throw e.message.toString();
     }

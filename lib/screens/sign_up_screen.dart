@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:wallpy/screens/sign_in_screen.dart';
+import 'package:wallpy/resources/resources.dart';
 import 'package:wallpy/utils/firebase_auth_methods.dart';
-
 import '../widgets/sign_in_up_button.dart';
 import '../widgets/textfield_widget.dart';
-import 'bottom_navigation_screen.dart';
-import 'main_screen.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   TextEditingController textController = TextEditingController();
 
+  bool hidePassword = true;
+
   TextEditingController passController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,12 +27,9 @@ class SignUp extends StatelessWidget {
             child: Container(
               height: MediaQuery.of(context).size.height,
               color: Colors.amber,
-              child: Positioned(
-                // bottom: 10,
-                child: Image.asset(
-                  'assets/images/welcome3.jpg',
-                  fit: BoxFit.fill,
-                ),
+              child: Image.asset(
+                'assets/images/welcome3.jpg',
+                fit: BoxFit.fill,
               ),
             ),
           ),
@@ -52,14 +55,16 @@ class SignUp extends StatelessWidget {
                   height: 20,
                 ),
                 Textfield(
-                  controller: passController,
-                  icon: const Icon(
-                    Icons.lock,
-                    color: Colors.black,
-                  ),
-                  hint: 'Password',
-                  suffixIcon: Icon(Icons.visibility_off_rounded),
-                ),
+                    controller: passController,
+                    icon: const Icon(
+                      Icons.lock,
+                      color: Colors.black,
+                    ),
+                    hint: 'Password',
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.visibility_off_rounded),
+                      onPressed: () {},
+                    )),
                 const SizedBox(
                   height: 40,
                 ),
@@ -67,27 +72,8 @@ class SignUp extends StatelessWidget {
                     text: 'Sign-Up',
                     color: Colors.amber,
                     onTap: () async {
-                      try {
-                        FireBaseAuthMethods().startLoader(context);
-                        final newUser =
-                            await FireBaseAuthMethods.signUpWithEmail(
-                                textController.text, passController.text);
-                        if (newUser != null) {
-                          // ignore: use_build_context_synchronously
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const BottomNavigationBarScreen();
-                          }));
-                          SnackBar(content: Text('SignUp Successfully!'));
-                        } else {
-                          FireBaseAuthMethods().closeLoader();
-                          SnackBar(content: Text('Something went wrong!'));
-                        }
-                      } catch (e) {
-                        FireBaseAuthMethods().closeLoader();
-                        print(e.toString());
-                        SnackBar(content: Text(e.toString()));
-                      }
+                      await FireBaseAuthMethods.signUpWithEmail(
+                          textController.text, passController.text, context);
                     }),
                 const Center(
                     child: Text(
@@ -99,10 +85,10 @@ class SignUp extends StatelessWidget {
                     textColor: Colors.white,
                     color: Color.fromARGB(106, 255, 255, 255),
                     onTap: () {
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (context) {
-                      //   return SignIn();
-                      // }));
+                      Navigator.pushReplacementNamed(
+                        context,
+                        TextResources().signInScreenRoute,
+                      );
                     })
               ],
             ),
