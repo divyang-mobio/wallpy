@@ -3,7 +3,8 @@ import '../resources/resources.dart';
 import '../models/data_model.dart';
 
 class FirebaseDatabase {
-  final instances = FirebaseFirestore.instance.collection("Category");
+  final instances =
+      FirebaseFirestore.instance.collection(TextResources().fireStoreCategory);
   DocumentSnapshot? paginationData;
   bool isMore = true;
   List<Object> data = [];
@@ -11,7 +12,7 @@ class FirebaseDatabase {
   void update(DataModel dataModel) async {
     await instances
         .doc(dataModel.id.toString())
-        .update({"image_fav": dataModel.fav});
+        .update({TextResources().fireStoreImgFav: dataModel.fav});
   }
 
   Future<List<Object>> getAllData(String? category, bool isFavorite,
@@ -19,19 +20,25 @@ class FirebaseDatabase {
     final cat = (category == null && isFavorite == false && query == null)
         ? instances
         : (category != null && isFavorite == false && query == null)
-            ? instances.where("image_category", isEqualTo: category)
+            ? instances.where(TextResources().fireStoreImgCat,
+                isEqualTo: category)
             : (category == null && isFavorite == true && query == null)
-                ? instances.where("image_fav", isEqualTo: true)
+                ? instances.where(TextResources().fireStoreImgFav,
+                    isEqualTo: true)
                 : (category != null && isFavorite == true && query == null)
                     ? instances
-                        .where("image_fav", isEqualTo: true)
-                        .where("image_category", isEqualTo: category)
+                        .where(TextResources().fireStoreImgFav, isEqualTo: true)
+                        .where(TextResources().fireStoreImgCat,
+                            isEqualTo: category)
                     : (query != null && isFavorite == false)
-                        ? instances.where("image_category", arrayContains: query)
+                        ? instances.where(TextResources().fireStoreImgCat,
+                            arrayContains: query)
                         : (query != null && isFavorite == true)
                             ? instances
-                                .where("image_category", isEqualTo: query)
-                                .where("image_fav", isEqualTo: true)
+                                .where(TextResources().fireStoreImgCat,
+                                    isEqualTo: query)
+                                .where(TextResources().fireStoreImgFav,
+                                    isEqualTo: true)
                             : instances;
     if (isSearch) {
       paginationData == null;
@@ -41,7 +48,8 @@ class FirebaseDatabase {
     return data;
   }
 
-  Future<List<Object>> getData(Query<Map<String, dynamic>> instance, bool showAds) async {
+  Future<List<Object>> getData(
+      Query<Map<String, dynamic>> instance, bool showAds) async {
     List<Object> rawData = [];
     if (isMore) {
       var rawList = (paginationData?.data() == null)
@@ -86,7 +94,8 @@ class FirebaseDatabase {
 }
 
 class FirebaseSave {
-  final instances = FirebaseFirestore.instance.collection("Category");
+  final instances =
+      FirebaseFirestore.instance.collection(TextResources().fireStoreCategory);
 
   Future<List<DataModel>> getAllData() async {
     return await getData();

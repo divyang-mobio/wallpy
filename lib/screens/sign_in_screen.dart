@@ -127,6 +127,14 @@ class _SignInState extends State<SignIn> {
                                 context,
                                 TextResources().signUpScreenRoute,
                               );
+                            }),
+                        SignInUpButton(
+                            text: TextResources().googleSignInUp,
+                            textColor: ColorResources().googleSignInUpText,
+                            color: ColorResources().signUpButton,
+                            onTap: () {
+                              BlocProvider.of<AuthBlocBloc>(context)
+                                  .add(GoogleSignUpRequested());
                             })
                       ],
                     ),

@@ -50,6 +50,7 @@ class AuthRepository {
     }
   }
 
+  /// not working
   Future<bool> logout() async {
     try {
       await auth.signOut();
@@ -62,6 +63,7 @@ class AuthRepository {
     }
   }
 
+  /// name is not storing in fireAuth
   Future<User> signUpWithEmail(
     String email,
     String password,

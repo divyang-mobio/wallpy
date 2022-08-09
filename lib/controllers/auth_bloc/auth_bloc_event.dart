@@ -15,6 +15,8 @@ class SignInRequested extends AuthBlocEvent {
   );
 }
 
+class GoogleSignUpRequested extends AuthBlocEvent {}
+
 class SignUpRequested extends AuthBlocEvent {
   final String email;
   final String password;

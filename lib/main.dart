@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:wallpy/repository/auth_repository.dart';
 import 'package:wallpy/screens/main_screen.dart';
 import 'package:wallpy/screens/sign_in_screen.dart';
@@ -81,6 +82,9 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider(
           create: (context) => AuthRepository(),
         ),
+        RepositoryProvider<GoogleSignIn>(
+          create: (context) => GoogleSignIn(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -96,6 +100,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<AuthBlocBloc>(
             create: (context) => AuthBlocBloc(
               authRepository: RepositoryProvider.of<AuthRepository>(context),
+              googleSignIn: RepositoryProvider.of<GoogleSignIn>(context)
             ),
           ),
         ],

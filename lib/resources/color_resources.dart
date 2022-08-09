@@ -16,6 +16,6 @@ class ColorResources {
   final Color selectedFavoriteItemInNavigationBar = Colors.red;
   final Color signInButton = Colors.amber;
   final Color signUpButton = const Color.fromARGB(106, 255, 255, 255);
-
+  final Color googleSignInUpText = Colors.black;
   final Color search = Colors.black;
 }
