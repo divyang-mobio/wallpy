@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'favourite_screen.dart';
 import 'setting_screen.dart';
 import '../resources/resources.dart';
 import 'main_screen.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
-  const BottomNavigationBarScreen({Key? key}) : super(key: key);
+  //final User currentUser;
+  // ignore: use_key_in_widget_constructors
+  const BottomNavigationBarScreen();
 
   @override
   State<BottomNavigationBarScreen> createState() =>
@@ -31,6 +35,16 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<AuthBlocBloc>().add(SignOutRequested());
+                },
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.black,
+                ))
+          ],
           backgroundColor: ColorResources().appBar,
           title: Text(
               _selectedIndex == 0

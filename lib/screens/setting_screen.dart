@@ -53,8 +53,8 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
           GestureDetector(
             onTap: () async {
-              collection = await dialog(context, TextResources().collectionTitle,
-                  dialogDataForCollection);
+              collection = await dialog(context,
+                  TextResources().collectionTitle, dialogDataForCollection);
             },
             child: listsTiles(
               TextResources().collectionTitle,
@@ -68,10 +68,8 @@ class _SettingScreenState extends State<SettingScreen> {
               pref.setScreen(screen ?? 3);
               pref.setList(data);
               pref.setNo(1);
-              wallpaperSetter(
-                  data[0].url,
-                  screen ?? 3);
-              await AndroidAlarmManager.periodic(Duration(minutes: 1),
+              wallpaperSetter(data[0].url, screen ?? 3);
+              await AndroidAlarmManager.periodic(const Duration(minutes: 1),
                   TextResources().androidAlarmManagerId, callWallpaperSetter);
             },
             child: Text(TextResources().startService),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../utils/firestore_database_calling.dart';
@@ -22,7 +23,9 @@ class _MyHomePageState extends State<MyHomePage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent) {
-        print("scroll");
+        if (kDebugMode) {
+          print("scroll");
+        }
         BlocProvider.of<DataFetchBloc>(context)
             .add(GetAllData(isFavorite: false, category: null));
         snackBar(

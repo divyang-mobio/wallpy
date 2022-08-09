@@ -12,4 +12,9 @@ class IconsResources {
   final favouriteScreenSelected = Icons.favorite;
   final addFavorite = Icons.favorite_border;
   final removeFavorite = Icons.favorite;
+  final visibility = Icons.visibility;
+  final visibilityOff = Icons.visibility_off_rounded;
+  final email = Icons.mail;
+  final user = Icons.person;
+  final lock = Icons.lock;
 }

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:wallpy/resources/resources.dart';
+
 import '../../models/data_model.dart';
 import '../../utils/firestore_database_calling.dart';
 

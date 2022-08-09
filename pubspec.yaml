@@ -44,6 +44,7 @@ dependencies:
   easy_debounce: ^2.0.2+1
   shared_preferences: ^2.0.15
   firebase_auth: ^3.5.1
+  equatable: ^2.0.3
   
 #  async_wallpaper: ^1.0.1
 #  wallpaper_manager: ^1.0.10

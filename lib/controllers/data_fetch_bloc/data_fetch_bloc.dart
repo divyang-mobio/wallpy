@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
-import '../../models/data_model.dart';
-import '../../resources/resources.dart';
+
 import '../../utils/firestore_database_calling.dart';
 
 part 'data_fetch_event.dart';

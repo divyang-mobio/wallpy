@@ -2,9 +2,11 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/repository/auth_repository.dart';
 import 'package:wallpy/screens/sign_in_screen.dart';
 import 'package:wallpy/screens/sign_up_screen.dart';
 import 'package:wallpy/screens/welcome_screen.dart';
+import 'controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'controllers/favorite_bloc/favorite_bloc.dart';
 import 'screens/detail_screen.dart';
 import 'models/navigation_model.dart';
@@ -27,8 +29,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<FirebaseDatabase>(
-      create: (context) => (FirebaseDatabase()),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<FirebaseDatabase>(
+            create: (context) => (FirebaseDatabase())),
+        RepositoryProvider(
+          create: (context) => AuthRepository(),
+        ),
+      ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<DataFetchBloc>(
@@ -39,6 +47,11 @@ class MyApp extends StatelessWidget {
           BlocProvider<FavoriteBloc>(
             create: (context) => FavoriteBloc(FirebaseDatabase())
               ..add(GetFavoriteData(isFavorite: true, category: null)),
+          ),
+          BlocProvider<AuthBlocBloc>(
+            create: (context) => AuthBlocBloc(
+              authRepository: RepositoryProvider.of<AuthRepository>(context),
+            ),
           ),
         ],
         child: MaterialApp(
@@ -70,9 +83,9 @@ class MyApp extends StatelessWidget {
                 return MaterialPageRoute(
                     builder: (context) => const WelcomeScreen());
               case "/signUp":
-                return MaterialPageRoute(builder: (context) => SignUp());
+                return MaterialPageRoute(builder: (context) => const SignUp());
               case "/signIn":
-                return MaterialPageRoute(builder: (context) => SignIn());
+                return MaterialPageRoute(builder: (context) => const SignIn());
               default:
                 return MaterialPageRoute(
                     builder: (context) => const MyHomePage());

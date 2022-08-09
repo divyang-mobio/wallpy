@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'package:wallpy/resources/resources.dart';
-import 'package:wallpy/screens/bottom_navigation_screen.dart';
-import 'package:wallpy/screens/sign_up_screen.dart';
-import 'package:wallpy/utils/firebase_auth_methods.dart';
-
+import 'package:wallpy/utils/validators.dart';
+import 'package:wallpy/widgets/welcome_background_widget.dart';
 import '../widgets/sign_in_up_button.dart';
 import '../widgets/textfield_widget.dart';
 
 class SignIn extends StatefulWidget {
-  SignIn({Key? key}) : super(key: key);
+  const SignIn({Key? key}) : super(key: key);
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -16,112 +16,128 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   TextEditingController textController = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   TextEditingController passController = TextEditingController();
+
+  @override
+  void dispose() {
+    textController.dispose();
+    passController.dispose();
+    super.dispose();
+  }
+
+  _authenticateWithEmailAndPassword(context) {
+    BlocProvider.of<AuthBlocBloc>(context).add(
+      SignInRequested(textController.text, passController.text),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Stack(children: [
-          Positioned(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              color: Colors.amber,
-              child: Image.asset(
-                'assets/images/welcome3.jpg',
-                fit: BoxFit.fill,
-              ),
+          child: Stack(children: [
+        Positioned(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Image.asset(
+              ImageResources().welcomeImage,
+              fit: BoxFit.fill,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                title(context),
-                const SizedBox(
-                  height: 50,
-                ),
-                Textfield(
-                  controller: textController,
-                  icon: const Icon(
-                    Icons.email,
-                    color: Colors.black,
-                  ),
-                  hint: 'Email',
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Textfield(
-                    controller: passController,
-                    icon: const Icon(
-                      Icons.lock,
-                      color: Colors.black,
-                    ),
-                    hint: 'Password',
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.visibility_off_rounded),
-                      onPressed: () {},
-                    )),
-                const SizedBox(
-                  height: 40,
-                ),
-                SignInUpButton(
-                    text: TextResources().signIn,
-                    color: Colors.amber,
-                    onTap: () async {
-                      await FireBaseAuthMethods.signInWithEmail(
-                          textController.text, passController.text, context);
-                    }),
-                const Center(
-                    child: Text(
-                  'OR',
-                  style: TextStyle(color: Colors.white),
-                )),
-                SignInUpButton(
-                    text: TextResources().signUp,
-                    textColor: Colors.white,
-                    color: Color.fromARGB(106, 255, 255, 255),
-                    onTap: () {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        TextResources().signUpScreenRoute,
-                      );
-                    })
-              ],
-            ),
-          ),
-        ]),
-      ),
-    );
-  }
-
-  Container title(BuildContext context) {
-    return Container(
-      width: 250,
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color.fromARGB(150, 7, 70, 40), Colors.transparent],
-            begin: Alignment.topLeft,
-            end: Alignment.topRight,
-          ),
-
-          //color: Color.fromARGB(150, 7, 70, 40),
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), bottomLeft: Radius.circular(30))),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Text(
-          'Welcome Back',
-          style: Theme.of(context)
-              .textTheme
-              .headline3!
-              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: BlocListener<AuthBlocBloc, AuthBlocState>(
+            listener: (context, state) {
+              if (state is Authenticated) {
+                Navigator.popAndPushNamed(
+                  context,
+                  TextResources().homeScreenRoute,
+                );
+              }
+              if (state is AuthError) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.error)));
+              }
+            },
+            child: BlocBuilder<AuthBlocBloc, AuthBlocState>(
+                builder: (context, state) {
+              if (state is AuthBlocInitial) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is UnAuthenticated) {
+                return Center(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        WelcomeBackgroundWidget(
+                            title: TextResources().signInTitle),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        TextFormFieldCustom(
+                          textcontroller: textController,
+                          isPasswordText: false,
+                          prefixIcon: Icon(IconsResources().email,
+                              color: ColorResources().appBarTextIcon),
+                          hintText: TextResources().email,
+                          validator: (value) =>
+                              Validator.validateEmail(email: value!),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormFieldCustom(
+                          textcontroller: passController,
+                          isPasswordText: true,
+                          prefixIcon: Icon(IconsResources().lock,
+                              color: ColorResources().appBarTextIcon),
+                          hintText: TextResources().password,
+                          validator: (value) =>
+                              Validator.validatePassword(password: value!),
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        SignInUpButton(
+                            text: TextResources().signIn,
+                            color: ColorResources().signInButton,
+                            onTap: () async {
+                              await _authenticateWithEmailAndPassword(context);
+                            }),
+                        Center(
+                            child: Text(
+                          TextResources().or,
+                          style: TextStyle(
+                            color: ColorResources().appBar,
+                          ),
+                        )),
+                        SignInUpButton(
+                            text: TextResources().signUp,
+                            textColor: ColorResources().appBar,
+                            color: ColorResources().signUpButton,
+                            onTap: () {
+                              Navigator.pushReplacementNamed(
+                                context,
+                                TextResources().signUpScreenRoute,
+                              );
+                            })
+                      ],
+                    ),
+                  ),
+                );
+              }
+              return Container();
+            }),
+          ),
+        )
+      ])),
     );
   }
 }

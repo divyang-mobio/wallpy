@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:wallpy/resources/resources.dart';
 
 class FireBaseAuthMethods {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -36,22 +36,16 @@ class FireBaseAuthMethods {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      if (result.user != null) {
-        Navigator.popAndPushNamed(context, TextResources().homeScreenRoute);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-            'SignIn Successfully!',
-          ),
-          backgroundColor: Colors.green,
-        ));
-      }
+      if (result.user != null) {}
       return result.user!;
     } on FirebaseAuthException catch (e) {
-      print('Failed with error code: ${e.code}');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: const Color.fromARGB(143, 255, 255, 255),
-          content: Text(e.message.toString())));
-      print(e.message);
+      if (kDebugMode) {
+        print('Failed with error code: ${e.code}');
+      }
+
+      if (kDebugMode) {
+        print(e.message);
+      }
       throw e.message.toString();
     }
   }
@@ -61,34 +55,30 @@ class FireBaseAuthMethods {
       await _auth.signOut();
       return true;
     } on FirebaseAuthException catch (e) {
-      print('Failed with error code: ${e.code}');
+      if (kDebugMode) {
+        print('Failed with error code: ${e.code}');
+      }
       throw false;
     }
   }
 
   static Future<User> signUpWithEmail(
-      String email, String password, BuildContext context) async {
+    String email,
+    String password,
+  ) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      if (result.user != null) {
-        Navigator.popAndPushNamed(context, TextResources().homeScreenRoute);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.green,
-          content: Text(
-            'SignUp Successfully!',
-          ),
-        ));
-      }
 
       return result.user!;
     } on FirebaseAuthException catch (e) {
-      print('Failed with error code: ${e.code}');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Color.fromARGB(143, 255, 255, 255),
-          content: Text(e.message.toString())));
+      if (kDebugMode) {
+        print('Failed with error code: ${e.code}');
+      }
 
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
       throw e.message.toString();
     }
   }
@@ -97,8 +87,12 @@ class FireBaseAuthMethods {
     try {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
-      print('Failed with error code: ${e.code}');
-      print(e.message);
+      if (kDebugMode) {
+        print('Failed with error code: ${e.code}');
+      }
+      if (kDebugMode) {
+        print(e.message);
+      }
       throw e.message.toString();
     }
   }
