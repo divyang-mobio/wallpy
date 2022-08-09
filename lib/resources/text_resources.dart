@@ -14,11 +14,11 @@ class TextResources {
   final String password = "Password";
   final String name = "Name";
   final String or = "OR";
-  final String passwordValidate = "Password can\'t be empty";
+  final String passwordValidate = "Password can't be empty";
   final String enterPassword = "Enter a password with length at least 6";
   final String enterEmail = "Enter a correct email";
-  final String nameValidate = "Name can\'t be empty";
-  final String emailValidate = "Email can\'t be empty";
+  final String nameValidate = "Name can't be empty";
+  final String emailValidate = "Email can't be empty";
   final String failedErrorCode = "Failed with error code:";
   final String snackBarLoadingInPagination = 'Loading';
   final String snackBarAllDataFetchInPagination = 'All Data Fetch';
