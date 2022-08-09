@@ -58,13 +58,13 @@ List<SettingModel> dialogDataForTimeLine = [
 List<SettingModel> bottomSheetScreenData = [
   SettingModel(
       title: TextResources().homeScreenWallpaper,
-      onclick: AsyncWallpaper.HOME_SCREEN),
+      onclick: WallpaperManagerFlutter.HOME_SCREEN),
   SettingModel(
       title: TextResources().lockScreenWallpaper,
-      onclick: AsyncWallpaper.LOCK_SCREEN),
+      onclick: WallpaperManagerFlutter.LOCK_SCREEN),
   SettingModel(
       title: TextResources().bothScreenWallpaper,
-      onclick: AsyncWallpaper.BOTH_SCREENS)
+      onclick: WallpaperManagerFlutter.BOTH_SCREENS)
 ];
 
 List<SettingModel> dialogDataForCollection = [
@@ -98,11 +98,4 @@ List<BottomNavigationModel> bottomData = [
       actionIcon: IconsResources().settingScreenSelected,
       icon: IconsResources().settingScreenUnSelected,
       label: TextResources().settingScreenLabel)
-];
-
-List<CollectionModel> collectionData = [
-  CollectionModel(name: "nature", link: "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/collection_cover%2Foutside-2.jpg?alt=media&token=5fe0cfb7-375d-4903-8498-223963b0d637"),
-  CollectionModel(name: "outside", link: "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/collection_cover%2Foutside-2.jpg?alt=media&token=5fe0cfb7-375d-4903-8498-223963b0d637"),
-  CollectionModel(name: "city", link: "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/collection_cover%2Foutside-2.jpg?alt=media&token=5fe0cfb7-375d-4903-8498-223963b0d637"),
-  CollectionModel(name: "movie", link: "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/collection_cover%2Foutside-2.jpg?alt=media&token=5fe0cfb7-375d-4903-8498-223963b0d637")
 ];
