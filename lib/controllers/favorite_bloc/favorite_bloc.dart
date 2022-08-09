@@ -14,10 +14,10 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     on<GetFavoriteData>(_getAllData);
     on<AddFavorite>(_addFavorite);
   }
-  int ads = 0;
+
+  // int ads = 0;
 
   _addFavorite(AddFavorite event, Emitter<FavoriteState> emit) async {
-    _firebaseDatabase.update(event.dataModel);
     if (event.dataModel.fav) {
       _firebaseDatabase.data.add(event.dataModel);
 
@@ -43,5 +43,6 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
 
   Future<FavoriteLoaded> _getData(String? category, bool isFavorite) async =>
       FavoriteLoaded(
-          data: await _firebaseDatabase.getAllData(category, isFavorite));
+          data: await _firebaseDatabase.getAllData(
+              category, isFavorite, null, false, false));
 }

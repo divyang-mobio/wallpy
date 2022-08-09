@@ -16,8 +16,8 @@ class DataFetchBloc extends Bloc<DataFetchEvent, DataFetchState> {
   void _getAllData(GetAllData event, Emitter<DataFetchState> emit) async {
     try {
       List<Object> data = [];
-      data.addAll(
-          await _firebaseDatabase.getAllData(event.category, event.isFavorite));
+      data.addAll(await _firebaseDatabase.getAllData(
+          event.category, event.isFavorite, null, false, true));
       emit(DataFetchLoaded(data: data));
     } catch (e) {
       emit(DataFetchError());

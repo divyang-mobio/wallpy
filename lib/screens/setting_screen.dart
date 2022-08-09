@@ -68,6 +68,7 @@ class _SettingScreenState extends State<SettingScreen> {
               pref.setScreen(screen ?? 3);
               pref.setList(data);
               pref.setNo(1);
+
               wallpaperSetter(data[0].url, screen ?? 3);
               await AndroidAlarmManager.periodic(const Duration(minutes: 1),
                   TextResources().androidAlarmManagerId, callWallpaperSetter);

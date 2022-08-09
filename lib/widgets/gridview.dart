@@ -6,7 +6,7 @@ import 'grid_card.dart';
 Padding gridView(
     List<Object> data, ScrollController? controller, bool isLoading) {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
     child: GridView.builder(
       controller: controller,
       shrinkWrap: true,
@@ -19,16 +19,17 @@ Padding gridView(
       itemBuilder: (context, index) {
         Object? item = isLoading ? loadingDataModel : data[index];
         return (item is DataModel)
-            ? gridCard(context, item, isLoading)
-            : const Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                color: Colors.black);
+            ? Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: gridCard(context, item, isLoading))
+            : const Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    color: Colors.black),
+              );
       },
     ),
   );
-}
-
-void snackBar(String data, context) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
 }

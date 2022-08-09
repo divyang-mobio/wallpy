@@ -3,11 +3,14 @@ part of 'resources.dart';
 class TextResources {
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
+  final String categoryAppTitle = "Category";
   final String favoriteAppTitle = "Favorite";
   final String homeScreenLabel = "Home";
+  final String categoryScreenLabel = "Category";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String splashScreenTile = "Wallpy";
+
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
   final String email = "Email";
@@ -20,6 +23,7 @@ class TextResources {
   final String nameValidate = "Name can't be empty";
   final String emailValidate = "Email can't be empty";
   final String failedErrorCode = "Failed with error code:";
+
   final String snackBarLoadingInPagination = 'Loading';
   final String snackBarAllDataFetchInPagination = 'All Data Fetch';
   final String methodChannelName = "wallpyBackgroundService";
@@ -64,6 +68,9 @@ class TextResources {
   final String detailScreenRoute = '/detail';
   final String signUpScreenRoute = '/signUp';
   final String signInScreenRoute = '/signIn';
+  final String onSearchNoDataFound = "No Data Found :(";
+  final String searchHint = "Search";
+  final String placeHolderForLoadingImage = "assets/99318-hms-loading.gif";
 }
 
 List<SettingModel> dialogDataForTimeLine = [
@@ -87,15 +94,34 @@ List<SettingModel> bottomSheetScreenData = [
 ];
 
 List<SettingModel> dialogDataForCollection = [
-  SettingModel(title: "Home Screen", onclick: "homeScreen"),
-  SettingModel(title: "Favorite Screen", onclick: "favorite"),
+  SettingModel(title: "Random", onclick: "homeScreen"),
+  SettingModel(title: "Favorite", onclick: "favorite"),
 ];
 
 DataModel loadingDataModel = DataModel(
     id: 1,
     name: "Loading",
     uid: "Loading",
-    category: "Loading",
+    category: [],
     fav: false,
     timestamp: DateTime(2022 - 08 - 03, 1, 3),
     url: "Loading");
+
+List<BottomNavigationModel> bottomData = [
+  BottomNavigationModel(
+      actionIcon: IconsResources().homeScreenSelected,
+      icon: IconsResources().homeScreenUnSelected,
+      label: TextResources().homeScreenLabel),
+  BottomNavigationModel(
+      actionIcon: IconsResources().categoryScreenSelected,
+      icon: IconsResources().categoryScreenUnSelected,
+      label: TextResources().categoryScreenLabel),
+  BottomNavigationModel(
+      actionIcon: IconsResources().favouriteScreenSelected,
+      icon: IconsResources().favouriteScreenUnSelected,
+      label: TextResources().favouriteScreenLabel),
+  BottomNavigationModel(
+      actionIcon: IconsResources().settingScreenSelected,
+      icon: IconsResources().settingScreenUnSelected,
+      label: TextResources().settingScreenLabel)
+];

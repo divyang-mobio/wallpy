@@ -22,7 +22,7 @@ bottomSheet(context, String title, List<SettingModel> bottomSheetData) {
       context: context,
       builder: (BuildContext context) {
         return SizedBox(
-          height: 200,
+          height: MediaQuery.of(context).size.height * .3,
           child: Center(
             child: ListView(
               children: [
