@@ -1,6 +1,6 @@
 part of 'resources.dart';
 
-class ColorResources{
+class ColorResources {
   final Color splashWord = Colors.black;
   final Color detailScreenContainer = Colors.white.withOpacity(0.4);
   final Color detailScreenIcons = Colors.black;
@@ -14,6 +14,8 @@ class ColorResources{
   final Color shimmerHighlight = Colors.grey.shade100;
   final Color selectedItemInNavigationBar = Colors.black;
   final Color selectedFavoriteItemInNavigationBar = Colors.red;
-  final Color search = Colors.black;
+  final Color signInButton = Colors.amber;
+  final Color signUpButton = const Color.fromARGB(106, 255, 255, 255);
 
+  final Color search = Colors.black;
 }

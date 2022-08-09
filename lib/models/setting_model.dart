@@ -1,6 +1,6 @@
-class SettingModel{
+class SettingModel {
   String title;
-  var onclick;
+  dynamic onclick;
 
-  SettingModel({required this.title ,required this.onclick});
+  SettingModel({required this.title, required this.onclick});
 }

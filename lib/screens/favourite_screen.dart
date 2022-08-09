@@ -1,7 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../resources/resources.dart';
-import '../controllers/favorite_bloc.dart';
+import '../controllers/favorite_bloc/favorite_bloc.dart';
 import '../widgets/shimmer_loading.dart';
 import '../widgets/gridview.dart';
 
@@ -21,7 +22,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent) {
-        print("scroll");
+        if (kDebugMode) {
+          print("scroll");
+        }
         BlocProvider.of<FavoriteBloc>(context)
             .add(GetFavoriteData(isFavorite: true, category: null));
       }

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
-import '../models/data_model.dart';
-import '../utils/firestore_database_calling.dart';
+
+import '../../models/data_model.dart';
+import '../../utils/firestore_database_calling.dart';
 
 part 'favorite_event.dart';
 
@@ -9,8 +10,7 @@ part 'favorite_state.dart';
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   final FirebaseDatabase _firebaseDatabase;
 
-  FavoriteBloc(this._firebaseDatabase)
-      : super(FavoriteLoading()) {
+  FavoriteBloc(this._firebaseDatabase) : super(FavoriteLoading()) {
     on<GetFavoriteData>(_getAllData);
     on<AddFavorite>(_addFavorite);
   }
@@ -20,6 +20,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   _addFavorite(AddFavorite event, Emitter<FavoriteState> emit) async {
     if (event.dataModel.fav) {
       _firebaseDatabase.data.add(event.dataModel);
+
       /// if ads need to add in Favorite
       // ads += 1;
       // if(ads == TextResources().adsInternalInList) {

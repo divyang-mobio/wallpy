@@ -6,5 +6,5 @@ class GetAllData extends DataFetchEvent {
   String? category;
   bool isFavorite;
 
-  GetAllData({this.category,required this.isFavorite});
+  GetAllData({this.category, required this.isFavorite});
 }

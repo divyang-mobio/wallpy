@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/controllers/auth_bloc/auth_bloc_bloc.dart';
+import 'package:wallpy/resources/resources.dart';
 import 'search_screen.dart';
 import 'category_screen.dart';
 import 'favourite_screen.dart';
@@ -7,7 +10,9 @@ import '../resources/resources.dart';
 import 'main_screen.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
-  const BottomNavigationBarScreen({Key? key}) : super(key: key);
+  //final User currentUser;
+  // ignore: use_key_in_widget_constructors
+  const BottomNavigationBarScreen();
 
   @override
   State<BottomNavigationBarScreen> createState() =>
@@ -38,31 +43,39 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: ColorResources().appBar,
-        title: Text(
-            _selectedIndex == 0
-                ? TextResources().appTitle
-                : _selectedIndex == 1
-                    ? TextResources().categoryAppTitle
-                    : _selectedIndex == 2
-                        ? TextResources().favoriteAppTitle
-                        : TextResources().settingAppTitle,
-            style: Theme.of(context).textTheme.headline1),
-        elevation: 6.0,
-        actions: (_selectedIndex == 3)
-            ? []
-            : [
-                IconButton(
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) =>
-                                SearchScreen(screen: _selectedIndex))),
-                    icon: Icon(IconsResources().search,
-                        size: 35, color: ColorResources().search))
-              ],
-      ),
+          centerTitle: true,
+          actions: (_selectedIndex == 3)
+              ? [
+                  IconButton(
+                      onPressed: () {
+                        context.read<AuthBlocBloc>().add(SignOutRequested());
+                      },
+                      icon: const Icon(
+                        Icons.logout,
+                        color: Colors.black,
+                      ))
+                ]
+              : [
+                  IconButton(
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  SearchScreen(screen: _selectedIndex))),
+                      icon: Icon(IconsResources().search,
+                          size: 35, color: ColorResources().search))
+                ],
+          backgroundColor: ColorResources().appBar,
+          title: Text(
+              _selectedIndex == 0
+                  ? TextResources().appTitle
+                  : _selectedIndex == 1
+                      ? TextResources().categoryAppTitle
+                      : _selectedIndex == 2
+                          ? TextResources().favoriteAppTitle
+                          : TextResources().settingAppTitle,
+              style: Theme.of(context).textTheme.headline1),
+          elevation: 6.0),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,

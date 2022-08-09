@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
-import '../controllers/favorite_bloc.dart';
+import '../controllers/favorite_bloc/favorite_bloc.dart';
 import '../widgets/wallpaper_setter.dart';
 import '../resources/resources.dart';
 import '../models/data_model.dart';
@@ -99,6 +99,7 @@ Icon icons(IconData iconData) {
   );
 }
 
+// ignore: must_be_immutable
 class FavoriteIcon extends StatefulWidget {
   const FavoriteIcon({Key? key, required this.dataModel})
       : super(key: key);

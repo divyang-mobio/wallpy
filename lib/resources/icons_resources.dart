@@ -14,6 +14,11 @@ class IconsResources {
   final categoryScreenSelected = Icons.category;
   final addFavorite = Icons.favorite_border;
   final removeFavorite = Icons.favorite;
+  final visibility = Icons.visibility;
+  final visibilityOff = Icons.visibility_off_rounded;
+  final email = Icons.mail;
+  final user = Icons.person;
+  final lock = Icons.lock;
   final searchClear = Icons.clear;
   final searchBack = Icons.arrow_back_ios_new;
 }

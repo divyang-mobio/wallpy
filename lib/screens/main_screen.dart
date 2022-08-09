@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../controllers/data_fetch_bloc.dart';
+
+import '../controllers/data_fetch_bloc/data_fetch_bloc.dart';
+
 import '../resources/resources.dart';
 import '../widgets/gridview.dart';
 import '../widgets/shimmer_loading.dart';
@@ -20,7 +23,11 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
-          (_scrollController.position.maxScrollExtent)) {
+          _scrollController.position.maxScrollExtent) {
+        if (kDebugMode) {
+          print("scroll");
+        }
+
         BlocProvider.of<DataFetchBloc>(context)
             .add(GetAllData(isFavorite: false, category: null));
       }

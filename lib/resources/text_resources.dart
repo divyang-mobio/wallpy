@@ -10,9 +10,20 @@ class TextResources {
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String splashScreenTile = "Wallpy";
-  final String splashScreenRoute = '/';
-  final String homeScreenRoute = '/bottomBar';
-  final String detailScreenRoute = '/detail';
+
+  final String signInTitle = "Welcome  Back";
+  final String signUpTitle = "Create Account";
+  final String email = "Email";
+  final String password = "Password";
+  final String name = "Name";
+  final String or = "OR";
+  final String passwordValidate = "Password can't be empty";
+  final String enterPassword = "Enter a password with length at least 6";
+  final String enterEmail = "Enter a correct email";
+  final String nameValidate = "Name can't be empty";
+  final String emailValidate = "Email can't be empty";
+  final String failedErrorCode = "Failed with error code:";
+
   final String snackBarLoadingInPagination = 'Loading';
   final String snackBarAllDataFetchInPagination = 'All Data Fetch';
   final String methodChannelName = "wallpyBackgroundService";
@@ -39,12 +50,27 @@ class TextResources {
   final String blocError = "Error :(";
   final String startService = "Start Service";
   final String stopService = "Stop Service";
-  final String onSearchNoDataFound = "No Data Found :(";
-  final String searchHint = "Search";
-  final String placeHolderForLoadingImage = "assets/99318-hms-loading.gif";
+
+  final String signUp = 'Sign_Up';
+  final String signIn = 'Sign-In';
+  final String welcomSubtitle =
+      'Walpy does not rely on fixed-time alarms that prevent your device from getting enough sleep. It lets Android figure out when is the best time to change wallpapers. You can configure constraints to only change wallpaper while your device is:';
+
+//Int type
   final int adsInternalInList = 2;
   final int androidAlarmManagerId = 0;
   final int itemLimit = 5;
+
+//routes Strings
+  final String splashScreenRoute = '/';
+  final String homeScreenRoute = '/bottomBar';
+  final String welcomeScreenRoute = '/welcome';
+  final String detailScreenRoute = '/detail';
+  final String signUpScreenRoute = '/signUp';
+  final String signInScreenRoute = '/signIn';
+  final String onSearchNoDataFound = "No Data Found :(";
+  final String searchHint = "Search";
+  final String placeHolderForLoadingImage = "assets/99318-hms-loading.gif";
 }
 
 List<SettingModel> dialogDataForTimeLine = [

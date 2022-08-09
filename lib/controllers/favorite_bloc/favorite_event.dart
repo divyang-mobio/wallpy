@@ -15,7 +15,5 @@ class AddFavorite extends FavoriteEvent {
   bool isFavorite;
 
   AddFavorite(
-      {required this.dataModel,
-      required this.isFavorite,
-      this.category});
+      {required this.dataModel, required this.isFavorite, this.category});
 }

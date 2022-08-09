@@ -3,12 +3,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/repository/auth_repository.dart';
+import 'package:wallpy/screens/main_screen.dart';
+import 'package:wallpy/screens/sign_in_screen.dart';
+import 'package:wallpy/screens/sign_up_screen.dart';
+import 'package:wallpy/screens/welcome_screen.dart';
+import 'controllers/auth_bloc/auth_bloc_bloc.dart';
+import 'controllers/favorite_bloc/favorite_bloc.dart';
 import 'controllers/search_bloc.dart';
-import 'controllers/favorite_bloc.dart';
 import 'screens/detail_screen.dart';
 import 'models/navigation_model.dart';
 import 'screens/bottom_navigation_screen.dart';
-import 'controllers/data_fetch_bloc.dart';
+import 'controllers/data_fetch_bloc/data_fetch_bloc.dart';
 import 'utils/firestore_database_calling.dart';
 import 'screens/splash_screen.dart';
 import 'resources/resources.dart';
@@ -68,8 +74,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<FirebaseDatabase>(
-      create: (context) => (FirebaseDatabase()),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<FirebaseDatabase>(
+            create: (context) => (FirebaseDatabase())),
+        RepositoryProvider(
+          create: (context) => AuthRepository(),
+        ),
+      ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<DataFetchBloc>(
@@ -81,6 +93,11 @@ class _MyAppState extends State<MyApp> {
               create: (context) => FavoriteBloc(FirebaseDatabase())
                 ..add(GetFavoriteData(isFavorite: true, category: null))),
           BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
+          BlocProvider<AuthBlocBloc>(
+            create: (context) => AuthBlocBloc(
+              authRepository: RepositoryProvider.of<AuthRepository>(context),
+            ),
+          ),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -107,13 +124,21 @@ class _MyAppState extends State<MyApp> {
                   return MaterialPageRoute(
                       builder: (context) =>
                           DetailScreen(dataModel: args.dataModel));
+                case "/welcome":
+                  return MaterialPageRoute(
+                      builder: (context) => const WelcomeScreen());
+                case "/signUp":
+                  return MaterialPageRoute(
+                      builder: (context) => const SignUp());
+                case "/signIn":
+                  return MaterialPageRoute(
+                      builder: (context) => const SignIn());
                 default:
                   return MaterialPageRoute(
-                      builder: (context) => const BottomNavigationBarScreen());
+                      builder: (context) => const MyHomePage());
               }
             },
-            initialRoute: initialRoute //TextResources().splashScreenRoute,
-            ),
+            initialRoute: initialRoute),
       ),
     );
   }

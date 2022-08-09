@@ -7,17 +7,13 @@ bottomSheet(context, String title, List<SettingModel> bottomSheetData) {
   if (Platform.isIOS) {
     return CupertinoPageScaffold(
       child: CupertinoActionSheet(
-        title: Text(title, style: Theme
-            .of(context)
-            .textTheme
-            .headline5),
+        title: Text(title, style: Theme.of(context).textTheme.headline5),
         actions: <CupertinoActionSheetAction>[
-          for(var data in bottomSheetData)
-          CupertinoActionSheetAction(
-            child: Text(data.title),
-            onPressed: () =>
-                Navigator.pop(context , data.onclick),
-          ),
+          for (var data in bottomSheetData)
+            CupertinoActionSheetAction(
+              child: Text(data.title),
+              onPressed: () => Navigator.pop(context, data.onclick),
+            ),
         ],
       ),
     );
@@ -26,7 +22,7 @@ bottomSheet(context, String title, List<SettingModel> bottomSheetData) {
       context: context,
       builder: (BuildContext context) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height*.3,
+          height: MediaQuery.of(context).size.height * .3,
           child: Center(
             child: ListView(
               children: [
@@ -34,17 +30,12 @@ bottomSheet(context, String title, List<SettingModel> bottomSheetData) {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(title, style: Theme
-                        .of(context)
-                        .textTheme
-                        .headline5),
-                    for(var data in bottomSheetData)
+                    Text(title, style: Theme.of(context).textTheme.headline5),
+                    for (var data in bottomSheetData)
                       MaterialButton(
-                      child: Text(data.title),
-                      onPressed: () =>
-                          Navigator.pop(
-                              context, data.onclick),
-                    ),
+                        child: Text(data.title),
+                        onPressed: () => Navigator.pop(context, data.onclick),
+                      ),
                   ],
                 ),
               ],
