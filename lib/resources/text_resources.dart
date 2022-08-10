@@ -50,7 +50,7 @@ class TextResources {
   final String blocError = "Error :(";
   final String startService = "Start Service";
   final String stopService = "Stop Service";
-
+  final String categoryDetail = "CategoryDetails";
   final String signUp = 'Sign_Up';
   final String signIn = 'Sign-In';
   final String welcomSubtitle =

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wallpy/resources/resources.dart';
 
 class TextFormFieldCustom extends StatelessWidget {
   const TextFormFieldCustom(
@@ -42,12 +43,12 @@ class TextFormFieldCustom extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: const Color.fromARGB(156, 255, 255, 255),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
+                  color: ColorResources().boxShadow,
                   blurRadius: 10.0,
                   spreadRadius: 2.0,
-                  offset: Offset(
+                  offset: const Offset(
                     0.0,
                     10.0,
                   ),
@@ -74,8 +75,8 @@ class TextFormFieldCustom extends StatelessWidget {
                         onTap: _togglePasswordVisiblity,
                         child: Icon(
                           passWordVisible
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+                              ? IconsResources().visibilityOff
+                              : IconsResources().visibility,
                           size: 25.0,
                         ))
                     : suffixIcon,
@@ -89,16 +90,16 @@ class TextFormFieldCustom extends StatelessWidget {
                   borderSide: const BorderSide(width: .5),
                 ),
                 hintText: hintText,
-                hintStyle: const TextStyle(
-                  color: Colors.black,
+                hintStyle: TextStyle(
+                  color: ColorResources().textColorblack,
                   fontSize: 14,
                 ),
               ),
 
               // textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
-                color: Colors.black,
+                color: ColorResources().textColorblack,
               ),
             ),
           ),
@@ -133,13 +134,13 @@ Widget textformediter(BuildContext context,
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            color: Colors.white24,
-            boxShadow: const [
+            color: ColorResources().textWhite24,
+            boxShadow: [
               BoxShadow(
-                color: Colors.black12,
+                color: ColorResources().boxShadow,
                 blurRadius: 10.0,
                 spreadRadius: 2.0,
-                offset: Offset(
+                offset: const Offset(
                   0.0,
                   10.0,
                 ),
@@ -159,8 +160,8 @@ Widget textformediter(BuildContext context,
             onChanged: onChanged,
             validator: validator,
             decoration: InputDecoration(
-              labelStyle: const TextStyle(
-                color: Colors.white,
+              labelStyle: TextStyle(
+                color: ColorResources().textColorwhite,
                 fontFamily: 'Montserrat',
                 fontSize: 14,
               ),
@@ -170,8 +171,8 @@ Widget textformediter(BuildContext context,
                       onTap: _togglePasswordVisiblity,
                       child: Icon(
                         passWordVisible
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                            ? IconsResources().visibilityOff
+                            : IconsResources().visibility,
                         size: 25.0,
                       ))
                   : suffixIcon,
@@ -186,94 +187,20 @@ Widget textformediter(BuildContext context,
                 borderSide: const BorderSide(width: .5),
               ),
               hintText: hintText,
-              hintStyle: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'Montserrat',
+              hintStyle: TextStyle(
+                color: ColorResources().textColorblack,
                 fontSize: 14,
               ),
             ),
 
             textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 14, color: Colors.black, fontFamily: 'Montserrat'),
+            style: TextStyle(
+              fontSize: 14,
+              color: ColorResources().categoryText,
+            ),
           ),
         ),
       );
     }),
   );
-} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//   class Textfield extends StatelessWidget {
-//   final TextEditingController controller;
-//   final String hint;
-//   final Icon icon;
-//   final bool isPassword;
-//   final Widget? suffix;
-//   final IconButton? suffixIcon;
-
-//   const Textfield(
-//       {Key? key,
-//       required this.controller,
-//       required this.hint,
-//       required this.icon,
-//       required this.isPassword,
-//       this.suffix,
-//       this.suffixIcon})
-//       : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: 50,
-//       child: TextField(
-//         controller: controller,
-//         maxLines: null,
-//         obscureText: isPassword,
-//         decoration: InputDecoration(
-          
-
-
-
-
-          
-//           hintText: hint,
-//           contentPadding: EdgeInsets.zero,
-//           suffixIcon: suffixIcon,
-//           prefixIcon: icon,
-//           suffix: suffix,
-//           filled: true,
-//           fillColor: const Color.fromARGB(166, 255, 255, 255),
-//           border: OutlineInputBorder(
-//               borderSide: BorderSide.none,
-//               borderRadius: BorderRadius.circular(10)),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-
+}

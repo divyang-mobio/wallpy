@@ -50,9 +50,9 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                       onPressed: () {
                         context.read<AuthBlocBloc>().add(SignOutRequested());
                       },
-                      icon: const Icon(
-                        Icons.logout,
-                        color: Colors.black,
+                      icon: Icon(
+                        IconsResources().logout,
+                        color: ColorResources().appBarTextIcon,
                       ))
                 ]
               : [

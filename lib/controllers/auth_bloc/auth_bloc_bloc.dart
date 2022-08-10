@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:wallpy/repository/auth_repository.dart';
+import 'package:flutter/material.dart';
+import '../../repository/auth_repository.dart';
 
 part 'auth_bloc_event.dart';
 part 'auth_bloc_state.dart';
@@ -31,9 +32,13 @@ class AuthBlocBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
       }
     });
 
-    on<SignOutRequested>((event, emit) async {
+    on<SignOutRequested>((
+      event,
+      emit,
+    ) async {
       emit(AuthBlocInitial());
       await authRepository.logout();
+
       emit(UnAuthenticated());
     });
   }

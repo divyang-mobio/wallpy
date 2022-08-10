@@ -6,7 +6,6 @@ part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-
   SearchBloc() : super(SearchLoading()) {
     on<SearchData>(_searchData);
   }
@@ -16,7 +15,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(SearchLoaded(
           data: await event.firebaseDatabase.getAllData(
               null, event.isFavorite, event.query, event.isSearch, false)));
-    } catch(e){
+    } catch (e) {
       print("error");
     }
   }

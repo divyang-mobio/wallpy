@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import '../resources/resources.dart';
 
-networkImages(String link) {
+networkImages(String link, {BoxFit? fit}) {
   return CachedNetworkImage(
     cacheManager:
         CacheManager(Config("test", stalePeriod: const Duration(days: 1))),
     imageUrl: link,
-    fit: BoxFit.fill,
+    fit: fit ?? BoxFit.fill,
     placeholder: (context, url) => Image.asset(
         TextResources().placeHolderForLoadingImage,
         fit: BoxFit.fill),

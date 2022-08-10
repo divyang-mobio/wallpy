@@ -36,7 +36,7 @@ class WelcomeScreen extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1!
-                    .copyWith(color: Colors.white),
+                    .copyWith(color: ColorResources().textColorwhite),
               ),
               const SizedBox(
                 height: 20,
@@ -52,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
                   }),
               SignInUpButton(
                   text: TextResources().signIn,
-                  textColor: ColorResources().appBar,
+                  textColor: ColorResources().textColorwhite,
                   color: ColorResources().signUpButton,
                   onTap: () {
                     Navigator.pushNamed(

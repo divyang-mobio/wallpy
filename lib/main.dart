@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/controllers/category_bloc/category_bloc.dart';
 import 'package:wallpy/repository/auth_repository.dart';
 import 'package:wallpy/screens/main_screen.dart';
 import 'package:wallpy/screens/sign_in_screen.dart';
@@ -19,9 +20,7 @@ import 'utils/firestore_database_calling.dart';
 import 'screens/splash_screen.dart';
 import 'resources/resources.dart';
 
-Future<void> backgroundHandler(RemoteMessage message) async {
-  print(message.data);
-}
+Future<void> backgroundHandler(RemoteMessage message) async {}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -97,6 +96,11 @@ class _MyAppState extends State<MyApp> {
             create: (context) => AuthBlocBloc(
               authRepository: RepositoryProvider.of<AuthRepository>(context),
             ),
+          ),
+          BlocProvider<CategoryBloc>(
+            create: (context) =>
+                CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
+                  ..add(GetAllCategory(category: null)),
           ),
         ],
         child: MaterialApp(
