@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/data_model.dart';
 
@@ -17,9 +16,7 @@ class PreferenceServices {
     final preference = await SharedPreferences.getInstance();
     await preference.setStringList(
         "list", data.map((e) => e.url.toString()).toList());
-    if (kDebugMode) {
-      print("save");
-    }
+    print("save");
   }
 
   Future<int> getNo(SharedPreferences preferences) async {

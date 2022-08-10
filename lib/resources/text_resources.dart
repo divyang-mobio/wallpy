@@ -51,11 +51,14 @@ class TextResources {
   final String startService = "Start Service";
   final String stopService = "Stop Service";
   final String categoryDetail = "CategoryDetails";
+  final String googleSignInUp = "google Sign-In";
   final String signUp = 'Sign_Up';
   final String signIn = 'Sign-In';
   final String welcomSubtitle =
       'Walpy does not rely on fixed-time alarms that prevent your device from getting enough sleep. It lets Android figure out when is the best time to change wallpapers. You can configure constraints to only change wallpaper while your device is:';
-
+  final String fireStoreCategory = "Category";
+  final String fireStoreImgFav = "image_fav";
+  final String fireStoreImgCat = "image_category";
 //Int type
   final int adsInternalInList = 2;
   final int androidAlarmManagerId = 0;
@@ -67,6 +70,7 @@ class TextResources {
   final String welcomeScreenRoute = '/welcome';
   final String detailScreenRoute = '/detail';
   final String signUpScreenRoute = '/signUp';
+  final String searchScreenRoute = '/search';
   final String signInScreenRoute = '/signIn';
   final String onSearchNoDataFound = "No Data Found :(";
   final String searchHint = "Search";

@@ -18,7 +18,6 @@ class SignInUpButton extends StatelessWidget {
         onPressed: onTap,
         minWidth: MediaQuery.of(context).size.width,
         color: color,
-        //color:
         child: Text(
           text,
           style: TextStyle(color: textColor),

@@ -85,7 +85,7 @@ class _SignInState extends State<SignIn> {
                             height: 50,
                           ),
                           TextFormFieldCustom(
-                            textcontroller: textController,
+                            textController: textController,
                             isPasswordText: false,
                             prefixIcon: Icon(IconsResources().email,
                                 color: ColorResources().appBarTextIcon),
@@ -97,7 +97,7 @@ class _SignInState extends State<SignIn> {
                             height: 20,
                           ),
                           TextFormFieldCustom(
-                            textcontroller: passController,
+                            textController: passController,
                             isPasswordText: true,
                             prefixIcon: Icon(IconsResources().lock,
                                 color: ColorResources().appBarTextIcon),
@@ -131,6 +131,14 @@ class _SignInState extends State<SignIn> {
                                   context,
                                   TextResources().signUpScreenRoute,
                                 );
+                              }),
+                          SignInUpButton(
+                              text: TextResources().googleSignInUp,
+                              textColor: ColorResources().googleSignInUpText,
+                              color: ColorResources().signUpButton,
+                              onTap: () {
+                                BlocProvider.of<AuthBlocBloc>(context)
+                                    .add(GoogleSignUpRequested());
                               })
                         ],
                       ),

@@ -23,4 +23,5 @@ class IconsResources {
   final logout = Icons.logout;
 
   final searchBack = Icons.arrow_back_ios_new;
+  final logOut = Icons.logout_rounded;
 }

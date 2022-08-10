@@ -12,7 +12,7 @@ class TextFormFieldCustom extends StatelessWidget {
       this.isPasswordText,
       this.prefixIcon,
       this.suffixIcon,
-      this.textcontroller,
+      this.textController,
       this.inputFormatters})
       : super(key: key);
   final String hintText;
@@ -22,7 +22,7 @@ class TextFormFieldCustom extends StatelessWidget {
   final bool? isPasswordText;
   final Widget? suffixIcon;
   final Icon? prefixIcon;
-  final TextEditingController? textcontroller;
+  final TextEditingController? textController;
   final List<TextInputFormatter>? inputFormatters;
   @override
   Widget build(BuildContext context) {
@@ -57,14 +57,12 @@ class TextFormFieldCustom extends StatelessWidget {
             ),
             child: TextFormField(
               inputFormatters: inputFormatters,
-              controller: textcontroller,
+              controller: textController,
               obscureText: isPasswordText != null && isPasswordText!
                   ? passWordVisible
                   : false,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               keyboardType: TextInputType.text,
-
-              //inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$"))],
               maxLength: maxLength ?? 30,
               onChanged: onChanged,
               validator: validator,

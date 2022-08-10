@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wallpy/resources/resources.dart';
+import '../resources/resources.dart';
 
 class AuthRepository {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -51,6 +52,7 @@ class AuthRepository {
     }
   }
 
+  /// not working
   Future<bool> logout() async {
     try {
       await auth.signOut();
@@ -72,6 +74,8 @@ class AuthRepository {
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
+
+      await result.user?.updateDisplayName(name);
 
       return result.user!;
     } on FirebaseAuthException catch (e) {

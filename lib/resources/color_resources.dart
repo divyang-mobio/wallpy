@@ -22,6 +22,9 @@ class ColorResources {
   final Color boxShadow = Colors.black12;
   final Color circularProgress = Colors.white;
   final Color signUpButton = const Color.fromARGB(106, 255, 255, 255);
-  final welcomeBackgroundColor = Colors.transparent;
+  final Color welcomeBackgroundColor = Colors.transparent;
+  final Color googleSignInUpText = Colors.black;
   final Color search = Colors.black;
+  final Color logOut = Colors.black;
+  final Color signUpInText = Colors.black;
 }
