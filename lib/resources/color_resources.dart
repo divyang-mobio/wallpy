@@ -18,4 +18,6 @@ class ColorResources {
   final Color signUpButton = const Color.fromARGB(106, 255, 255, 255);
   final Color googleSignInUpText = Colors.black;
   final Color search = Colors.black;
+  final Color logOut = Colors.black;
+  final Color signUpInText = Colors.black;
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wallpy/controllers/auth_bloc/auth_bloc_bloc.dart';
-import 'package:wallpy/resources/resources.dart';
-import 'search_screen.dart';
+import '../controllers/auth_bloc/auth_bloc_bloc.dart';
+import '../models/navigation_model.dart';
+import '../resources/resources.dart';
 import 'category_screen.dart';
 import 'favourite_screen.dart';
 import 'setting_screen.dart';
-import '../resources/resources.dart';
 import 'main_screen.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
@@ -49,19 +48,20 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                   IconButton(
                       onPressed: () {
                         context.read<AuthBlocBloc>().add(SignOutRequested());
+                        Navigator.pushReplacementNamed(
+                          context,
+                          TextResources().welcomeScreenRoute,
+                        );
                       },
-                      icon: const Icon(
-                        Icons.logout,
-                        color: Colors.black,
-                      ))
+                      icon: Icon(IconsResources().logOut,
+                          size: 30, color: ColorResources().logOut))
                 ]
               : [
                   IconButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) =>
-                                  SearchScreen(screen: _selectedIndex))),
+                      onPressed: () => Navigator.pushNamed(
+                          context, TextResources().searchScreenRoute,
+                          arguments: SearchScreenArgument(
+                              selectedScreen: _selectedIndex)),
                       icon: Icon(IconsResources().search,
                           size: 35, color: ColorResources().search))
                 ],

@@ -5,3 +5,9 @@ class DetailScreenArgument {
 
   DetailScreenArgument({required this.dataModel});
 }
+
+class SearchScreenArgument {
+  int selectedScreen;
+
+  SearchScreenArgument({required this.selectedScreen});
+}

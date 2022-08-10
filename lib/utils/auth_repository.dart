@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-
-import 'package:wallpy/resources/resources.dart';
+import '../resources/resources.dart';
 
 class AuthRepository {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -63,7 +62,6 @@ class AuthRepository {
     }
   }
 
-  /// name is not storing in fireAuth
   Future<User> signUpWithEmail(
     String email,
     String password,
@@ -72,6 +70,8 @@ class AuthRepository {
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
+
+      await result.user?.updateDisplayName(name);
 
       return result.user!;
     } on FirebaseAuthException catch (e) {

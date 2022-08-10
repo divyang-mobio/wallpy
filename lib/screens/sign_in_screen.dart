@@ -78,33 +78,27 @@ class _SignInState extends State<SignIn> {
                       children: [
                         WelcomeBackgroundWidget(
                             title: TextResources().signInTitle),
-                        const SizedBox(
-                          height: 50,
-                        ),
+                        const SizedBox(height: 50),
                         TextFormFieldCustom(
-                          textcontroller: textController,
+                          textController: textController,
                           isPasswordText: false,
                           prefixIcon: Icon(IconsResources().email,
-                              color: ColorResources().appBarTextIcon),
+                              color: ColorResources().signUpInText),
                           hintText: TextResources().email,
                           validator: (value) =>
                               Validator.validateEmail(email: value!),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         TextFormFieldCustom(
-                          textcontroller: passController,
+                          textController: passController,
                           isPasswordText: true,
                           prefixIcon: Icon(IconsResources().lock,
-                              color: ColorResources().appBarTextIcon),
+                              color: ColorResources().signUpInText),
                           hintText: TextResources().password,
                           validator: (value) =>
                               Validator.validatePassword(password: value!),
                         ),
-                        const SizedBox(
-                          height: 40,
-                        ),
+                        const SizedBox(height: 40),
                         SignInUpButton(
                             text: TextResources().signIn,
                             color: ColorResources().signInButton,
@@ -114,13 +108,11 @@ class _SignInState extends State<SignIn> {
                         Center(
                             child: Text(
                           TextResources().or,
-                          style: TextStyle(
-                            color: ColorResources().appBar,
-                          ),
+                          style: TextStyle(color: ColorResources().signUpInText),
                         )),
                         SignInUpButton(
                             text: TextResources().signUp,
-                            textColor: ColorResources().appBar,
+                            textColor: ColorResources().signUpInText,
                             color: ColorResources().signUpButton,
                             onTap: () {
                               Navigator.pushReplacementNamed(

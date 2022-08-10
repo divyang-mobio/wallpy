@@ -69,6 +69,7 @@ class TextResources {
   final String welcomeScreenRoute = '/welcome';
   final String detailScreenRoute = '/detail';
   final String signUpScreenRoute = '/signUp';
+  final String searchScreenRoute = '/search';
   final String signInScreenRoute = '/signIn';
   final String onSearchNoDataFound = "No Data Found :(";
   final String searchHint = "Search";

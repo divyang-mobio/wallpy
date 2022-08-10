@@ -79,24 +79,20 @@ class _SignUpState extends State<SignUp> {
                     children: [
                       WelcomeBackgroundWidget(
                           title: TextResources().signUpTitle),
-                      const SizedBox(
-                        height: 50,
-                      ),
+                      const SizedBox(height: 50),
                       TextFormFieldCustom(
-                        textcontroller: nameController,
+                        textController: nameController,
                         isPasswordText: false,
                         prefixIcon: Icon(IconsResources().user,
-                            color: ColorResources().appBarTextIcon),
+                            color: ColorResources().signUpInText),
                         hintText: TextResources().name,
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       TextFormFieldCustom(
-                        textcontroller: textController,
+                        textController: textController,
                         isPasswordText: false,
                         prefixIcon: Icon(IconsResources().email,
-                            color: ColorResources().appBarTextIcon),
+                            color: ColorResources().signUpInText),
                         hintText: TextResources().email,
                         validator: (value) =>
                             Validator.validateEmail(email: value!),
@@ -105,10 +101,10 @@ class _SignUpState extends State<SignUp> {
                         height: 20,
                       ),
                       TextFormFieldCustom(
-                        textcontroller: passController,
+                        textController: passController,
                         isPasswordText: true,
                         prefixIcon: Icon(IconsResources().lock,
-                            color: ColorResources().appBarTextIcon),
+                            color: ColorResources().signUpInText),
                         hintText: TextResources().password,
                         validator: (value) =>
                             Validator.validatePassword(password: value!),
@@ -130,7 +126,7 @@ class _SignUpState extends State<SignUp> {
                       )),
                       SignInUpButton(
                           text: TextResources().signIn,
-                          textColor: ColorResources().appBar,
+                          textColor: ColorResources().signUpInText,
                           color: ColorResources().signUpButton,
                           onTap: () {
                             Navigator.pushReplacementNamed(
