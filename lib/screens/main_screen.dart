@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return BlocBuilder<DataFetchBloc, DataFetchState>(
       builder: (context, state) {
         if (state is DataFetchLoading) {
-          return shimmer();
+          return shimmer(true);
         } else if (state is DataFetchLoaded) {
           return gridView(state.data, _scrollController, false);
         } else if (state is DataFetchError) {

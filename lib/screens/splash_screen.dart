@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigation() async {
     await Future.delayed(const Duration(seconds: 1)).whenComplete(() =>
         Navigator.pushReplacementNamed(
-            context, TextResources().welcomeScreenRoute));
+            context, TextResources().homeScreenRoute));
   }
 
   @override

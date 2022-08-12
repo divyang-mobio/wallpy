@@ -5,6 +5,7 @@ import '../models/navigation_model.dart';
 import '../resources/resources.dart';
 import 'category_screen.dart';
 import 'favourite_screen.dart';
+import 'news_screen.dart';
 import 'setting_screen.dart';
 import 'main_screen.dart';
 
@@ -25,6 +26,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
     MyHomePage(),
     CategoryScreen(),
     FavouriteScreen(),
+    NewsScreen(),
     SettingScreen()
   ];
 
@@ -43,7 +45,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          actions: (_selectedIndex == 3)
+          actions: (_selectedIndex == 4)
               ? [
                   IconButton(
                       onPressed: () {
@@ -73,7 +75,9 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                       ? TextResources().categoryAppTitle
                       : _selectedIndex == 2
                           ? TextResources().favoriteAppTitle
-                          : TextResources().settingAppTitle,
+                          : _selectedIndex == 3
+                              ? TextResources().newsAppTitle
+                              : TextResources().settingAppTitle,
               style: Theme.of(context).textTheme.headline1),
           elevation: 6.0),
       body: _widgetOptions.elementAt(_selectedIndex),

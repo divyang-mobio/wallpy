@@ -42,7 +42,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     return BlocBuilder<FavoriteBloc, FavoriteState>(
       builder: (context, state) {
         if (state is FavoriteLoading) {
-          return shimmer();
+          return shimmer(true);
         } else if (state is FavoriteLoaded) {
           return (state.data.isEmpty)
               ? Center(child: Text(TextResources().emptyCart))

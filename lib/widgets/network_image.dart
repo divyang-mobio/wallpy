@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import '../resources/resources.dart';
 
-networkImages(String link) {
+CachedNetworkImage networkImages(String link) {
   return CachedNetworkImage(
     cacheManager:
         CacheManager(Config("test", stalePeriod: const Duration(days: 1))),

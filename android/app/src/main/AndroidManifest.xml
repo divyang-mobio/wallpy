@@ -74,5 +74,12 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="wallpy"/>
     </application>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
 
 </manifest>

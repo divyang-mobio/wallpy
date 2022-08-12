@@ -5,12 +5,14 @@ class TextResources {
   final String settingAppTitle = "Setting";
   final String categoryAppTitle = "Category";
   final String favoriteAppTitle = "Favorite";
+  final String newsDetailAppTitle = "News Details";
+  final String newsAppTitle = "News";
   final String homeScreenLabel = "Home";
   final String categoryScreenLabel = "Category";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
+  final String newsScreenLabel = "News";
   final String splashScreenTile = "Wallpy";
-
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
   final String email = "Email";
@@ -23,7 +25,7 @@ class TextResources {
   final String nameValidate = "Name can't be empty";
   final String emailValidate = "Email can't be empty";
   final String failedErrorCode = "Failed with error code:";
-
+  final String url = "https://newsapi.org/v2/everything?q=bitcoin&apiKey=1b20cae31e6d41eeab3fad233fbeecbd";
   final String snackBarLoadingInPagination = 'Loading';
   final String snackBarAllDataFetchInPagination = 'All Data Fetch';
   final String methodChannelName = "wallpyBackgroundService";
@@ -53,11 +55,12 @@ class TextResources {
   final String googleSignInUp = "google Sign-In";
   final String signUp = 'Sign_Up';
   final String signIn = 'Sign-In';
-  final String welcomSubtitle =
+  final String welcomeSubtitle =
       'Walpy does not rely on fixed-time alarms that prevent your device from getting enough sleep. It lets Android figure out when is the best time to change wallpapers. You can configure constraints to only change wallpaper while your device is:';
   final String fireStoreCategory= "Category";
   final String fireStoreImgFav = "image_fav";
   final String fireStoreImgCat = "image_category";
+  final String urlNotLoading = "not able to open url";
 //Int type
   final int adsInternalInList = 2;
   final int androidAlarmManagerId = 0;
@@ -68,6 +71,7 @@ class TextResources {
   final String homeScreenRoute = '/bottomBar';
   final String welcomeScreenRoute = '/welcome';
   final String detailScreenRoute = '/detail';
+  final String detailNewsScreenRoute = "/detailNews";
   final String signUpScreenRoute = '/signUp';
   final String searchScreenRoute = '/search';
   final String signInScreenRoute = '/signIn';
@@ -123,6 +127,10 @@ List<BottomNavigationModel> bottomData = [
       actionIcon: IconsResources().favouriteScreenSelected,
       icon: IconsResources().favouriteScreenUnSelected,
       label: TextResources().favouriteScreenLabel),
+  BottomNavigationModel(
+      actionIcon: IconsResources().newScreenUnSelectedSelected,
+      icon: IconsResources().newScreenUnSelectedSelected,
+      label: TextResources().newsScreenLabel),
   BottomNavigationModel(
       actionIcon: IconsResources().settingScreenSelected,
       icon: IconsResources().settingScreenUnSelected,

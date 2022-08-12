@@ -32,7 +32,7 @@ class WelcomeScreen extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                TextResources().welcomSubtitle,
+                TextResources().welcomeSubtitle,
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1!

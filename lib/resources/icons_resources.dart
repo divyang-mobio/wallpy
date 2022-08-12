@@ -12,6 +12,7 @@ class IconsResources {
   final favouriteScreenSelected = Icons.favorite;
   final categoryScreenUnSelected = Icons.category_outlined;
   final categoryScreenSelected = Icons.category;
+  final newScreenUnSelectedSelected = Icons.newspaper;
   final addFavorite = Icons.favorite_border;
   final removeFavorite = Icons.favorite;
   final visibility = Icons.visibility;
@@ -20,6 +21,7 @@ class IconsResources {
   final user = Icons.person;
   final lock = Icons.lock;
   final searchClear = Icons.clear;
-  final searchBack = Icons.arrow_back_ios_new;
+  final back = Icons.arrow_back_ios_new;
   final logOut = Icons.logout_rounded;
+  final openUrl = Icons.launch;
 }
