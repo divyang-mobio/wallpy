@@ -1,10 +1,11 @@
 import 'package:shimmer/shimmer.dart';
 import '../resources/resources.dart';
 import 'gridview.dart';
+import 'news_listview.dart';
 
-Shimmer shimmer() {
+Shimmer shimmer(bool isGrid) {
   return Shimmer.fromColors(
       baseColor: ColorResources().shimmerBase,
       highlightColor: ColorResources().shimmerHighlight,
-      child: gridView([], null, true));
+      child: isGrid ? gridView([], null, true) : listView([], true));
 }

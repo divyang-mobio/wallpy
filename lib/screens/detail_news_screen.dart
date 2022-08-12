@@ -47,15 +47,18 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
                 height: 300,
                 width: double.infinity,
-                child: networkImages(widget.articles.urlToImage.toString())),
+                child: Hero(
+                    tag: widget.articles.title!,
+                    child:
+                        networkImages(widget.articles.urlToImage.toString()))),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10),
                   Row(
@@ -80,6 +83,8 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                           ?.copyWith(color: ColorResources().newsDetailText)),
                   const SizedBox(height: 20),
                   Text(widget.articles.content.toString()),
+                  const SizedBox(height: 20),
+                  Text("Source:- ${(widget.articles.source?.name).toString()}"),
                 ],
               ),
             ),

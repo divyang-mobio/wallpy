@@ -19,12 +19,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
       if (state is CategoryLoading) {
-        return categoryshimmer(context);
+        return const CircularProgressIndicator();
       } else if (state is CategoryLoaded) {
-        return CategoryListView(
-          data: state.data,
-        );
-        //gridView(state.data, _scrollController, false);
+        return CategoryListView(data: state.data);
       } else if (state is CategoryError) {
         return Center(child: Text(TextResources().blocError));
       } else {

@@ -20,6 +20,8 @@ class IconsResources {
   final user = Icons.person;
   final lock = Icons.lock;
   final searchClear = Icons.clear;
-  final searchBack = Icons.arrow_back_ios_new;
+  final back = Icons.arrow_back_ios_new;
   final logOut = Icons.logout_rounded;
+  final openUrl = Icons.launch;
+  final newScreenUnSelectedSelected = Icons.newspaper;
 }

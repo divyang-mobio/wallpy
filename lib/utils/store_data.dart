@@ -7,6 +7,11 @@ class PreferenceServices {
     await preference.setInt("number", number);
   }
 
+  void setToggle(bool value) async {
+    final preference = await SharedPreferences.getInstance();
+    await preference.setBool("toggle", value);
+  }
+
   void setScreen(int screen) async {
     final preference = await SharedPreferences.getInstance();
     await preference.setInt("screen", screen);
@@ -32,5 +37,11 @@ class PreferenceServices {
   Future<List> getList(SharedPreferences preferences) async {
     final urlList = preferences.getStringList("list");
     return urlList ?? [];
+  }
+
+  Future<bool> getToggle() async {
+    final preference = await SharedPreferences.getInstance();
+    final value = preference.getBool("toggle");
+    return value ?? false;
   }
 }

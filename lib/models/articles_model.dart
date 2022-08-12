@@ -1,5 +1,8 @@
+import 'source_model.dart';
+
 class Articles {
   String? author, title, description, url, urlToImage, content, publishedAt;
+  Source? source;
 
   Articles(
       {this.title,
@@ -8,9 +11,11 @@ class Articles {
       this.description,
       this.content,
       this.publishedAt,
-      this.urlToImage});
+      this.urlToImage,
+      this.source});
 
   factory Articles.fromJson(Map<String, dynamic> json) => Articles(
+      source: Source.fromJson(json["source"]),
       title: json["title"] ?? "",
       author: json["author"] ?? "",
       url: json["url"] ?? "",

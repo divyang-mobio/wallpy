@@ -16,18 +16,66 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  bool _enabled = false;
   int? time;
   int? screen;
   String? collection;
 
+  Future<void> _onClickEnable(enabled) async {
+    setState(() {
+      _enabled = enabled;
+    });
+    if (enabled) {
+      List<DataModel> data = await FirebaseSave().getData();
+      final pref = PreferenceServices();
+      pref.setScreen(screen ?? 3);
+      pref.setList(data);
+      pref.setNo(1);
+      pref.setToggle(true);
+
+      wallpaperSetter(data[0].url, screen ?? 3);
+      await AndroidAlarmManager.periodic(const Duration(minutes: 1),
+          TextResources().androidAlarmManagerId, callWallpaperSetter);
+    } else {
+      final pref = PreferenceServices();
+      pref.setToggle(false);
+      await AndroidAlarmManager.cancel(TextResources().androidAlarmManagerId);
+    }
+  }
+
+  ListTile listsTiles(String title, String dec) {
+    return ListTile(
+      title: Text(title),
+      subtitle: Text(dec, maxLines: 5),
+    );
+  }
+
+  getToggleValue() async {
+    final pref = PreferenceServices();
+    _enabled = await pref.getToggle();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getToggleValue();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          listsTiles(TextResources().changeWallpaperTitle,
-              TextResources().changeWallpaperDec),
+          const SizedBox(height: 10),
+          ListTile(
+              title: Text(TextResources().changeWallpaperTitle),
+              subtitle: Text(
+                TextResources().changeWallpaperDec,
+                maxLines: 5,
+              ),
+              trailing:
+                  Switch.adaptive(value: _enabled, onChanged: _onClickEnable)),
           const Divider(thickness: 2),
           GestureDetector(
               onTap: () async {
@@ -61,36 +109,8 @@ class _SettingScreenState extends State<SettingScreen> {
               TextResources().collectionDec,
             ),
           ),
-          MaterialButton(
-            onPressed: () async {
-              List<DataModel> data = await FirebaseSave().getData();
-              final pref = PreferenceServices();
-              pref.setScreen(screen ?? 3);
-              pref.setList(data);
-              pref.setNo(1);
-
-              wallpaperSetter(data[0].url, screen ?? 3);
-              await AndroidAlarmManager.periodic(const Duration(minutes: 1),
-                  TextResources().androidAlarmManagerId, callWallpaperSetter);
-            },
-            child: Text(TextResources().startService),
-          ),
-          MaterialButton(
-            onPressed: () async {
-              await AndroidAlarmManager.cancel(
-                  TextResources().androidAlarmManagerId);
-            },
-            child: Text(TextResources().stopService),
-          )
         ],
       ),
     );
   }
-}
-
-ListTile listsTiles(String title, String dec) {
-  return ListTile(
-    title: Text(title),
-    subtitle: Text(dec, maxLines: 5),
-  );
 }

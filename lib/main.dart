@@ -4,15 +4,18 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:wallpy/controllers/news_data_fetch_bloc.dart';
 import 'package:wallpy/screens/search_screen.dart';
 import 'package:wallpy/utils/auth_repository.dart';
 import 'package:wallpy/screens/main_screen.dart';
 import 'package:wallpy/screens/sign_in_screen.dart';
 import 'package:wallpy/screens/sign_up_screen.dart';
 import 'package:wallpy/screens/welcome_screen.dart';
+import 'package:wallpy/utils/news_api_calling.dart';
 import 'controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'controllers/favorite_bloc/favorite_bloc.dart';
 import 'controllers/search_bloc.dart';
+import 'screens/detail_news_screen.dart';
 import 'screens/detail_screen.dart';
 import 'models/navigation_model.dart';
 import 'screens/bottom_navigation_screen.dart';
@@ -86,6 +89,9 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<GoogleSignIn>(
           create: (context) => GoogleSignIn(),
         ),
+        RepositoryProvider<HttpService>(
+          create: (context) => HttpService(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -98,11 +104,14 @@ class _MyAppState extends State<MyApp> {
               create: (context) => FavoriteBloc(FirebaseDatabase())
                 ..add(GetFavoriteData(isFavorite: true, category: null))),
           BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
+          BlocProvider<NewsDataFetchBloc>(
+              create: (context) =>
+                  NewsDataFetchBloc(RepositoryProvider.of<HttpService>(context))
+                    ..add(GetAllNewsData(url: TextResources().url))),
           BlocProvider<AuthBlocBloc>(
             create: (context) => AuthBlocBloc(
-              authRepository: RepositoryProvider.of<AuthRepository>(context),
-              googleSignIn: RepositoryProvider.of<GoogleSignIn>(context)
-            ),
+                authRepository: RepositoryProvider.of<AuthRepository>(context),
+                googleSignIn: RepositoryProvider.of<GoogleSignIn>(context)),
           ),
         ],
         child: MaterialApp(
@@ -130,10 +139,16 @@ class _MyAppState extends State<MyApp> {
                   return MaterialPageRoute(
                       builder: (context) =>
                           DetailScreen(dataModel: args.dataModel));
+                case "/detailNews":
+                  final args = setting.arguments as DetailNewsScreenArgument;
+                  return MaterialPageRoute(
+                      builder: (context) =>
+                          DetailNewsScreen(articles: args.articles));
                 case "/search":
                   final args = setting.arguments as SearchScreenArgument;
                   return MaterialPageRoute(
-                      builder: (context) => SearchScreen(screen: args.selectedScreen));
+                      builder: (context) =>
+                          SearchScreen(screen: args.selectedScreen));
                 case "/welcome":
                   return MaterialPageRoute(
                       builder: (context) => const WelcomeScreen());
