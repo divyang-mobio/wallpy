@@ -91,6 +91,50 @@ class FirebaseDatabase {
     }
     return rawData;
   }
+
+  Future<List<Map>> getCategoryData(List<dynamic>? category) async {
+    final instances = FirebaseFirestore.instance.collection("Category");
+
+    QuerySnapshot querySnapshot = await instances.get();
+
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    Set<String> finalcategory = <String>{};
+
+    List<Map<String, dynamic>> finalImage = [];
+
+    for (var element in allData) {
+      Map<String, dynamic> ele =
+          (element ?? <String, dynamic>{}) as Map<String, dynamic>;
+      List<dynamic> imagecategory = ele['image_category'] ?? <dynamic>[];
+
+      for (var ele in imagecategory) {
+        finalcategory.add(ele.toString());
+      }
+    }
+
+    for (var element in finalcategory) {
+      var img = await instances
+          .where(
+            "image_category",
+            arrayContains: element,
+          )
+          .get();
+      var data = img.docs.map((doc) => doc.data()).toList();
+      finalImage.add({'name': element, 'data': data});
+    }
+
+    List<Map> finalproduct = [];
+
+    for (var category in finalcategory) {
+      for (var data in finalImage) {
+        if (category.contains(data['name'])) {
+          finalproduct.add(data);
+        }
+      }
+    }
+
+    return finalproduct;
+  }
 }
 
 class FirebaseSave {

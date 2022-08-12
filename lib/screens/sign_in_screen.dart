@@ -34,19 +34,16 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-          child: Stack(children: [
-        Positioned(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Image.asset(
-              ImageResources().welcomeImage,
+    return DecoratedBox(
+      decoration: BoxDecoration(
+          image: DecorationImage(
               fit: BoxFit.fill,
-            ),
-          ),
-        ),
-        Padding(
+              image: AssetImage(
+                ImageResources().welcomeImage,
+              ))),
+      child: Scaffold(
+        backgroundColor: ColorResources().welcomeBackgroundColor,
+        body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: BlocListener<AuthBlocBloc, AuthBlocState>(
             listener: (context, state) {
@@ -64,71 +61,87 @@ class _SignInState extends State<SignIn> {
             child: BlocBuilder<AuthBlocBloc, AuthBlocState>(
                 builder: (context, state) {
               if (state is AuthBlocInitial) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: ColorResources().circularProgress,
+                  ),
                 );
               }
               if (state is UnAuthenticated) {
                 return Center(
                   child: Form(
                     key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        WelcomeBackgroundWidget(
-                            title: TextResources().signInTitle),
-                        const SizedBox(height: 50),
-                        TextFormFieldCustom(
-                          textController: textController,
-                          isPasswordText: false,
-                          prefixIcon: Icon(IconsResources().email,
-                              color: ColorResources().signUpInText),
-                          hintText: TextResources().email,
-                          validator: (value) =>
-                              Validator.validateEmail(email: value!),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormFieldCustom(
-                          textController: passController,
-                          isPasswordText: true,
-                          prefixIcon: Icon(IconsResources().lock,
-                              color: ColorResources().signUpInText),
-                          hintText: TextResources().password,
-                          validator: (value) =>
-                              Validator.validatePassword(password: value!),
-                        ),
-                        const SizedBox(height: 40),
-                        SignInUpButton(
-                            text: TextResources().signIn,
-                            color: ColorResources().signInButton,
-                            onTap: () async {
-                              await _authenticateWithEmailAndPassword(context);
-                            }),
-                        Center(
-                            child: Text(
-                          TextResources().or,
-                          style: TextStyle(color: ColorResources().signUpInText),
-                        )),
-                        SignInUpButton(
-                            text: TextResources().signUp,
-                            textColor: ColorResources().signUpInText,
-                            color: ColorResources().signUpButton,
-                            onTap: () {
-                              Navigator.pushReplacementNamed(
-                                context,
-                                TextResources().signUpScreenRoute,
-                              );
-                            }),
-                        SignInUpButton(
-                            text: TextResources().googleSignInUp,
-                            textColor: ColorResources().googleSignInUpText,
-                            color: ColorResources().signUpButton,
-                            onTap: () {
-                              BlocProvider.of<AuthBlocBloc>(context)
-                                  .add(GoogleSignUpRequested());
-                            })
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                          ),
+                          WelcomeBackgroundWidget(
+                              title: TextResources().signInTitle),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          TextFormFieldCustom(
+                            textController: textController,
+                            isPasswordText: false,
+                            prefixIcon: Icon(IconsResources().email,
+                                color: ColorResources().appBarTextIcon),
+                            hintText: TextResources().email,
+                            validator: (value) =>
+                                Validator.validateEmail(email: value!),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormFieldCustom(
+                            textController: passController,
+                            isPasswordText: true,
+                            prefixIcon: Icon(IconsResources().lock,
+                                color: ColorResources().appBarTextIcon),
+                            hintText: TextResources().password,
+                            validator: (value) =>
+                                Validator.validatePassword(password: value),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          SignInUpButton(
+                              text: TextResources().signIn,
+                              color: ColorResources().signInButton,
+                              onTap: () async {
+                                await _authenticateWithEmailAndPassword(
+                                    context);
+                              }),
+                          Center(
+                              child: Text(
+                            TextResources().or,
+                            style: TextStyle(
+                              color: ColorResources().appBar,
+                            ),
+                          )),
+                          SignInUpButton(
+                              text: TextResources().signUp,
+                              textColor: ColorResources().appBar,
+                              color: ColorResources().signUpButton,
+                              onTap: () {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  TextResources().signUpScreenRoute,
+                                );
+                              }),
+                          SignInUpButton(
+                              text: TextResources().googleSignInUp,
+                              textColor: ColorResources().googleSignInUpText,
+                              color: ColorResources().signUpButton,
+                              onTap: () {
+                                BlocProvider.of<AuthBlocBloc>(context)
+                                    .add(GoogleSignUpRequested());
+                              })
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -136,8 +149,8 @@ class _SignInState extends State<SignIn> {
               return Container();
             }),
           ),
-        )
-      ])),
+        ),
+      ),
     );
   }
 }

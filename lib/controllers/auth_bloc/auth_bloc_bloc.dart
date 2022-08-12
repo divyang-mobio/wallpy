@@ -38,29 +38,36 @@ class AuthBlocBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
       }
     });
 
-    on<GoogleSignUpRequested>((event, emit) async {
-      emit(AuthBlocInitial());
-      try {
-        googleSignInAccount = await googleSignIn.signIn();
-        if (googleSignInAccount == null) {
+    on<SignOutRequested>((
+      event,
+      emit,
+    ) async {
+      on<GoogleSignUpRequested>((event, emit) async {
+        emit(AuthBlocInitial());
+        try {
+          googleSignInAccount = await googleSignIn.signIn();
+          if (googleSignInAccount == null) {
+            emit(UnAuthenticated());
+          }
+          final googleAuth = await googleSignInAccount?.authentication;
+          final credential = GoogleAuthProvider.credential(
+              accessToken: googleAuth?.accessToken,
+              idToken: googleAuth?.idToken);
+          await FirebaseAuth.instance.signInWithCredential(credential);
+          emit(Authenticated());
+        } catch (e) {
+          emit(AuthError(e.toString()));
           emit(UnAuthenticated());
         }
-        final googleAuth = await googleSignInAccount?.authentication;
-        final credential = GoogleAuthProvider.credential(
-            accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-        await FirebaseAuth.instance.signInWithCredential(credential);
-        emit(Authenticated());
-      } catch (e) {
-        emit(AuthError(e.toString()));
-        emit(UnAuthenticated());
-      }
-    });
+      });
 
-    on<SignOutRequested>((event, emit) async {
-      emit(AuthBlocInitial());
-      await googleSignIn.signOut();
-      await authRepository.logout();
-      emit(UnAuthenticated());
+      on<SignOutRequested>((event, emit) async {
+        emit(AuthBlocInitial());
+        await googleSignIn.signOut();
+        await authRepository.logout();
+
+        emit(UnAuthenticated());
+      });
     });
   }
 }

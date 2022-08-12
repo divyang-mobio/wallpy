@@ -1,10 +1,10 @@
 import 'package:wallpy/resources/resources.dart';
 
 class Validator {
-  static String? validateName({required String name}) {
+  static String? validateName({required String? name}) {
     // ignore: unnecessary_null_comparison
     if (name == null) {
-      return null;
+      return TextResources().nameValidate;
     }
     if (name.isEmpty) {
       return TextResources().nameValidate;
@@ -13,10 +13,10 @@ class Validator {
     return null;
   }
 
-  static String? validateEmail({required String email}) {
+  static String? validateEmail({required String? email}) {
     // ignore: unnecessary_null_comparison
     if (email == null) {
-      return null;
+      return TextResources().emailValidate;
     }
     RegExp emailRegExp = RegExp(
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
@@ -30,10 +30,10 @@ class Validator {
     return null;
   }
 
-  static String? validatePassword({required String password}) {
+  static String? validatePassword({required String? password}) {
     // ignore: unnecessary_null_comparison
     if (password == null) {
-      return null;
+      return TextResources().passwordValidate;
     }
     if (password.isEmpty) {
       return TextResources().passwordValidate;

@@ -55,8 +55,10 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                           TextResources().welcomeScreenRoute,
                         );
                       },
-                      icon: Icon(IconsResources().logOut,
-                          size: 30, color: ColorResources().logOut))
+                      icon: Icon(
+                        IconsResources().logout,
+                        color: ColorResources().appBarTextIcon,
+                      ))
                 ]
               : [
                   IconButton(

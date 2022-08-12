@@ -22,12 +22,12 @@ Padding gridView(
             ? Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: gridCard(context, item, isLoading))
-            : const Padding(
-                padding: EdgeInsets.only(top: 8.0),
+            : Padding(
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Card(
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
-                    color: Colors.black),
+                    color: ColorResources().textColorblack),
               );
       },
     ),
