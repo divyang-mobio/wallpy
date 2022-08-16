@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../controllers/search_bloc.dart';
+import '../controllers/search_bloc/search_bloc.dart';
 import '../resources/resources.dart';
 import '../utils/firestore_database_calling.dart';
 import '../widgets/gridview.dart';

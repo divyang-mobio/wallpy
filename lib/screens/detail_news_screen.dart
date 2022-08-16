@@ -51,10 +51,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
             SizedBox(
                 height: 300,
                 width: double.infinity,
-                child: Hero(
-                    tag: widget.articles.title!,
-                    child:
-                        networkImages(widget.articles.urlToImage.toString()))),
+                child: networkImages(widget.articles.urlToImage.toString())),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               child: Column(

@@ -4,7 +4,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:wallpy/controllers/news_data_fetch_bloc.dart';
+import 'package:wallpy/controllers/new_category_bloc/news_category_bloc.dart';
+import 'package:wallpy/controllers/news_data_fetch_bloc/news_data_fetch_bloc.dart';
 import 'package:wallpy/screens/search_screen.dart';
 import 'package:wallpy/utils/auth_repository.dart';
 import 'package:wallpy/screens/main_screen.dart';
@@ -14,12 +15,14 @@ import 'package:wallpy/screens/welcome_screen.dart';
 import 'package:wallpy/utils/news_api_calling.dart';
 import 'controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'controllers/favorite_bloc/favorite_bloc.dart';
-import 'controllers/search_bloc.dart';
+import 'controllers/search_bloc/search_bloc.dart';
+import 'models/news_category_model.dart';
 import 'screens/detail_news_screen.dart';
 import 'screens/detail_screen.dart';
 import 'models/navigation_model.dart';
 import 'screens/bottom_navigation_screen.dart';
 import 'controllers/data_fetch_bloc/data_fetch_bloc.dart';
+import 'screens/news_category_list_screen.dart';
 import 'utils/firestore_database_calling.dart';
 import 'screens/splash_screen.dart';
 import 'resources/resources.dart';
@@ -113,6 +116,9 @@ class _MyAppState extends State<MyApp> {
                 authRepository: RepositoryProvider.of<AuthRepository>(context),
                 googleSignIn: RepositoryProvider.of<GoogleSignIn>(context)),
           ),
+          BlocProvider<NewsCategoryBloc>(
+            create: (context) => NewsCategoryBloc()
+          ),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -158,6 +164,12 @@ class _MyAppState extends State<MyApp> {
                 case "/signIn":
                   return MaterialPageRoute(
                       builder: (context) => const SignIn());
+                case "/newCategory":
+                  final args = setting.arguments as NewsCategory;
+                  return MaterialPageRoute(
+                      builder: (context) => NewsCategoryScreen(
+                            category: args,
+                          ));
                 default:
                   return MaterialPageRoute(
                       builder: (context) => const MyHomePage());

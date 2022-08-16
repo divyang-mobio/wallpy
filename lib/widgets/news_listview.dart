@@ -6,6 +6,8 @@ import 'network_image.dart';
 
 ListView listView(List<Articles> data, bool isLoading) {
   return ListView.builder(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
       itemCount: isLoading ? 20 : data.length,
       itemBuilder: (context, index) => isLoading
           ? const Card(child: SizedBox(height: 90))
@@ -21,13 +23,10 @@ cardView(context, Articles data) {
       elevation: 8,
       child: Row(
         children: [
-          Hero(
-            tag: data.title!,
-            child: SizedBox(
-                height: 100,
-                width: 100,
-                child: networkImages(data.urlToImage.toString())),
-          ),
+          SizedBox(
+              height: 100,
+              width: 100,
+              child: networkImages(data.urlToImage.toString())),
           const SizedBox(width: 10),
           Flexible(
             child: Column(

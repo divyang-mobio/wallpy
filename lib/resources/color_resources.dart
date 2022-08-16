@@ -28,4 +28,5 @@ class ColorResources {
   final Color logOut = Colors.black;
   final Color signUpInText = Colors.black;
   final Color newsDetailText = Colors.black;
+  final Color categoriesTileBorder = Colors.black;
 }

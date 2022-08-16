@@ -25,7 +25,8 @@ class TextResources {
   final String nameValidate = "Name can't be empty";
   final String emailValidate = "Email can't be empty";
   final String failedErrorCode = "Failed with error code:";
-  final String url = "https://newsapi.org/v2/everything?q=bitcoin&apiKey=1b20cae31e6d41eeab3fad233fbeecbd";
+  final String url =
+      "https://newsapi.org/v2/everything?q=world&apiKey=1b20cae31e6d41eeab3fad233fbeecbd";
   final String snackBarLoadingInPagination = 'Loading';
   final String snackBarAllDataFetchInPagination = 'All Data Fetch';
   final String methodChannelName = "wallpyBackgroundService";
@@ -50,8 +51,6 @@ class TextResources {
       "Set wallpaper from Favorite/Random. By default it is Random.";
   final String emptyCart = "No Data in Favorite :(";
   final String blocError = "Error :(";
-  final String startService = "Start Service";
-  final String stopService = "Stop Service";
   final String categoryDetail = "CategoryDetails";
   final String googleSignInUp = "google Sign-In";
   final String signUp = 'Sign_Up';
@@ -62,6 +61,7 @@ class TextResources {
   final String fireStoreImgFav = "image_fav";
   final String fireStoreImgCat = "image_category";
   final String urlNotLoading = "not able to open url";
+
 //Int type
   final int adsInternalInList = 2;
   final int androidAlarmManagerId = 0;
@@ -76,6 +76,7 @@ class TextResources {
   final String signUpScreenRoute = '/signUp';
   final String searchScreenRoute = '/search';
   final String signInScreenRoute = '/signIn';
+  final String newsCategoryScreenRoute = "/newCategory";
   final String onSearchNoDataFound = "No Data Found :(";
   final String searchHint = "Search";
   final String placeHolderForLoadingImage = "assets/99318-hms-loading.gif";
@@ -136,4 +137,35 @@ List<BottomNavigationModel> bottomData = [
       actionIcon: IconsResources().settingScreenSelected,
       icon: IconsResources().settingScreenUnSelected,
       label: TextResources().settingScreenLabel)
+];
+
+List<NewsCategory> categoryData = [
+  NewsCategory(
+      title: "War",
+      link:
+          "https://newsapi.org/v2/everything?q=war&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+  NewsCategory(
+      title: "Car",
+      link:
+          "https://newsapi.org/v2/everything?q=car&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+  NewsCategory(
+      title: "Airplane",
+      link:
+          "https://newsapi.org/v2/everything?q=airplane&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+  NewsCategory(
+      title: "Business",
+      link:
+          "https://newsapi.org/v2/everything?q=business&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+  NewsCategory(
+      title: "BitCoin",
+      link:
+          "https://newsapi.org/v2/everything?q=bitcoin&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+  NewsCategory(
+      title: "Sport",
+      link:
+      "https://newsapi.org/v2/everything?q=sport&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+  NewsCategory(
+      title: "Apple",
+      link:
+          "https://newsapi.org/v2/everything?q=apple&apiKey=1b20cae31e6d41eeab3fad233fbeecbd")
 ];

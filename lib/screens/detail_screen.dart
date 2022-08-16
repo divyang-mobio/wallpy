@@ -12,8 +12,7 @@ import '../widgets/bottom_sheet.dart';
 import '../widgets/network_image.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key, required this.dataModel})
-      : super(key: key);
+  const DetailScreen({Key? key, required this.dataModel}) : super(key: key);
   final DataModel dataModel;
 
   @override
@@ -39,6 +38,19 @@ class _DetailScreenState extends State<DetailScreen> {
                 child: networkImages(widget.dataModel.url),
               ),
             ),
+          ),
+          Visibility(
+            maintainState: true,
+            visible: vis,
+            child: Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: Icon(IconsResources().back),
+                  ),
+                )),
           ),
           Visibility(
             maintainState: true,
@@ -78,8 +90,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         },
                         icon: icons(
                             IconsResources().setWallpaperFromDetailScreen)),
-                    FavoriteIcon(
-                        dataModel: widget.dataModel)
+                    FavoriteIcon(dataModel: widget.dataModel)
                   ],
                 ),
               ),
@@ -101,8 +112,7 @@ Icon icons(IconData iconData) {
 
 // ignore: must_be_immutable
 class FavoriteIcon extends StatefulWidget {
-  const FavoriteIcon({Key? key, required this.dataModel})
-      : super(key: key);
+  const FavoriteIcon({Key? key, required this.dataModel}) : super(key: key);
   final DataModel dataModel;
 
   @override
