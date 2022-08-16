@@ -28,14 +28,8 @@ class _NewsCategoryScreenState extends State<NewsCategoryScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorResources().appBar,
-        leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: Icon(
-              IconsResources().back,
-              color: ColorResources().appBarTextIcon,
-            )),
         centerTitle: true,
-        title: Text("${widget.category.title} News" , style: Theme.of(context).textTheme.headline1),
+        title: Text("${widget.category.title} News"),
       ),
       body: BlocBuilder<NewsCategoryBloc, NewsCategoryState>(
           builder: (context, state) {

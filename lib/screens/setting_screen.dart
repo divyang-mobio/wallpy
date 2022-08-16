@@ -61,6 +61,7 @@ class _SettingScreenState extends State<SettingScreen> {
     super.initState();
     getToggleValue();
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -74,8 +75,10 @@ class _SettingScreenState extends State<SettingScreen> {
                 TextResources().changeWallpaperDec,
                 maxLines: 5,
               ),
-              trailing:
-                  Switch.adaptive(value: _enabled, onChanged: _onClickEnable)),
+              trailing: Switch.adaptive(
+                  value: _enabled,
+                  onChanged: _onClickEnable,
+                  activeColor: ColorResources().activeSwitch)),
           const Divider(thickness: 2),
           GestureDetector(
               onTap: () async {

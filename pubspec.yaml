@@ -81,8 +81,7 @@ flutter:
   assets:
     - assets/no_image.png
     - assets/images/
-    - assets/preloading.gif
-    - assets/99318-hms-loading.gif
+    - assets/black_preloading.gif
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

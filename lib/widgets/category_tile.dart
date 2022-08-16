@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/news_category_model.dart';
 import '../resources/resources.dart';
 
@@ -19,7 +18,7 @@ class CategoriesTile extends StatelessWidget {
               const EdgeInsets.only(top: 20, right: 10, bottom: 20, left: 5),
           decoration: BoxDecoration(
               border: Border.all(color: ColorResources().categoriesTileBorder),
-              borderRadius: BorderRadius.circular(8)),
+              borderRadius: BorderRadius.circular(15)),
           width: 100,
           child: Align(
             alignment: Alignment.center,

@@ -19,14 +19,8 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: ColorResources().appBar,
-        leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: Icon(
-              IconsResources().back,
-              color: ColorResources().appBarTextIcon,
-            )),
-        title: Text(TextResources().newsDetailAppTitle,
-            style: Theme.of(context).textTheme.headline1),
+        title: Text(TextResources().newsDetailAppTitle),
+        elevation: 6.0,
         actions: [
           IconButton(
               onPressed: () async {
@@ -38,10 +32,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                       SnackBar(content: Text(TextResources().urlNotLoading)));
                 }
               },
-              icon: Icon(
-                IconsResources().openUrl,
-                color: ColorResources().appBarTextIcon,
-              ))
+              icon: Icon(IconsResources().openUrl))
         ],
       ),
       body: SingleChildScrollView(

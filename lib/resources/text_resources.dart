@@ -79,7 +79,7 @@ class TextResources {
   final String newsCategoryScreenRoute = "/newCategory";
   final String onSearchNoDataFound = "No Data Found :(";
   final String searchHint = "Search";
-  final String placeHolderForLoadingImage = "assets/99318-hms-loading.gif";
+  final String placeHolderForLoadingImage = "assets/black_preloading.gif";
 }
 
 List<SettingModel> dialogDataForTimeLine = [
@@ -164,6 +164,14 @@ List<NewsCategory> categoryData = [
       title: "Sport",
       link:
       "https://newsapi.org/v2/everything?q=sport&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+  NewsCategory(
+      title: "Stock Market",
+      link:
+      "https://newsapi.org/v2/everything?q=stock&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+  NewsCategory(
+      title: "Tech",
+      link:
+      "https://newsapi.org/v2/everything?q=tech&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
   NewsCategory(
       title: "Apple",
       link:

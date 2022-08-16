@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wallpy/resources/resources.dart';
-import 'package:wallpy/widgets/welcome_background_widget.dart';
+import '../resources/resources.dart';
+import '../widgets/welcome_background_widget.dart';
 import '../widgets/sign_in_up_button.dart';
 
 class WelcomeScreen extends StatelessWidget {

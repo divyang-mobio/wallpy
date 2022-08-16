@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../resources/resources.dart';
@@ -22,9 +21,6 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent) {
-        if (kDebugMode) {
-          print("scroll");
-        }
         BlocProvider.of<FavoriteBloc>(context)
             .add(GetFavoriteData(isFavorite: true, category: null));
       }

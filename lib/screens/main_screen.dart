@@ -24,10 +24,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent) {
-        if (kDebugMode) {
-          print("scroll");
-        }
-
         BlocProvider.of<DataFetchBloc>(context)
             .add(GetAllData(isFavorite: false, category: null));
       }

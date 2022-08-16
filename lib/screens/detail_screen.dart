@@ -110,7 +110,6 @@ Icon icons(IconData iconData) {
   );
 }
 
-// ignore: must_be_immutable
 class FavoriteIcon extends StatefulWidget {
   const FavoriteIcon({Key? key, required this.dataModel}) : super(key: key);
   final DataModel dataModel;

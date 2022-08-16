@@ -130,13 +130,14 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: TextResources().appTitle,
             theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: Colors.grey,
               textTheme: TextTheme(
                   subtitle1: TextStyle(color: ColorResources().categoryText),
                   headline1: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                       color: ColorResources().splashWord)),
+
             ),
             onGenerateRoute: (RouteSettings setting) {
               switch (setting.name) {

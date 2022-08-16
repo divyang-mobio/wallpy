@@ -24,7 +24,6 @@ class _SearchScreenState extends State<SearchScreen> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent) {
-        print("scroll");
         callBloc(context, textEditingController.text, widget.screen, false);
       }
     });
@@ -43,12 +42,6 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: ColorResources().appBar,
-        leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: Icon(
-              IconsResources().back,
-              color: ColorResources().appBarTextIcon,
-            )),
         title: TextField(
           controller: textEditingController,
           decoration: InputDecoration(
@@ -58,13 +51,12 @@ class _SearchScreenState extends State<SearchScreen> {
           onSubmitted: (s) => callBloc(
               context, textEditingController.text, widget.screen, true),
         ),
-        elevation: 6.0,
+        elevation: 0.0,
         actions: [
           IconButton(
               onPressed: () => callBloc(
                   context, textEditingController.text, widget.screen, true),
-              icon: Icon(IconsResources().search,
-                  size: 35, color: ColorResources().search))
+              icon: Icon(IconsResources().search))
         ],
       ),
       body: BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
