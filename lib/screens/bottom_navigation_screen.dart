@@ -58,16 +58,15 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                       icon: Icon(IconsResources().search))
                 ],
           backgroundColor: ColorResources().appBar,
-          title: Text(
-              _selectedIndex == 0
-                  ? TextResources().appTitle
-                  : _selectedIndex == 1
-                      ? TextResources().categoryAppTitle
-                      : _selectedIndex == 2
-                          ? TextResources().favoriteAppTitle
-                          : _selectedIndex == 3
-                              ? TextResources().newsAppTitle
-                              : TextResources().settingAppTitle),
+          title: Text(_selectedIndex == 0
+              ? TextResources().appTitle
+              : _selectedIndex == 1
+                  ? TextResources().categoryAppTitle
+                  : _selectedIndex == 2
+                      ? TextResources().favoriteAppTitle
+                      : _selectedIndex == 3
+                          ? TextResources().newsAppTitle
+                          : TextResources().settingAppTitle),
           elevation: 6.0),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(

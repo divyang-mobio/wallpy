@@ -4,7 +4,8 @@ import '../resources/resources.dart';
 import 'network_image.dart';
 import '../models/navigation_model.dart';
 
-GestureDetector gridCard(BuildContext context, DataModel dataModel, bool isLoading) {
+GestureDetector gridCard(
+    BuildContext context, DataModel dataModel, bool isLoading) {
   return GestureDetector(
     onTap: () => isLoading
         ? {}

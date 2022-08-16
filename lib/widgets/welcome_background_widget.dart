@@ -4,6 +4,7 @@ import 'package:wallpy/resources/resources.dart';
 // ignore: must_be_immutable
 class WelcomeBackgroundWidget extends StatelessWidget {
   String title;
+
   WelcomeBackgroundWidget({Key? key, required this.title}) : super(key: key);
 
   @override

@@ -16,6 +16,7 @@ class CategoryDetailScreen extends StatefulWidget {
 
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   late ScrollController controller;
+
   @override
   void initState() {
     controller = ScrollController();

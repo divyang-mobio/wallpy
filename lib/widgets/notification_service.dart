@@ -6,7 +6,8 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   static void initialize() {
-    const InitializationSettings initializationSettings = InitializationSettings();
+    const InitializationSettings initializationSettings =
+        InitializationSettings();
     _notificationsPlugin.initialize(initializationSettings);
   }
 

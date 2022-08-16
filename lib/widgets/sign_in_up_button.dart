@@ -5,6 +5,7 @@ class SignInUpButton extends StatelessWidget {
   final void Function()? onTap;
   final String text;
   final Color? textColor;
+
   // ignore: use_key_in_widget_constructors
   const SignInUpButton(
       {required this.color,

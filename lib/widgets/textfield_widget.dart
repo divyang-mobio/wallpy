@@ -24,6 +24,7 @@ class TextFormFieldCustom extends StatelessWidget {
   final Icon? prefixIcon;
   final TextEditingController? textController;
   final List<TextInputFormatter>? inputFormatters;
+
   @override
   Widget build(BuildContext context) {
     bool passWordVisible = true;
