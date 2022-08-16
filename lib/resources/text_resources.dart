@@ -10,6 +10,7 @@ class TextResources {
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String splashScreenTile = "Wallpy";
+  final String weatherTitle = "Weather";
 
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
@@ -120,6 +121,10 @@ List<BottomNavigationModel> bottomData = [
       actionIcon: IconsResources().categoryScreenSelected,
       icon: IconsResources().categoryScreenUnSelected,
       label: TextResources().categoryScreenLabel),
+  BottomNavigationModel(
+      actionIcon: IconsResources().weatherIcon,
+      icon: IconsResources().weatherIcon,
+      label: TextResources().weatherTitle),
   BottomNavigationModel(
       actionIcon: IconsResources().favouriteScreenSelected,
       icon: IconsResources().favouriteScreenUnSelected,

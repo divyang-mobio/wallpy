@@ -20,6 +20,8 @@ class IconsResources {
   final user = Icons.person;
   final lock = Icons.lock;
   final searchClear = Icons.clear;
+  final weatherIcon = Icons.cloud;
+
   final logout = Icons.logout;
 
   final searchBack = Icons.arrow_back_ios_new;

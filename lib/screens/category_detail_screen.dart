@@ -47,12 +47,12 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
               padding: const EdgeInsets.only(top: 8.0),
               child: InkWell(
                 onTap: () {
-                  DataModel _data = DataModel.fromJson(
+                  DataModel data = DataModel.fromJson(
                       widget.data[index] as Map<String, dynamic>);
                   Navigator.pushNamed(
                     context,
                     TextResources().detailScreenRoute,
-                    arguments: DetailScreenArgument(dataModel: _data),
+                    arguments: DetailScreenArgument(dataModel: data),
                   );
                 },
                 child: Card(

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wallpy/controllers/category_bloc/category_bloc.dart';
 import 'package:wallpy/resources/resources.dart';
-import 'package:wallpy/screens/category_detail_screen.dart';
-import 'package:wallpy/widgets/categoryListView.dart';
-import 'package:wallpy/widgets/network_image.dart';
+
+import 'package:wallpy/widgets/category_list_view.dart';
+
 import 'package:wallpy/widgets/shimmer_loading.dart';
 
 class CategoryScreen extends StatefulWidget {

@@ -5,12 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:wallpy/controllers/category_bloc/category_bloc.dart';
+import 'package:wallpy/controllers/weather_bloc/weather_bloc.dart';
+import 'package:wallpy/models/weather_model.dart';
 import 'package:wallpy/screens/search_screen.dart';
 import 'package:wallpy/utils/auth_repository.dart';
 import 'package:wallpy/screens/main_screen.dart';
 import 'package:wallpy/screens/sign_in_screen.dart';
 import 'package:wallpy/screens/sign_up_screen.dart';
 import 'package:wallpy/screens/welcome_screen.dart';
+import 'package:wallpy/utils/http_requets.dart';
+import 'package:wallpy/utils/notification.dart';
+import 'package:workmanager/workmanager.dart';
 import 'controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'controllers/favorite_bloc/favorite_bloc.dart';
 import 'controllers/search_bloc.dart';
@@ -24,10 +29,38 @@ import 'resources/resources.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {}
 
+const fetchBackground = "fetchBackground";
+
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    switch (task) {
+      case fetchBackground:
+        WeatherApiResModel weatherData =
+            await HttpRequests().determinePosition();
+        NotificationClass()
+            .showNotificationWithoutSound(weatherData: weatherData);
+        break;
+    }
+    return Future.value(true);
+  });
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AndroidAlarmManager.initialize();
   await Firebase.initializeApp();
+
+  await HttpRequests().reqPermission();
+  Workmanager().initialize(
+    callbackDispatcher,
+    isInDebugMode: true,
+  );
+
+  Workmanager().registerPeriodicTask(
+    "1",
+    fetchBackground,
+    frequency: Duration(minutes: 15),
+  );
   // NotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   runApp(const MyApp());
@@ -79,11 +112,14 @@ class _MyAppState extends State<MyApp> {
       providers: [
         RepositoryProvider<FirebaseDatabase>(
             create: (context) => (FirebaseDatabase())),
-        RepositoryProvider(
+        RepositoryProvider<AuthRepository>(
           create: (context) => AuthRepository(),
         ),
         RepositoryProvider<GoogleSignIn>(
           create: (context) => GoogleSignIn(),
+        ),
+        RepositoryProvider<HttpRequests>(
+          create: (context) => HttpRequests(),
         ),
       ],
       child: MultiBlocProvider(
@@ -105,7 +141,12 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<CategoryBloc>(
             create: (context) =>
                 CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
-                  ..add(GetAllCategory(category: null)),
+                  ..add(const GetAllCategory(category: [])),
+          ),
+          BlocProvider<WeatherBloc>(
+            create: (context) =>
+                WeatherBloc(RepositoryProvider.of<HttpRequests>(context))
+                  ..add(const GetAllWeather(weather: null)),
           ),
         ],
         child: MaterialApp(

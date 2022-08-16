@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:wallpy/screens/category_screen.dart';
+
 import '../resources/resources.dart';
 import 'gridview.dart';
 

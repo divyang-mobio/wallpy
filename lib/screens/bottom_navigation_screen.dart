@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/screens/weather_screen.dart';
 import '../controllers/auth_bloc/auth_bloc_bloc.dart';
 import '../models/navigation_model.dart';
 import '../resources/resources.dart';
@@ -24,8 +25,16 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     MyHomePage(),
     CategoryScreen(),
+    WeatherScreen(),
     FavouriteScreen(),
     SettingScreen()
+  ];
+  static final List<String> _widgettitle = <String>[
+    TextResources().appTitle,
+    TextResources().categoryAppTitle,
+    TextResources().weatherTitle,
+    TextResources().favoriteAppTitle,
+    TextResources().settingAppTitle,
   ];
 
   void _onItemTapped(int index) => setState(() {
@@ -43,7 +52,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          actions: (_selectedIndex == 3)
+          actions: (_selectedIndex == 4)
               ? [
                   IconButton(
                       onPressed: () {
@@ -68,14 +77,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                           size: 35, color: ColorResources().search))
                 ],
           backgroundColor: ColorResources().appBar,
-          title: Text(
-              _selectedIndex == 0
-                  ? TextResources().appTitle
-                  : _selectedIndex == 1
-                      ? TextResources().categoryAppTitle
-                      : _selectedIndex == 2
-                          ? TextResources().favoriteAppTitle
-                          : TextResources().settingAppTitle,
+          title: Text(_widgettitle[_selectedIndex],
               style: Theme.of(context).textTheme.headline1),
           elevation: 6.0),
       body: _widgetOptions.elementAt(_selectedIndex),
@@ -90,7 +92,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                   label: i.label),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: (_selectedIndex == 2)
+          selectedItemColor: (_selectedIndex == 3)
               ? ColorResources().selectedFavoriteItemInNavigationBar
               : ColorResources().selectedItemInNavigationBar,
           onTap: _onItemTapped),
