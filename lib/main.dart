@@ -14,6 +14,7 @@ import 'package:wallpy/screens/sign_up_screen.dart';
 import 'package:wallpy/screens/welcome_screen.dart';
 import 'package:wallpy/utils/news_api_calling.dart';
 import 'controllers/auth_bloc/auth_bloc_bloc.dart';
+import 'controllers/category_bloc/category_bloc.dart';
 import 'controllers/favorite_bloc/favorite_bloc.dart';
 import 'controllers/search_bloc/search_bloc.dart';
 import 'models/news_category_model.dart';
@@ -107,6 +108,11 @@ class _MyAppState extends State<MyApp> {
               create: (context) => FavoriteBloc(FirebaseDatabase())
                 ..add(GetFavoriteData(isFavorite: true, category: null))),
           BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
+          BlocProvider<CategoryBloc>(
+            create: (context) =>
+            CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
+              ..add(GetAllCategory(category: null)),
+          ),
           BlocProvider<NewsDataFetchBloc>(
               create: (context) =>
                   NewsDataFetchBloc(RepositoryProvider.of<HttpService>(context))
