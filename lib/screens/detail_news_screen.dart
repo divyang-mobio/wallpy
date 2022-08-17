@@ -19,8 +19,9 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: ColorResources().appBar,
-        title: Text(TextResources().newsDetailAppTitle),
-        elevation: 6.0,
+        title: Text(TextResources().newsDetailAppTitle,
+            style: const TextStyle(fontWeight: FontWeight.bold)),
+        elevation: 0.0,
         actions: [
           IconButton(
               onPressed: () async {

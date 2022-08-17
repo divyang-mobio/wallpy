@@ -130,6 +130,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: TextResources().appTitle,
             theme: ThemeData(
+              fontFamily: "PTSans",
               primarySwatch: Colors.grey,
               textTheme: TextTheme(
                   subtitle1: TextStyle(color: ColorResources().categoryText),

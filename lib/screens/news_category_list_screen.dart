@@ -29,7 +29,9 @@ class _NewsCategoryScreenState extends State<NewsCategoryScreen> {
       appBar: AppBar(
         backgroundColor: ColorResources().appBar,
         centerTitle: true,
-        title: Text("${widget.category.title} News"),
+        title: Text("${widget.category.title} News",
+            style: const TextStyle(fontWeight: FontWeight.bold)),
+        elevation: 0.0,
       ),
       body: BlocBuilder<NewsCategoryBloc, NewsCategoryState>(
           builder: (context, state) {
