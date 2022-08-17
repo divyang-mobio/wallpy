@@ -51,6 +51,7 @@ dependencies:
   geolocator: ^9.0.1
   http:
   workmanager:
+  expandable: ^5.0.1
 
   
 #  flutter_wallpaper_manager: ^0.0.3

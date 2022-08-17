@@ -28,7 +28,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       } else if (state is CategoryError) {
         return Center(child: Text(TextResources().blocError));
       } else {
-        return const Center(child: Text("Error No Data :("));
+        return Center(child: Text(TextResources().noData));
       }
     });
   }

@@ -16,10 +16,8 @@ class NotificationClass extends Notification {
         NotificationDetails(android: androidPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
       1,
-
       weatherData.name,
-      weatherData.main?.temp.toString(),
-      //position.toString(),
+      weatherData.sys?.country,
       platformChannelSpecifics,
       payload: '',
     );

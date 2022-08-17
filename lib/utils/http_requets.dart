@@ -17,13 +17,19 @@ class HttpRequests {
 
     try {
       final String url =
+          // "https://api.openweathermap.org/data/2.5/forecast/daily?lat=$lat&lon=$long&cnt=10&appid=$key";
           "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$long&appid=$key";
       var response = await http.get(Uri.parse(url));
-      var json = jsonDecode(response.body);
-      var weatherData = WeatherApiResModel.fromMap(json);
-      // ignore: avoid_print
-      print(weatherData.toMap());
-      return weatherData;
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var json = jsonDecode(response.body);
+        var weatherData = WeatherApiResModel.fromMap(json);
+        // ignore: avoid_print
+        print(weatherData.toMap());
+        return weatherData;
+      } else {
+        var json = jsonDecode(response.body);
+        throw json['message'].toString();
+      }
     } catch (e) {
       print(e.toString());
       throw (e.toString());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../resources/resources.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,9 +17,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigation() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    bool isAuth = preferences.getBool("isLogin") ?? false;
+
     await Future.delayed(const Duration(seconds: 1)).whenComplete(() =>
-        Navigator.pushReplacementNamed(
-            context, TextResources().welcomeScreenRoute));
+        Navigator.pushReplacementNamed(context,
+            isAuth ? "/bottomBar" : TextResources().welcomeScreenRoute));
   }
 
   @override

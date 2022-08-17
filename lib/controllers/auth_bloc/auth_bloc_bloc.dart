@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallpy/utils/auth_repository.dart';
 
 part 'auth_bloc_event.dart';
@@ -19,6 +20,8 @@ class AuthBlocBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
       emit(AuthBlocInitial());
       try {
         await authRepository.signInWithEmail(event.email, event.password);
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setBool("isLogin", true);
         emit(Authenticated());
       } catch (e) {
         emit(AuthError(e.toString()));
@@ -31,6 +34,8 @@ class AuthBlocBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
       try {
         await authRepository.signUpWithEmail(
             event.email, event.password, event.name);
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setBool("isLogin", true);
         emit(Authenticated());
       } catch (e) {
         emit(AuthError(e.toString()));
@@ -54,6 +59,8 @@ class AuthBlocBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
               accessToken: googleAuth?.accessToken,
               idToken: googleAuth?.idToken);
           await FirebaseAuth.instance.signInWithCredential(credential);
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          preferences.setBool("isLogin", true);
           emit(Authenticated());
         } catch (e) {
           emit(AuthError(e.toString()));
@@ -62,6 +69,8 @@ class AuthBlocBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
       });
 
       on<SignOutRequested>((event, emit) async {
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setBool("isLogin", false);
         emit(AuthBlocInitial());
         await googleSignIn.signOut();
         await authRepository.logout();

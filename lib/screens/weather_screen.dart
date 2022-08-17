@@ -1,3 +1,4 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,24 +35,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Latitiude  ${state.data.coord?.lat}',
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: ColorResources().textColorwhite,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'Longitude ${state.data.coord?.lon}',
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: ColorResources().textColorwhite,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      state.data.sys!.country.toString(),
+                      '${state.data.sys?.country}',
+                      // state.data.city!.country.toUpperCase(),
                       style: TextStyle(
                           fontSize: 30,
                           color: ColorResources().textColorwhite,
@@ -80,7 +65,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           width: 10,
                         ),
                         Text(
-                          state.data.weather.first.description,
+                          '${state.data.weather[0].description}',
                           style: TextStyle(
                               fontSize: 20,
                               color: ColorResources().textColorwhite,
@@ -92,11 +77,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       height: 20,
                     ),
                     Text(
-                      'Humididty',
+                      TextResources().humidity,
                       style: TextStyle(color: ColorResources().textColorwhite),
                     ),
                     Text(
-                      '${state.data.main?.humidity}',
+                      '${state.data.main?.humidity ?? ''}',
                       style: TextStyle(
                           color: ColorResources().textColorwhite, fontSize: 20),
                     ),
@@ -104,7 +89,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       height: 20,
                     ),
                     Text(
-                      'SW Wind',
+                      TextResources().swWind,
                       style: TextStyle(
                         color: ColorResources().textColorwhite,
                       ),
@@ -118,7 +103,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       height: 20,
                     ),
                     Text(
-                      'Visibility',
+                      TextResources().visibility,
                       style: TextStyle(
                         color: ColorResources().textColorwhite,
                       ),
@@ -132,7 +117,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       height: 20,
                     ),
                     Text(
-                      'Air Pressure',
+                      TextResources().pressure,
                       style: TextStyle(
                         color: ColorResources().textColorwhite,
                       ),
@@ -141,7 +126,40 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       '${state.data.main?.pressure}',
                       style: TextStyle(
                           color: ColorResources().textColorwhite, fontSize: 20),
-                    )
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    // SizedBox(
+                    //   height: 200,
+                    //   child: ListView.builder(
+                    //       scrollDirection: Axis.horizontal,
+                    //       itemCount: state.data.list.length,
+                    //       itemBuilder: (BuildContext ctx, int i) {
+                    //         return Padding(
+                    //           padding: const EdgeInsets.symmetric(
+                    //               horizontal: 5, vertical: 10),
+                    //           child: Container(
+                    //               height: 30,
+                    //               width: 120,
+                    //               child: Card(
+                    //                   child: Column(
+                    //                 mainAxisAlignment: MainAxisAlignment.center,
+                    //                 children: [
+                    //                   Text('Today'),
+                    //                   IconButton(
+                    //                       onPressed: () {},
+                    //                       icon: Icon(Icons.cloud)),
+                    //                   Text(
+                    //                     (state.data.list[1].temp?.max ?? "")
+                    //                         .toString(),
+                    //                     style: TextStyle(fontSize: 20),
+                    //                   )
+                    //                 ],
+                    //               ))),
+                    //         );
+                    //       }),
+                    // )
                   ],
                 ));
           } else if (state is WeatherError) {
@@ -151,7 +169,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
               style: TextStyle(color: ColorResources().textColorwhite),
             ));
           } else {
-            return const Center(child: Text("Error No Data :("));
+            return Center(child: Text(TextResources().noData));
           }
         }));
   }
