@@ -23,5 +23,6 @@ class IconsResources {
   final back = Icons.arrow_back_ios_new;
   final logOut = Icons.logout_rounded;
   final openUrl = Icons.launch;
+  final share = Icons.share;
   final newScreenUnSelectedSelected = Icons.newspaper;
 }
