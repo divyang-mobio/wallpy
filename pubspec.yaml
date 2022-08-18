@@ -49,8 +49,8 @@ dependencies:
   equatable: ^2.0.3
   google_sign_in: ^5.4.1
   geolocator: ^9.0.1
-  http:
-  workmanager:
+  http: ^0.13.5
+  workmanager: ^0.5.0
   expandable: ^5.0.1
 
   
