@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import '../resources/resources.dart';
 import 'gridview.dart';
@@ -8,6 +9,7 @@ Shimmer shimmer(bool isGrid) {
       baseColor: ColorResources().shimmerBase,
       highlightColor: ColorResources().shimmerHighlight,
       child: isGrid ? gridView([], null, true) : listView([], true));
+}
 
 Shimmer categoryShimmer(BuildContext context) {
   return Shimmer.fromColors(
@@ -36,7 +38,7 @@ Shimmer categoryShimmer(BuildContext context) {
                       ),
                     );
                   })),
-          Expanded(child: shimmer()),
+          Expanded(child: shimmer(true)),
         ],
       ));
 }

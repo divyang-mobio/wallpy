@@ -8,7 +8,6 @@ import 'category_screen.dart';
 import 'favourite_screen.dart';
 import 'news_screen.dart';
 import 'setting_screen.dart';
-import 'main_screen.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
@@ -34,6 +33,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
     // TextResources().categoryAppTitle,
     TextResources().weatherTitle,
     TextResources().favoriteAppTitle,
+    TextResources().newsAppTitle,
     TextResources().settingAppTitle,
   ];
 
@@ -72,7 +72,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
           elevation: 0.0),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        elevation: 0.0,
+          elevation: 0.0,
           type: BottomNavigationBarType.fixed,
           showUnselectedLabels: false,
           items: <BottomNavigationBarItem>[
