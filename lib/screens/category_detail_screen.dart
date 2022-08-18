@@ -7,8 +7,11 @@ import 'package:wallpy/widgets/network_image.dart';
 
 class CategoryDetailScreen extends StatefulWidget {
   final List<Map> data;
+  final String title;
 
-  const CategoryDetailScreen({Key? key, required this.data}) : super(key: key);
+  const CategoryDetailScreen(
+      {Key? key, required this.data, required this.title})
+      : super(key: key);
 
   @override
   State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
@@ -26,9 +29,11 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        iconTheme: IconThemeData(color: ColorResources().appBarTextIcon),
         backgroundColor: ColorResources().appBar,
-        title: Text(TextResources().categoryDetail,
-            style: Theme.of(context).textTheme.headline1),
+        title: Text(widget.title, style: Theme.of(context).textTheme.headline1),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0),

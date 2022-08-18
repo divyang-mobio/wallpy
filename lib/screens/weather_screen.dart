@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wallpy/controllers/weather_bloc/weather_bloc.dart';
 import 'package:wallpy/resources/resources.dart';
+import 'package:wallpy/widgets/network_image.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({Key? key}) : super(key: key);
@@ -15,10 +16,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.fill,
-                image: NetworkImage(
+                image: networkImages(
                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToY5hNtemPEvOyyPKrWdVOZWR-gQBRI-ThmA&usqp=CAU',
                 ))),
         child:

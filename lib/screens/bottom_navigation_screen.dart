@@ -23,7 +23,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   final ScrollController _scrollController = ScrollController();
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    MyHomePage(),
+    // MyHomePage(),
     CategoryScreen(),
     WeatherScreen(),
     FavouriteScreen(),
@@ -31,7 +31,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   ];
   static final List<String> _widgettitle = <String>[
     TextResources().appTitle,
-    TextResources().categoryAppTitle,
+    // TextResources().categoryAppTitle,
     TextResources().weatherTitle,
     TextResources().favoriteAppTitle,
     TextResources().settingAppTitle,
@@ -52,7 +52,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          actions: (_selectedIndex == 4)
+          actions: (_selectedIndex == 3)
               ? [
                   IconButton(
                       onPressed: () {
@@ -79,7 +79,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
           backgroundColor: ColorResources().appBar,
           title: Text(_widgettitle[_selectedIndex],
               style: Theme.of(context).textTheme.headline1),
-          elevation: 6.0),
+          elevation: 0.0),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -92,7 +92,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                   label: i.label),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: (_selectedIndex == 3)
+          selectedItemColor: (_selectedIndex == 2)
               ? ColorResources().selectedFavoriteItemInNavigationBar
               : ColorResources().selectedItemInNavigationBar,
           onTap: _onItemTapped),

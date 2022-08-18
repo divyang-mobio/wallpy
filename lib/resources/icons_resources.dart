@@ -20,7 +20,8 @@ class IconsResources {
   final user = Icons.person;
   final lock = Icons.lock;
   final searchClear = Icons.clear;
-  final weatherIcon = Icons.cloud;
+  final weatherIconSelected = Icons.cloud;
+  final weatherIconUnselected = Icons.cloud_outlined;
 
   final logout = Icons.logout;
 

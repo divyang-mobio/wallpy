@@ -124,13 +124,13 @@ List<BottomNavigationModel> bottomData = [
       actionIcon: IconsResources().homeScreenSelected,
       icon: IconsResources().homeScreenUnSelected,
       label: TextResources().homeScreenLabel),
+  // BottomNavigationModel(
+  //     actionIcon: IconsResources().categoryScreenSelected,
+  //     icon: IconsResources().categoryScreenUnSelected,
+  //     label: TextResources().categoryScreenLabel),
   BottomNavigationModel(
-      actionIcon: IconsResources().categoryScreenSelected,
-      icon: IconsResources().categoryScreenUnSelected,
-      label: TextResources().categoryScreenLabel),
-  BottomNavigationModel(
-      actionIcon: IconsResources().weatherIcon,
-      icon: IconsResources().weatherIcon,
+      actionIcon: IconsResources().weatherIconSelected,
+      icon: IconsResources().weatherIconUnselected,
       label: TextResources().weatherTitle),
   BottomNavigationModel(
       actionIcon: IconsResources().favouriteScreenSelected,

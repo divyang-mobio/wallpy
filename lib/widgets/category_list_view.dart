@@ -27,7 +27,12 @@ class CategoryListView extends StatelessWidget {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (ctx) {
                               return CategoryDetailScreen(
-                                  data: data.elementAt(index)['data']);
+                                data: data.elementAt(index)['data'],
+                                title: data
+                                    .elementAt(index)['name']
+                                    .toString()
+                                    .toUpperCase(),
+                              );
                             }));
                           },
                           child: Stack(children: [
