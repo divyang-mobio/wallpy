@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../widgets/appicon_text.dart';
 import '../widgets/network_image.dart';
 import '../resources/resources.dart';
 import '../models/articles_model.dart';
+import '../widgets/theme.dart';
 
 class DetailNewsScreen extends StatefulWidget {
   const DetailNewsScreen({Key? key, required this.articles}) : super(key: key);
@@ -19,15 +22,20 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: ColorResources().appBar,
+        backgroundColor:Provider.of<ThemeProvider>(context).isDarkMode
+            ? ColorResources().appBarDark
+            : ColorResources().appBar,
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: appBarIcon(context, IconsResources().back)),
         title: Text(TextResources().newsDetailAppTitle,
-            style: const TextStyle(fontWeight: FontWeight.bold)),
+            style: appBarTextStyle(context)),
         elevation: 0.0,
         actions: [
           IconButton(
               onPressed: () => Share.share("""${widget.articles.title}
                 ${widget.articles.url ?? ""}"""),
-              icon: Icon(IconsResources().share)),
+              icon: appBarIcon(context, IconsResources().share)),
           IconButton(
               onPressed: () async {
                 Uri url = Uri.parse(widget.articles.url.toString());
@@ -38,7 +46,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                       SnackBar(content: Text(TextResources().urlNotLoading)));
                 }
               },
-              icon: Icon(IconsResources().openUrl))
+              icon: appBarIcon(context, IconsResources().openUrl))
         ],
       ),
       body: SingleChildScrollView(

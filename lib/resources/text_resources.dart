@@ -61,6 +61,9 @@ class TextResources {
   final String fireStoreImgFav = "image_fav";
   final String fireStoreImgCat = "image_category";
   final String urlNotLoading = "not able to open url";
+  final String darkModeTitle = "Dark Mode";
+  final String fontFamily = "PTSans";
+
 
 //Int type
   final int adsInternalInList = 2;

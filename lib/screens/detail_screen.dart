@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:wallpy/widgets/theme.dart';
 import '../controllers/favorite_bloc/favorite_bloc.dart';
+import '../widgets/appicon_text.dart';
 import '../widgets/wallpaper_setter.dart';
 import '../resources/resources.dart';
 import '../models/data_model.dart';
@@ -47,9 +50,8 @@ class _DetailScreenState extends State<DetailScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(IconsResources().back),
-                  ),
+                      onPressed: () => Navigator.pop(context),
+                      icon: appBarIcon(context, IconsResources().back)),
                 )),
           ),
           Visibility(
@@ -59,7 +61,9 @@ class _DetailScreenState extends State<DetailScreen> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 decoration: BoxDecoration(
-                    color: ColorResources().detailScreenContainer,
+                    color: Provider.of<ThemeProvider>(context).isDarkMode
+                        ? ColorResources().detailScreenContainerDark
+                        : ColorResources().detailScreenContainer,
                     borderRadius: const BorderRadius.all(Radius.circular(20))),
                 margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
                 height: 80,
@@ -77,7 +81,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           GallerySaver.saveImage(path).whenComplete(
                               () => snackBar("Save Image", context));
                         },
-                        icon: icons(IconsResources().download)),
+                        icon: icons(context, IconsResources().download)),
                     IconButton(
                         onPressed: () async {
                           int? location = await bottomSheet(
@@ -88,7 +92,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             wallpaperSetter(widget.dataModel.url, location);
                           }
                         },
-                        icon: icons(
+                        icon: icons(context,
                             IconsResources().setWallpaperFromDetailScreen)),
                     FavoriteIcon(dataModel: widget.dataModel)
                   ],
@@ -102,11 +106,13 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 }
 
-Icon icons(IconData iconData) {
+Icon icons(context, IconData iconData) {
   return Icon(
     size: 30,
     iconData,
-    color: ColorResources().detailScreenIcons,
+    color: Provider.of<ThemeProvider>(context).isDarkMode
+        ? ColorResources().detailScreenIconsDark
+        : ColorResources().detailScreenIcons,
   );
 }
 
@@ -134,9 +140,11 @@ class _FavoriteIconState extends State<FavoriteIcon> {
                   isFavorite: true,
                   category: null)));
         },
-        icon: icons((widget.dataModel.fav)
-            ? IconsResources().removeFavorite
-            : IconsResources().addFavorite));
+        icon: icons(
+            context,
+            (widget.dataModel.fav)
+                ? IconsResources().removeFavorite
+                : IconsResources().addFavorite));
   }
 }
 

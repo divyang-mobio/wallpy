@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../widgets/theme.dart';
 import '../resources/resources.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,7 +29,10 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Text(
           TextResources().splashScreenTile,
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.headline1?.copyWith(
+              color: Provider.of<ThemeProvider>(context).isDarkMode
+                  ? ColorResources().splashWordDark
+                  : ColorResources().splashWord),
         ),
       ),
     );

@@ -4,6 +4,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:wallpy/widgets/theme.dart';
 import 'controllers/new_category_bloc/news_category_bloc.dart';
 import 'package:wallpy/controllers/news_data_fetch_bloc/news_data_fetch_bloc.dart';
 import 'package:wallpy/screens/search_screen.dart';
@@ -127,65 +129,72 @@ class _MyAppState extends State<MyApp> {
             create: (context) => NewsCategoryBloc()
           ),
         ],
-        child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: TextResources().appTitle,
-            theme: ThemeData(
-              fontFamily: "PTSans",
-              primarySwatch: Colors.grey,
-              textTheme: TextTheme(
-                  subtitle1: TextStyle(color: ColorResources().categoryText),
-                  headline1: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: ColorResources().splashWord)),
-
-            ),
-            onGenerateRoute: RouteGenerator.generateRoute,
-            //     (RouteSettings setting) {
-            //   switch (setting.name) {
-            //     case "/":
-            //       return MaterialPageRoute(
-            //           builder: (context) => const SplashScreen());
-            //     case "/bottomBar":
-            //       return MaterialPageRoute(
-            //           builder: (context) => const BottomNavigationBarScreen());
-            //     case "/detail":
-            //       final args = setting.arguments as DetailScreenArgument;
-            //       return MaterialPageRoute(
-            //           builder: (context) =>
-            //               DetailScreen(dataModel: args.dataModel));
-            //     case "/detailNews":
-            //       final args = setting.arguments as DetailNewsScreenArgument;
-            //       return MaterialPageRoute(
-            //           builder: (context) =>
-            //               DetailNewsScreen(articles: args.articles));
-            //     case "/search":
-            //       final args = setting.arguments as SearchScreenArgument;
-            //       return MaterialPageRoute(
-            //           builder: (context) =>
-            //               SearchScreen(screen: args.selectedScreen));
-            //     case "/welcome":
-            //       return MaterialPageRoute(
-            //           builder: (context) => const WelcomeScreen());
-            //     case "/signUp":
-            //       return MaterialPageRoute(
-            //           builder: (context) => const SignUp());
-            //     case "/signIn":
-            //       return MaterialPageRoute(
-            //           builder: (context) => const SignIn());
-            //     case "/newCategory":
-            //       final args = setting.arguments as NewsCategory;
-            //       return MaterialPageRoute(
-            //           builder: (context) => NewsCategoryScreen(
-            //                 category: args,
-            //               ));
-            //     default:
-            //       return MaterialPageRoute(
-            //           builder: (context) => const MyHomePage());
-            //   }
-            // },
-            initialRoute: initialRoute),
+        child: ChangeNotifierProvider<ThemeProvider>(
+          create: (_) => ThemeProvider(),
+          builder: (context, _) {
+            return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: TextResources().appTitle,
+                themeMode: Provider.of<ThemeProvider>(context).themeMode,
+                theme: MyTheme.lightTheme,
+                // ThemeData(
+                //   fontFamily: "PTSans",
+                //   primarySwatch: Colors.grey,
+                //   textTheme: TextTheme(
+                //       subtitle1: TextStyle(color: ColorResources().categoryText),
+                //       headline1: TextStyle(
+                //           fontWeight: FontWeight.bold,
+                //           fontSize: 30,
+                //           color: ColorResources().splashWord)),
+                // ),
+                darkTheme: MyTheme.darkTheme,
+                onGenerateRoute: RouteGenerator.generateRoute,
+                //     (RouteSettings setting) {
+                //   switch (setting.name) {
+                //     case "/":
+                //       return MaterialPageRoute(
+                //           builder: (context) => const SplashScreen());
+                //     case "/bottomBar":
+                //       return MaterialPageRoute(
+                //           builder: (context) => const BottomNavigationBarScreen());
+                //     case "/detail":
+                //       final args = setting.arguments as DetailScreenArgument;
+                //       return MaterialPageRoute(
+                //           builder: (context) =>
+                //               DetailScreen(dataModel: args.dataModel));
+                //     case "/detailNews":
+                //       final args = setting.arguments as DetailNewsScreenArgument;
+                //       return MaterialPageRoute(
+                //           builder: (context) =>
+                //               DetailNewsScreen(articles: args.articles));
+                //     case "/search":
+                //       final args = setting.arguments as SearchScreenArgument;
+                //       return MaterialPageRoute(
+                //           builder: (context) =>
+                //               SearchScreen(screen: args.selectedScreen));
+                //     case "/welcome":
+                //       return MaterialPageRoute(
+                //           builder: (context) => const WelcomeScreen());
+                //     case "/signUp":
+                //       return MaterialPageRoute(
+                //           builder: (context) => const SignUp());
+                //     case "/signIn":
+                //       return MaterialPageRoute(
+                //           builder: (context) => const SignIn());
+                //     case "/newCategory":
+                //       final args = setting.arguments as NewsCategory;
+                //       return MaterialPageRoute(
+                //           builder: (context) => NewsCategoryScreen(
+                //                 category: args,
+                //               ));
+                //     default:
+                //       return MaterialPageRoute(
+                //           builder: (context) => const MyHomePage());
+                //   }
+                // },
+                initialRoute: initialRoute);
+          }
+        ),
       ),
     );
   }
