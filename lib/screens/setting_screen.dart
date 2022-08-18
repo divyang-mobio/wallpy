@@ -124,12 +124,6 @@ class _SettingScreenState extends State<SettingScreen> {
 
 class DarkTheme extends StatelessWidget {
   const DarkTheme({Key? key}) : super(key: key);
-//
-//   @override
-//   State<DarkTheme> createState() => _DarkThemeState();
-// }
-//
-// class _DarkThemeState extends State<DarkTheme> {
   @override
   Widget build(BuildContext context) {
     return ListTile(

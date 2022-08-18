@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:wallpy/screens/weather_screen.dart';
+import 'package:wallpy/widgets/theme.dart';
 import '../controllers/auth_bloc/auth_bloc_bloc.dart';
 import '../models/navigation_model.dart';
 import '../resources/resources.dart';
+import '../widgets/appicon_text.dart';
 import 'category_screen.dart';
 import 'favourite_screen.dart';
 import 'news_screen.dart';
 import 'setting_screen.dart';
-import 'main_screen.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
@@ -21,11 +23,20 @@ class BottomNavigationBarScreen extends StatefulWidget {
 class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    MyHomePage(),
+    // MyHomePage(),
     CategoryScreen(),
+    WeatherScreen(),
     FavouriteScreen(),
     NewsScreen(),
     SettingScreen()
+  ];
+  static final List<String> _widgettitle = <String>[
+    TextResources().appTitle,
+    // TextResources().categoryAppTitle,
+    TextResources().weatherTitle,
+    TextResources().favoriteAppTitle,
+    TextResources().newsAppTitle,
+    TextResources().settingAppTitle,
   ];
 
   void _onItemTapped(int index) => setState(() {
@@ -47,7 +58,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                           TextResources().welcomeScreenRoute,
                         );
                       },
-                      icon: Icon(IconsResources().logOut))
+                      icon: appBarIcon(context, IconsResources().logOut))
                 ]
               : [
                   IconButton(
@@ -55,24 +66,17 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                           context, TextResources().searchScreenRoute,
                           arguments: SearchScreenArgument(
                               selectedScreen: _selectedIndex)),
-                      icon: Icon(IconsResources().search))
+                      icon: appBarIcon(context, IconsResources().search))
                 ],
-          backgroundColor: ColorResources().appBar,
-          title: Text(
-              _selectedIndex == 0
-                  ? TextResources().appTitle
-                  : _selectedIndex == 1
-                      ? TextResources().categoryAppTitle
-                      : _selectedIndex == 2
-                          ? TextResources().favoriteAppTitle
-                          : _selectedIndex == 3
-                              ? TextResources().newsAppTitle
-                              : TextResources().settingAppTitle,
-              style: const TextStyle(fontWeight: FontWeight.bold)),
+          backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
+              ? ColorResources().appBarDark
+              : ColorResources().appBar,
+          title: Text(_widgettitle[_selectedIndex],
+              style: appBarTextStyle(context)),
           elevation: 0.0),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        elevation: 0.0,
+          elevation: 0.0,
           type: BottomNavigationBarType.fixed,
           showUnselectedLabels: false,
           items: <BottomNavigationBarItem>[

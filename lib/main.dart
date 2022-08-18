@@ -167,7 +167,7 @@ class _MyAppState extends State<MyApp> {
           ),
           BlocProvider<NewsCategoryBloc>(
             create: (context) => NewsCategoryBloc()
-            ),
+          ),
           BlocProvider<CategoryBloc>(
             create: (context) =>
                 CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
@@ -181,23 +181,13 @@ class _MyAppState extends State<MyApp> {
         ],
         child: ChangeNotifierProvider<ThemeProvider>(
           create: (_) => ThemeProvider(),
-          builder: (context, _) {
+          builder: (context,_) {
             return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: TextResources().appTitle,
                 themeMode: Provider.of<ThemeProvider>(context).themeMode,
-                theme: MyTheme.lightTheme,
-                // ThemeData(
-                //   fontFamily: "PTSans",
-                //   primarySwatch: Colors.grey,
-                //   textTheme: TextTheme(
-                //       subtitle1: TextStyle(color: ColorResources().categoryText),
-                //       headline1: TextStyle(
-                //           fontWeight: FontWeight.bold,
-                //           fontSize: 30,
-                //           color: ColorResources().splashWord)),
-                // ),
                 darkTheme: MyTheme.darkTheme,
+                theme: MyTheme.lightTheme,
                 onGenerateRoute: RouteGenerator.generateRoute,
                 //     (RouteSettings setting) {
                 //   switch (setting.name) {
