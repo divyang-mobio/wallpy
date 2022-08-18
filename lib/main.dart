@@ -154,7 +154,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<CategoryBloc>(
             create: (context) =>
             CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
-              ..add(GetAllCategory(category: null)),
+              ..add(const GetAllCategory(category: [])),
           ),
           BlocProvider<NewsDataFetchBloc>(
               create: (context) =>
