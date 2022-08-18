@@ -8,6 +8,7 @@ import '../models/weather_model.dart';
 class HttpRequests {
   Future<WeatherApiResModel> determinePosition() async {
     Position position = await reqPermission();
+    // ignore: avoid_print
     print('${position.latitude}to${position.longitude}');
 
     const String key = 'abc3f51546a80dcdd3213fcae70951d9';
@@ -31,6 +32,7 @@ class HttpRequests {
         throw json['message'].toString();
       }
     } catch (e) {
+      // ignore: avoid_print
       print(e.toString());
       throw (e.toString());
     }

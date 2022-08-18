@@ -59,6 +59,7 @@ class WeatherApiResModel {
 
   Map<String, dynamic> toMap() => {
         "coord": coord?.toMap(),
+        // ignore: unnecessary_null_comparison
         "weather": weather != null
             ? List<dynamic>.from(weather.map((x) => x.toMap()))
             : [],

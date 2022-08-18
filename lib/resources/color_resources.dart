@@ -27,4 +27,5 @@ class ColorResources {
   final Color search = Colors.black;
   final Color logOut = Colors.black;
   final Color signUpInText = Colors.black;
+  final Color categoryColor = const Color.fromARGB(30, 0, 0, 0);
 }

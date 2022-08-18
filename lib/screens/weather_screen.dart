@@ -1,11 +1,8 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wallpy/controllers/weather_bloc/weather_bloc.dart';
 import 'package:wallpy/resources/resources.dart';
-
-import '../widgets/shimmer_loading.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({Key? key}) : super(key: key);
@@ -27,7 +24,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
         child:
             BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
           if (state is WeatherLoading) {
-            return categoryshimmer(context);
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           } else if (state is WeatherLoaded) {
             return Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -65,7 +64,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           width: 10,
                         ),
                         Text(
-                          '${state.data.weather[0].description}',
+                          state.data.weather[0].description,
                           style: TextStyle(
                               fontSize: 20,
                               color: ColorResources().textColorwhite,
@@ -162,14 +161,16 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     // )
                   ],
                 ));
-          } else if (state is WeatherError) {
-            return Center(
-                child: Text(
-              state.error.toString(),
-              style: TextStyle(color: ColorResources().textColorwhite),
-            ));
           } else {
-            return Center(child: Text(TextResources().noData));
+            if (state is WeatherError) {
+              return Center(
+                  child: Text(
+                state.error.toString(),
+                style: TextStyle(color: ColorResources().textColorwhite),
+              ));
+            } else {
+              return Center(child: Text(TextResources().noData));
+            }
           }
         }));
   }

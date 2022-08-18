@@ -59,7 +59,7 @@ Future<void> main() async {
   Workmanager().registerPeriodicTask(
     "1",
     fetchBackground,
-    frequency: Duration(minutes: 15),
+    frequency: const Duration(minutes: 15),
   );
   // NotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
@@ -84,6 +84,7 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.instance.getInitialMessage().then((event) {
       if (event != null) {
         final route = event.data["route"];
+        // ignore: avoid_print
         print(route);
         if (route.toString() == "2") {
           initialRoute == TextResources().homeScreenRoute;
@@ -94,6 +95,7 @@ class _MyAppState extends State<MyApp> {
     /// foreground Work notification
     FirebaseMessaging.onMessage.listen((event) {
       if (event.notification != null) {
+        // ignore: avoid_print
         print(event.notification?.title);
         // NotificationService.display(event);
       }
@@ -102,6 +104,7 @@ class _MyAppState extends State<MyApp> {
     /// only work when app is in recent
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       final route = event.data["route"];
+      // ignore: avoid_print
       print(route);
     });
   }

@@ -16,6 +16,7 @@ class PreferenceServices {
     final preference = await SharedPreferences.getInstance();
     await preference.setStringList(
         "list", data.map((e) => e.url.toString()).toList());
+    // ignore: avoid_print
     print("save");
   }
 
