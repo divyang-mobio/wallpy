@@ -133,6 +133,7 @@ class _MyAppState extends State<MyApp> {
         ),
         RepositoryProvider<HttpService>(
           create: (context) => HttpService(),
+          ),
         RepositoryProvider<HttpRequests>(
           create: (context) => HttpRequests(),
         ),
