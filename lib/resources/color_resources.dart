@@ -30,4 +30,9 @@ class ColorResources {
   final Color newsDetailText = Colors.black;// Colors.white;
   final Color categoriesTileBorder = Colors.black;// Colors.white;
   final Color activeSwitch = Colors.black;// Colors.white;
+  final Color googleSignInUpText = Colors.white;
+  final Color search = Colors.black;
+  final Color logOut = Colors.black;
+  final Color signUpInText = Colors.black;
+  final Color categoryColor = const Color.fromARGB(30, 0, 0, 0);
 }

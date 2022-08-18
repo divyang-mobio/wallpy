@@ -7,6 +7,7 @@ wallpaperSetter(String url, int location) async {
   try {
     await WallpaperManagerFlutter().setwallpaperfromFile(cachedImage, location);
   } catch (e) {
+    // ignore: avoid_print
     print("error");
   }
 }

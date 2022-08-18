@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/screens/weather_screen.dart';
 import '../controllers/auth_bloc/auth_bloc_bloc.dart';
 import '../models/navigation_model.dart';
 import '../resources/resources.dart';
@@ -21,11 +22,19 @@ class BottomNavigationBarScreen extends StatefulWidget {
 class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    MyHomePage(),
+    // MyHomePage(),
     CategoryScreen(),
+    WeatherScreen(),
     FavouriteScreen(),
     NewsScreen(),
     SettingScreen()
+  ];
+  static final List<String> _widgettitle = <String>[
+    TextResources().appTitle,
+    // TextResources().categoryAppTitle,
+    TextResources().weatherTitle,
+    TextResources().favoriteAppTitle,
+    TextResources().settingAppTitle,
   ];
 
   void _onItemTapped(int index) => setState(() {
@@ -69,6 +78,8 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                               ? TextResources().newsAppTitle
                               : TextResources().settingAppTitle,
               style: const TextStyle(fontWeight: FontWeight.bold)),
+          title: Text(_widgettitle[_selectedIndex],
+              style: Theme.of(context).textTheme.headline1),
           elevation: 0.0),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(

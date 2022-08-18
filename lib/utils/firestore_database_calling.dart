@@ -92,7 +92,7 @@ class FirebaseDatabase {
     return rawData;
   }
 
-  Future<List<Map>> getCategoryData(List<dynamic>? category) async {
+  Future<List<Map>> getCategoryData() async {
     final instances = FirebaseFirestore.instance.collection("Category");
 
     QuerySnapshot querySnapshot = await instances.get();

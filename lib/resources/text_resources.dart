@@ -13,6 +13,15 @@ class TextResources {
   final String settingScreenLabel = "Setting";
   final String newsScreenLabel = "News";
   final String splashScreenTile = "Wallpy";
+  final String weatherTitle = "Weather";
+  final String latitude = "Latitude";
+  final String longitude = "Longitude";
+  final String humidity = "Humidity";
+  final String swWind = "SW Wind";
+  final String visibility = "Visibility";
+  final String pressure = "Air Pressure";
+  final String noData = "Error No Data :(";
+
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
   final String email = "Email";
@@ -121,10 +130,14 @@ List<BottomNavigationModel> bottomData = [
       actionIcon: IconsResources().homeScreenSelected,
       icon: IconsResources().homeScreenUnSelected,
       label: TextResources().homeScreenLabel),
+  // BottomNavigationModel(
+  //     actionIcon: IconsResources().categoryScreenSelected,
+  //     icon: IconsResources().categoryScreenUnSelected,
+  //     label: TextResources().categoryScreenLabel),
   BottomNavigationModel(
-      actionIcon: IconsResources().categoryScreenSelected,
-      icon: IconsResources().categoryScreenUnSelected,
-      label: TextResources().categoryScreenLabel),
+      actionIcon: IconsResources().weatherIconSelected,
+      icon: IconsResources().weatherIconUnselected,
+      label: TextResources().weatherTitle),
   BottomNavigationModel(
       actionIcon: IconsResources().favouriteScreenSelected,
       icon: IconsResources().favouriteScreenUnSelected,

@@ -6,6 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'controllers/new_category_bloc/news_category_bloc.dart';
 import 'package:wallpy/controllers/news_data_fetch_bloc/news_data_fetch_bloc.dart';
+import 'package:wallpy/controllers/category_bloc/category_bloc.dart';
+import 'package:wallpy/controllers/weather_bloc/weather_bloc.dart';
+import 'package:wallpy/models/weather_model.dart';
 import 'package:wallpy/screens/search_screen.dart';
 import 'package:wallpy/utils/auth_repository.dart';
 import 'package:wallpy/screens/main_screen.dart';
@@ -14,6 +17,9 @@ import 'package:wallpy/screens/sign_up_screen.dart';
 import 'package:wallpy/screens/welcome_screen.dart';
 import 'package:wallpy/utils/news_api_calling.dart';
 import 'widgets/route.dart';
+import 'package:wallpy/utils/http_requets.dart';
+import 'package:wallpy/utils/notification.dart';
+import 'package:workmanager/workmanager.dart';
 import 'controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'controllers/category_bloc/category_bloc.dart';
 import 'controllers/favorite_bloc/favorite_bloc.dart';
@@ -33,10 +39,38 @@ Future<void> backgroundHandler(RemoteMessage message) async {
   print(message.data);
 }
 
+const fetchBackground = "fetchBackground";
+
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    switch (task) {
+      case fetchBackground:
+        WeatherApiResModel weatherData =
+            await HttpRequests().determinePosition();
+        NotificationClass()
+            .showNotificationWithoutSound(weatherData: weatherData);
+        break;
+    }
+    return Future.value(true);
+  });
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AndroidAlarmManager.initialize();
   await Firebase.initializeApp();
+
+  await HttpRequests().reqPermission();
+  Workmanager().initialize(
+    callbackDispatcher,
+    isInDebugMode: true,
+  );
+
+  Workmanager().registerPeriodicTask(
+    "1",
+    fetchBackground,
+    frequency: const Duration(minutes: 15),
+  );
   // NotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   runApp(const MyApp());
@@ -60,6 +94,7 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.instance.getInitialMessage().then((event) {
       if (event != null) {
         final route = event.data["route"];
+        // ignore: avoid_print
         print(route);
         if (route.toString() == "2") {
           initialRoute == TextResources().homeScreenRoute;
@@ -70,6 +105,7 @@ class _MyAppState extends State<MyApp> {
     /// foreground Work notification
     FirebaseMessaging.onMessage.listen((event) {
       if (event.notification != null) {
+        // ignore: avoid_print
         print(event.notification?.title);
         // NotificationService.display(event);
       }
@@ -78,6 +114,7 @@ class _MyAppState extends State<MyApp> {
     /// only work when app is in recent
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       final route = event.data["route"];
+      // ignore: avoid_print
       print(route);
     });
   }
@@ -88,7 +125,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         RepositoryProvider<FirebaseDatabase>(
             create: (context) => (FirebaseDatabase())),
-        RepositoryProvider(
+        RepositoryProvider<AuthRepository>(
           create: (context) => AuthRepository(),
         ),
         RepositoryProvider<GoogleSignIn>(
@@ -96,6 +133,8 @@ class _MyAppState extends State<MyApp> {
         ),
         RepositoryProvider<HttpService>(
           create: (context) => HttpService(),
+        RepositoryProvider<HttpRequests>(
+          create: (context) => HttpRequests(),
         ),
       ],
       child: MultiBlocProvider(
@@ -125,6 +164,15 @@ class _MyAppState extends State<MyApp> {
           ),
           BlocProvider<NewsCategoryBloc>(
             create: (context) => NewsCategoryBloc()
+          BlocProvider<CategoryBloc>(
+            create: (context) =>
+                CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
+                  ..add(const GetAllCategory(category: [])),
+          ),
+          BlocProvider<WeatherBloc>(
+            create: (context) =>
+                WeatherBloc(RepositoryProvider.of<HttpRequests>(context))
+                  ..add(const GetAllWeather(weather: null)),
           ),
         ],
         child: MaterialApp(

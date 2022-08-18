@@ -24,6 +24,8 @@ class _SearchScreenState extends State<SearchScreen> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent) {
+        // ignore: avoid_print
+        print("scroll");
         callBloc(context, textEditingController.text, widget.screen, false);
       }
     });
