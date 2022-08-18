@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../widgets/network_image.dart';
 import '../resources/resources.dart';
@@ -23,6 +24,10 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
             style: const TextStyle(fontWeight: FontWeight.bold)),
         elevation: 0.0,
         actions: [
+          IconButton(
+              onPressed: () => Share.share("""${widget.articles.title}
+                ${widget.articles.url ?? ""}"""),
+              icon: Icon(IconsResources().share)),
           IconButton(
               onPressed: () async {
                 Uri url = Uri.parse(widget.articles.url.toString());
@@ -52,7 +57,15 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      Text(widget.articles.publishedAt.toString()),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(widget.articles.publishedAt.toString()),
+                          const SizedBox(height: 10),
+                          Text(
+                              "Source:- ${(widget.articles.source?.name).toString()}"),
+                        ],
+                      ),
                       const Expanded(child: SizedBox()),
                       Text(widget.articles.author.toString(),
                           overflow: TextOverflow.clip),
@@ -73,7 +86,6 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                   const SizedBox(height: 20),
                   Text(widget.articles.content.toString()),
                   const SizedBox(height: 20),
-                  Text("Source:- ${(widget.articles.source?.name).toString()}"),
                 ],
               ),
             ),

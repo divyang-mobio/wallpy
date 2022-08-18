@@ -13,6 +13,7 @@ import 'package:wallpy/screens/sign_in_screen.dart';
 import 'package:wallpy/screens/sign_up_screen.dart';
 import 'package:wallpy/screens/welcome_screen.dart';
 import 'package:wallpy/utils/news_api_calling.dart';
+import 'package:wallpy/widgets/route.dart';
 import 'controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'controllers/category_bloc/category_bloc.dart';
 import 'controllers/favorite_bloc/favorite_bloc.dart';
@@ -140,49 +141,50 @@ class _MyAppState extends State<MyApp> {
                       color: ColorResources().splashWord)),
 
             ),
-            onGenerateRoute: (RouteSettings setting) {
-              switch (setting.name) {
-                case "/":
-                  return MaterialPageRoute(
-                      builder: (context) => const SplashScreen());
-                case "/bottomBar":
-                  return MaterialPageRoute(
-                      builder: (context) => const BottomNavigationBarScreen());
-                case "/detail":
-                  final args = setting.arguments as DetailScreenArgument;
-                  return MaterialPageRoute(
-                      builder: (context) =>
-                          DetailScreen(dataModel: args.dataModel));
-                case "/detailNews":
-                  final args = setting.arguments as DetailNewsScreenArgument;
-                  return MaterialPageRoute(
-                      builder: (context) =>
-                          DetailNewsScreen(articles: args.articles));
-                case "/search":
-                  final args = setting.arguments as SearchScreenArgument;
-                  return MaterialPageRoute(
-                      builder: (context) =>
-                          SearchScreen(screen: args.selectedScreen));
-                case "/welcome":
-                  return MaterialPageRoute(
-                      builder: (context) => const WelcomeScreen());
-                case "/signUp":
-                  return MaterialPageRoute(
-                      builder: (context) => const SignUp());
-                case "/signIn":
-                  return MaterialPageRoute(
-                      builder: (context) => const SignIn());
-                case "/newCategory":
-                  final args = setting.arguments as NewsCategory;
-                  return MaterialPageRoute(
-                      builder: (context) => NewsCategoryScreen(
-                            category: args,
-                          ));
-                default:
-                  return MaterialPageRoute(
-                      builder: (context) => const MyHomePage());
-              }
-            },
+            onGenerateRoute: RouteGenerator.generateRoute,
+            //     (RouteSettings setting) {
+            //   switch (setting.name) {
+            //     case "/":
+            //       return MaterialPageRoute(
+            //           builder: (context) => const SplashScreen());
+            //     case "/bottomBar":
+            //       return MaterialPageRoute(
+            //           builder: (context) => const BottomNavigationBarScreen());
+            //     case "/detail":
+            //       final args = setting.arguments as DetailScreenArgument;
+            //       return MaterialPageRoute(
+            //           builder: (context) =>
+            //               DetailScreen(dataModel: args.dataModel));
+            //     case "/detailNews":
+            //       final args = setting.arguments as DetailNewsScreenArgument;
+            //       return MaterialPageRoute(
+            //           builder: (context) =>
+            //               DetailNewsScreen(articles: args.articles));
+            //     case "/search":
+            //       final args = setting.arguments as SearchScreenArgument;
+            //       return MaterialPageRoute(
+            //           builder: (context) =>
+            //               SearchScreen(screen: args.selectedScreen));
+            //     case "/welcome":
+            //       return MaterialPageRoute(
+            //           builder: (context) => const WelcomeScreen());
+            //     case "/signUp":
+            //       return MaterialPageRoute(
+            //           builder: (context) => const SignUp());
+            //     case "/signIn":
+            //       return MaterialPageRoute(
+            //           builder: (context) => const SignIn());
+            //     case "/newCategory":
+            //       final args = setting.arguments as NewsCategory;
+            //       return MaterialPageRoute(
+            //           builder: (context) => NewsCategoryScreen(
+            //                 category: args,
+            //               ));
+            //     default:
+            //       return MaterialPageRoute(
+            //           builder: (context) => const MyHomePage());
+            //   }
+            // },
             initialRoute: initialRoute),
       ),
     );
