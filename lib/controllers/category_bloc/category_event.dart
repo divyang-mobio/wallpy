@@ -8,9 +8,11 @@ abstract class CategoryEvent extends Equatable {
 }
 
 class GetAllCategory extends CategoryEvent {
-  List<dynamic>? category;
+  final List<dynamic> category;
 
-  GetAllCategory({
-    this.category,
+  const GetAllCategory({
+    required this.category,
   });
+  @override
+  List<Object> get props => [category];
 }

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import 'package:wallpy/widgets/appicon_text.dart';
 import '../controllers/auth_bloc/auth_bloc_bloc.dart';
 import '../models/navigation_model.dart';
 import '../resources/resources.dart';
-import '../widgets/theme.dart';
 import 'category_screen.dart';
 import 'favourite_screen.dart';
 import 'news_screen.dart';
@@ -13,7 +10,8 @@ import 'setting_screen.dart';
 import 'main_screen.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
-  const BottomNavigationBarScreen({Key? key}) : super(key: key);
+  // ignore: use_key_in_widget_constructors
+  const BottomNavigationBarScreen();
 
   @override
   State<BottomNavigationBarScreen> createState() =>
@@ -49,7 +47,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                           TextResources().welcomeScreenRoute,
                         );
                       },
-                      icon: appBarIcon(context, IconsResources().logOut))
+                      icon: Icon(IconsResources().logOut))
                 ]
               : [
                   IconButton(
@@ -57,11 +55,9 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                           context, TextResources().searchScreenRoute,
                           arguments: SearchScreenArgument(
                               selectedScreen: _selectedIndex)),
-                      icon: appBarIcon(context, IconsResources().search))
+                      icon: Icon(IconsResources().search))
                 ],
-          backgroundColor:Provider.of<ThemeProvider>(context).isDarkMode
-              ? ColorResources().appBarDark
-              : ColorResources().appBar,
+          backgroundColor: ColorResources().appBar,
           title: Text(
               _selectedIndex == 0
                   ? TextResources().appTitle
@@ -72,11 +68,11 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                           : _selectedIndex == 3
                               ? TextResources().newsAppTitle
                               : TextResources().settingAppTitle,
-              style: appBarTextStyle(context)),
+              style: const TextStyle(fontWeight: FontWeight.bold)),
           elevation: 0.0),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-          elevation: 0.0,
+        elevation: 0.0,
           type: BottomNavigationBarType.fixed,
           showUnselectedLabels: false,
           items: <BottomNavigationBarItem>[

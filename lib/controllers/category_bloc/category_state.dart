@@ -10,9 +10,12 @@ abstract class CategoryState extends Equatable {
 class CategoryLoading extends CategoryState {}
 
 class CategoryLoaded extends CategoryState {
-  List<dynamic> data;
+  final List<dynamic> data;
 
-  CategoryLoaded({required this.data});
+  const CategoryLoaded({required this.data});
+
+  @override
+  List<Object> get props => [data];
 }
 
 class CategoryError extends CategoryState {}

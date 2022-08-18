@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:wallpy/models/data_model.dart';
 import 'package:wallpy/models/navigation_model.dart';
 import 'package:wallpy/resources/resources.dart';
 
 import 'package:wallpy/widgets/network_image.dart';
-
-import '../widgets/theme.dart';
 
 class CategoryDetailScreen extends StatefulWidget {
   final List<Map> data;
@@ -30,9 +27,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:Provider.of<ThemeProvider>(context).isDarkMode
-            ? ColorResources().appBarDark
-            : ColorResources().appBar,
+        backgroundColor: ColorResources().appBar,
         title: Text(TextResources().categoryDetail,
             style: Theme.of(context).textTheme.headline1),
       ),
