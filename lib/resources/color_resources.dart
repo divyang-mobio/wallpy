@@ -15,8 +15,8 @@ class ColorResources {
   final Color appBarTextIconDark = Colors.white;
   final Color appBar = Colors.white;
   final Color appBarDark = Colors.black;
-  final Color textColorwhite = Colors.white;
-  final Color textColorblack = Colors.black;
+  final Color textColorWhite = Colors.white;
+  final Color textColorBlack = Colors.black;
   final Color textWhite24 = Colors.white24;
   final Color textFieldIcon = Colors.black;
   final Color background = Colors.white;
@@ -34,8 +34,8 @@ class ColorResources {
   final Color signUpButton = const Color.fromARGB(106, 255, 255, 255);
   final Color welcomeBackgroundColor = Colors.transparent;
   final Color googleSignInUpText = Colors.white;
-  final Color signUpInText = Colors.black;// Colors.white;
+  final Color signUpInText = Colors.black; // Colors.white;
   final Color newsDetailText = Colors.black;
   final Color newsDetailTextDark = Colors.white;
-  final Color activeSwitch = Colors.black;// Colors.white;
+  final Color activeSwitch = Colors.black; // Colors.white;
 }

@@ -37,14 +37,14 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     // state.data.city!.country.toUpperCase(),
                     style: TextStyle(
                         fontSize: 30,
-                        color: ColorResources().textColorwhite,
+                        color: ColorResources().textColorWhite,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
                     state.data.name,
                     style: TextStyle(
                         fontSize: 20,
-                        color: ColorResources().textColorwhite,
+                        color: ColorResources().textColorWhite,
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
@@ -56,7 +56,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         '${state.data.main?.temp} C',
                         style: TextStyle(
                             fontSize: 30,
-                            color: ColorResources().textColorwhite,
+                            color: ColorResources().textColorWhite,
                             fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
@@ -66,7 +66,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         state.data.weather[0].description,
                         style: TextStyle(
                             fontSize: 20,
-                            color: ColorResources().textColorwhite,
+                            color: ColorResources().textColorWhite,
                             fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -76,12 +76,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   ),
                   Text(
                     TextResources().humidity,
-                    style: TextStyle(color: ColorResources().textColorwhite),
+                    style: TextStyle(color: ColorResources().textColorWhite),
                   ),
                   Text(
                     '${state.data.main?.humidity ?? ''}',
                     style: TextStyle(
-                        color: ColorResources().textColorwhite, fontSize: 20),
+                        color: ColorResources().textColorWhite, fontSize: 20),
                   ),
                   const SizedBox(
                     height: 20,
@@ -89,13 +89,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   Text(
                     TextResources().swWind,
                     style: TextStyle(
-                      color: ColorResources().textColorwhite,
+                      color: ColorResources().textColorWhite,
                     ),
                   ),
                   Text(
                     '${state.data.wind?.speed}',
                     style: TextStyle(
-                        color: ColorResources().textColorwhite, fontSize: 20),
+                        color: ColorResources().textColorWhite, fontSize: 20),
                   ),
                   const SizedBox(
                     height: 20,
@@ -103,13 +103,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   Text(
                     TextResources().visibility,
                     style: TextStyle(
-                      color: ColorResources().textColorwhite,
+                      color: ColorResources().textColorWhite,
                     ),
                   ),
                   Text(
                     '${state.data.visibility}',
                     style: TextStyle(
-                        color: ColorResources().textColorwhite, fontSize: 20),
+                        color: ColorResources().textColorWhite, fontSize: 20),
                   ),
                   const SizedBox(
                     height: 20,
@@ -117,13 +117,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   Text(
                     TextResources().pressure,
                     style: TextStyle(
-                      color: ColorResources().textColorwhite,
+                      color: ColorResources().textColorWhite,
                     ),
                   ),
                   Text(
                     '${state.data.main?.pressure}',
                     style: TextStyle(
-                        color: ColorResources().textColorwhite, fontSize: 20),
+                        color: ColorResources().textColorWhite, fontSize: 20),
                   ),
                   const SizedBox(
                     height: 20,
@@ -165,7 +165,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
             return Center(
                 child: Text(
               state.error.toString(),
-              style: TextStyle(color: ColorResources().textColorwhite),
+              style: TextStyle(color: ColorResources().textColorWhite),
             ));
           } else {
             return Center(child: Text(TextResources().noData));

@@ -62,7 +62,7 @@ class CategoryListView extends StatelessWidget {
                                         .toString()
                                         .toUpperCase(),
                                     style: TextStyle(
-                                        color: ColorResources().textColorwhite,
+                                        color: ColorResources().textColorWhite,
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   )),

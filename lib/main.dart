@@ -1,10 +1,14 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:wallpy/screens/bottom_navigation_screen.dart';
+import 'package:wallpy/screens/main_screen.dart';
+import 'package:wallpy/screens/welcome_screen.dart';
 import 'package:wallpy/widgets/theme.dart';
 import 'controllers/new_category_bloc/news_category_bloc.dart';
 import 'package:wallpy/controllers/news_data_fetch_bloc/news_data_fetch_bloc.dart';
@@ -75,7 +79,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String initialRoute = TextResources().splashScreenRoute;
-
+  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
   @override
   void initState() {
     super.initState();
@@ -176,6 +180,7 @@ class _MyAppState extends State<MyApp> {
                   darkTheme: MyTheme.darkTheme,
                   theme: MyTheme.lightTheme,
                   onGenerateRoute: RouteGenerator.generateRoute,
+                  //   home:
                   initialRoute: initialRoute);
             }),
       ),

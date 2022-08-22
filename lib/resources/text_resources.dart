@@ -75,7 +75,6 @@ class TextResources {
   final String darkModeTitle = "Dark Mode";
   final String fontFamily = "PTSans";
 
-
 //Int type
   final int adsInternalInList = 2;
   final int androidAlarmManagerId = 0;
@@ -91,6 +90,7 @@ class TextResources {
   final String searchScreenRoute = '/search';
   final String signInScreenRoute = '/signIn';
   final String newsCategoryScreenRoute = "/newCategory";
+  final String redirectScreen = "/redirect";
   final String onSearchNoDataFound = "No Data Found :(";
   final String searchHint = "Search";
   final String placeHolderForLoadingImage = "assets/black_preloading.gif";
