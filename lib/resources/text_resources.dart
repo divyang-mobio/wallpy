@@ -21,6 +21,8 @@ class TextResources {
   final String visibility = "Visibility";
   final String pressure = "Air Pressure";
   final String noData = "Error No Data :(";
+  final String downloadImage = "downloading";
+  final String successDownloaded = "Save Image";
 
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
@@ -73,6 +75,8 @@ class TextResources {
   final String fireStoreImgCat = "image_category";
   final String urlNotLoading = "not able to open url";
   final String darkModeTitle = "Dark Mode";
+  final String source = "Source:-";
+  final String categoryTitleNews = "News";
   final String fontFamily = "PTSans";
 
 //Int type

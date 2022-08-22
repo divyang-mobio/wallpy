@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
         } else if (state is DataFetchError) {
           return Center(child: Text(TextResources().blocError));
         } else {
-          return const Center(child: Text("Error No Data :("));
+          return Center(child: Text(TextResources().noData));
         }
       },
     );

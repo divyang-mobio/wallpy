@@ -46,7 +46,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         } else if (state is FavoriteError) {
           return Center(child: Text(TextResources().blocError));
         } else {
-          return const Center(child: Text("Error No Data :("));
+          return Center(child: Text(TextResources().noData));
         }
       },
     );

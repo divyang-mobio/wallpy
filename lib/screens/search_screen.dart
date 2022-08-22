@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:wallpy/widgets/appicon_text.dart';
-import 'package:wallpy/widgets/theme.dart';
+import '../widgets/theme.dart';
 import '../controllers/search_bloc/search_bloc.dart';
 import '../resources/resources.dart';
 import '../utils/firestore_database_calling.dart';
@@ -80,7 +79,7 @@ class _SearchScreenState extends State<SearchScreen> {
         } else if (state is SearchError) {
           return Center(child: Text(TextResources().blocError));
         } else {
-          return const Center(child: Text("Error No Data :("));
+          return Center(child: Text(TextResources().noData));
         }
       }),
     );

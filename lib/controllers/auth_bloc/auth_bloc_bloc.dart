@@ -40,7 +40,6 @@ class AuthBlocBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
 
     on<GoogleSignUpRequested>((event, emit) async {
       emit(AuthBlocInitial());
-
       try {
         googleSignInAccount = await googleSignIn.signIn();
         if (googleSignInAccount == null) {
@@ -53,7 +52,6 @@ class AuthBlocBloc extends Bloc<AuthBlocEvent, AuthBlocState> {
         emit(Authenticated());
       } catch (e) {
         emit(AuthError(e.toString()));
-
         emit(UnAuthenticated());
       }
     });

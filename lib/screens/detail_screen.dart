@@ -5,9 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:wallpy/widgets/theme.dart';
+import '../widgets/theme.dart';
 import '../controllers/favorite_bloc/favorite_bloc.dart';
-import '../widgets/appicon_text.dart';
 import '../widgets/wallpaper_setter.dart';
 import '../resources/resources.dart';
 import '../models/data_model.dart';
@@ -51,7 +50,10 @@ class _DetailScreenState extends State<DetailScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                       onPressed: () => Navigator.pop(context),
-                      icon: appBarIcon(context, IconsResources().back)),
+                      icon: Icon(IconsResources().back,
+                          color: Provider.of<ThemeProvider>(context).isDarkMode
+                              ? ColorResources().appBarTextIconDark
+                              : ColorResources().appBarTextIcon)),
                 )),
           ),
           Visibility(
@@ -73,13 +75,14 @@ class _DetailScreenState extends State<DetailScreen> {
                   children: [
                     IconButton(
                         onPressed: () async {
-                          snackBar("downloading", context);
+                          snackBar(TextResources().downloadImage, context);
                           final tempDir = await getTemporaryDirectory();
                           final path =
                               '${tempDir.path}/${widget.dataModel.name}';
                           await Dio().download(widget.dataModel.url, path);
-                          GallerySaver.saveImage(path).whenComplete(
-                              () => snackBar("Save Image", context));
+                          GallerySaver.saveImage(path).whenComplete(() =>
+                              snackBar(
+                                  TextResources().successDownloaded, context));
                         },
                         icon: icons(context, IconsResources().download)),
                     IconButton(
