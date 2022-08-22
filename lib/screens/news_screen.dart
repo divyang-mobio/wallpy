@@ -38,7 +38,7 @@ class _NewsScreenState extends State<NewsScreen> {
             } else if (state is NewsDataFetchError) {
               return Center(child: Text(TextResources().blocError));
             } else {
-              return const Center(child: Text("error"));
+              return Center(child: Text(TextResources().noData));
             }
           }),
         ],

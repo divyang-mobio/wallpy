@@ -72,7 +72,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                           Text(widget.articles.publishedAt.toString()),
                           const SizedBox(height: 5),
                           Text(
-                              "Source:- ${(widget.articles.source?.name).toString()}"),
+                              "${TextResources().source} ${(widget.articles.source?.name).toString()}"),
                         ],
                       ),
                       const Expanded(child: SizedBox()),

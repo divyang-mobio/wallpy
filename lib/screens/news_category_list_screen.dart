@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:wallpy/widgets/appicon_text.dart';
+import '../widgets/appicon_text.dart';
 import '../controllers/new_category_bloc/news_category_bloc.dart';
 import '../models/news_category_model.dart';
 import '../resources/resources.dart';
@@ -38,7 +38,7 @@ class _NewsCategoryScreenState extends State<NewsCategoryScreen> {
             color: Provider.of<ThemeProvider>(context).isDarkMode
                 ? ColorResources().appBarTextIconDark
                 : ColorResources().appBar),
-        title: Text("${widget.category.title} News",
+        title: Text("${widget.category.title} ${TextResources().categoryTitleNews}",
             style: appBarTextStyle(context)),
         elevation: 0.0,
       ),

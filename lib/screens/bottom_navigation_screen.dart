@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallpy/screens/weather_screen.dart';
-import 'package:wallpy/widgets/theme.dart';
+import 'weather_screen.dart';
+import '../widgets/theme.dart';
 import '../controllers/auth_bloc/auth_bloc_bloc.dart';
 import '../models/navigation_model.dart';
 import '../resources/resources.dart';
