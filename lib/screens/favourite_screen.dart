@@ -38,7 +38,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     return BlocBuilder<FavoriteBloc, FavoriteState>(
       builder: (context, state) {
         if (state is FavoriteLoading) {
-          return shimmer(true);
+          return shimmer(context, true);
         } else if (state is FavoriteLoaded) {
           return (state.data.isEmpty)
               ? Center(child: Text(TextResources().emptyCart))
@@ -46,7 +46,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         } else if (state is FavoriteError) {
           return Center(child: Text(TextResources().blocError));
         } else {
-          return const Center(child: Text("Error No Data :("));
+          return Center(child: Text(TextResources().noData));
         }
       },
     );

@@ -18,6 +18,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   // int ads = 0;
 
   _addFavorite(AddFavorite event, Emitter<FavoriteState> emit) async {
+    _firebaseDatabase.update(event.dataModel);
     if (event.dataModel.fav) {
       _firebaseDatabase.data.add(event.dataModel);
 
@@ -26,8 +27,9 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       // if(ads == TextResources().adsInternalInList) {
       //   _firebaseDatabase.data.add("list");
       // }
-    } else {
-      _firebaseDatabase.data.remove(event.dataModel);
+    } else if (event.dataModel.fav == false) {
+      _firebaseDatabase.data.removeWhere((data) =>
+          (data is DataModel) ? data.name == event.dataModel.name : false);
       // ads -= 1;
     }
     emit(FavoriteLoaded(data: _firebaseDatabase.data));
@@ -35,14 +37,15 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
 
   void _getAllData(GetFavoriteData event, Emitter<FavoriteState> emit) async {
     try {
-      emit(await _getData(event.category, event.isFavorite));
+      emit(await _getData(event.category, event.isFavorite, false));
     } catch (e) {
       emit(FavoriteError());
     }
   }
 
-  Future<FavoriteLoaded> _getData(String? category, bool isFavorite) async =>
+  Future<FavoriteLoaded> _getData(
+          String? category, bool isFavorite, bool isSearch) async =>
       FavoriteLoaded(
           data: await _firebaseDatabase.getAllData(
-              category, isFavorite, null, false, false));
+              category, isFavorite, null, isSearch, false));
 }

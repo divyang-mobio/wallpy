@@ -21,6 +21,8 @@ class TextResources {
   final String visibility = "Visibility";
   final String pressure = "Air Pressure";
   final String noData = "Error No Data :(";
+  final String downloadImage = "downloading";
+  final String successDownloaded = "Save Image";
 
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
@@ -36,6 +38,8 @@ class TextResources {
   final String failedErrorCode = "Failed with error code:";
   final String url =
       "https://newsapi.org/v2/everything?q=world&apiKey=1b20cae31e6d41eeab3fad233fbeecbd";
+  final String weatherUrl =
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToY5hNtemPEvOyyPKrWdVOZWR-gQBRI-ThmA&usqp=CAU";
   final String snackBarLoadingInPagination = 'Loading';
   final String snackBarAllDataFetchInPagination = 'All Data Fetch';
   final String methodChannelName = "wallpyBackgroundService";
@@ -70,6 +74,10 @@ class TextResources {
   final String fireStoreImgFav = "image_fav";
   final String fireStoreImgCat = "image_category";
   final String urlNotLoading = "not able to open url";
+  final String darkModeTitle = "Dark Mode";
+  final String source = "Source:-";
+  final String categoryTitleNews = "News";
+  final String fontFamily = "PTSans";
 
 //Int type
   final int adsInternalInList = 2;
@@ -86,9 +94,11 @@ class TextResources {
   final String searchScreenRoute = '/search';
   final String signInScreenRoute = '/signIn';
   final String newsCategoryScreenRoute = "/newCategory";
+  final String redirectScreen = "/redirect";
   final String onSearchNoDataFound = "No Data Found :(";
   final String searchHint = "Search";
   final String placeHolderForLoadingImage = "assets/black_preloading.gif";
+  final String placeHolderForLoadingImageDark = "assets/preloading_dark.gif";
 }
 
 List<SettingModel> dialogDataForTimeLine = [
@@ -176,15 +186,15 @@ List<NewsCategory> categoryData = [
   NewsCategory(
       title: "Sport",
       link:
-      "https://newsapi.org/v2/everything?q=sport&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+          "https://newsapi.org/v2/everything?q=sport&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
   NewsCategory(
       title: "Stock Market",
       link:
-      "https://newsapi.org/v2/everything?q=stock&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+          "https://newsapi.org/v2/everything?q=stock&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
   NewsCategory(
       title: "Tech",
       link:
-      "https://newsapi.org/v2/everything?q=tech&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+          "https://newsapi.org/v2/everything?q=tech&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
   NewsCategory(
       title: "Apple",
       link:

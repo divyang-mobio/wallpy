@@ -27,7 +27,7 @@ Padding gridView(
                 child: Card(
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
-                    color: ColorResources().textColorblack),
+                    color: ColorResources().textColorBlack),
               );
       },
     ),

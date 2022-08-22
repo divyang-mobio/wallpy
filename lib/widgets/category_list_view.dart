@@ -15,7 +15,7 @@ class CategoryListView extends StatelessWidget {
       children: [
         Container(
             height: MediaQuery.of(context).size.height * 0.14,
-            color: ColorResources().categoryColor,
+            // color: ColorResources().categoryColor,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: data.length,
@@ -62,7 +62,7 @@ class CategoryListView extends StatelessWidget {
                                         .toString()
                                         .toUpperCase(),
                                     style: TextStyle(
-                                        color: ColorResources().textColorwhite,
+                                        color: ColorResources().textColorWhite,
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   )),

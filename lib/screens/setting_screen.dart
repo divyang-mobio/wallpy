@@ -1,5 +1,7 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wallpy/widgets/theme.dart';
 import '../models/data_model.dart';
 import '../utils/firestore_database_calling.dart';
 import '../utils/store_data.dart';
@@ -16,14 +18,14 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  bool _enabled = false;
+  bool _service = false;
   int? time;
   int? screen;
   String? collection;
 
   Future<void> _onClickEnable(enabled) async {
     setState(() {
-      _enabled = enabled;
+      _service = enabled;
     });
     if (enabled) {
       List<DataModel> data = await FirebaseSave().getData();
@@ -52,7 +54,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   getToggleValue() async {
     final pref = PreferenceServices();
-    _enabled = await pref.getToggle();
+    _service = await pref.getToggle();
     setState(() {});
   }
 
@@ -76,7 +78,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 maxLines: 5,
               ),
               trailing: Switch.adaptive(
-                  value: _enabled,
+                  value: _service,
                   onChanged: _onClickEnable,
                   activeColor: ColorResources().activeSwitch)),
           const Divider(thickness: 2),
@@ -112,8 +114,25 @@ class _SettingScreenState extends State<SettingScreen> {
               TextResources().collectionDec,
             ),
           ),
+          const Divider(thickness: 2),
+          const DarkTheme(),
         ],
       ),
     );
+  }
+}
+
+class DarkTheme extends StatelessWidget {
+  const DarkTheme({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+        title: Text(TextResources().darkModeTitle),
+        trailing: Switch.adaptive(
+            value: Provider.of<ThemeProvider>(context).isDarkMode,
+            onChanged: (value) =>
+                Provider.of<ThemeProvider>(context, listen: false)
+                    .toggleTheme(value),
+            activeColor: ColorResources().activeSwitch));
   }
 }

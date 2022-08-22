@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wallpy/screens/weather_screen.dart';
+import 'package:provider/provider.dart';
+import 'weather_screen.dart';
+import '../widgets/theme.dart';
 import '../controllers/auth_bloc/auth_bloc_bloc.dart';
 import '../models/navigation_model.dart';
 import '../resources/resources.dart';
+import '../widgets/appicon_text.dart';
 import 'category_screen.dart';
 import 'favourite_screen.dart';
 import 'news_screen.dart';
 import 'setting_screen.dart';
-import 'main_screen.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
@@ -34,6 +35,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
     // TextResources().categoryAppTitle,
     TextResources().weatherTitle,
     TextResources().favoriteAppTitle,
+    TextResources().newsAppTitle,
     TextResources().settingAppTitle,
   ];
 
@@ -45,7 +47,12 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
+          iconTheme: IconThemeData(
+              color: Provider.of<ThemeProvider>(context).isDarkMode
+                  ? ColorResources().appBarTextIconDark
+                  : ColorResources().appBarTextIcon),
           actions: (_selectedIndex == 4)
               ? [
                   IconButton(
@@ -58,21 +65,25 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                       },
                       icon: Icon(IconsResources().logOut))
                 ]
-              : [
-                  IconButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, TextResources().searchScreenRoute,
-                          arguments: SearchScreenArgument(
-                              selectedScreen: _selectedIndex)),
-                      icon: Icon(IconsResources().search))
-                ],
-          backgroundColor: ColorResources().appBar,
+              : (_selectedIndex == 1 || _selectedIndex == 3)
+                  ? []
+                  : [
+                      IconButton(
+                          onPressed: () => Navigator.pushNamed(
+                              context, TextResources().searchScreenRoute,
+                              arguments: SearchScreenArgument(
+                                  selectedScreen: _selectedIndex)),
+                          icon: Icon(IconsResources().search))
+                    ],
+          backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
+              ? ColorResources().appBarDark
+              : ColorResources().appBar,
           title: Text(_widgettitle[_selectedIndex],
-              style: const TextStyle(fontWeight: FontWeight.bold)),
+              style: appBarTextStyle(context)),
           elevation: 0.0),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        elevation: 0.0,
+          elevation: 0.0,
           type: BottomNavigationBarType.fixed,
           showUnselectedLabels: false,
           items: <BottomNavigationBarItem>[
@@ -85,7 +96,9 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
           currentIndex: _selectedIndex,
           selectedItemColor: (_selectedIndex == 2)
               ? ColorResources().selectedFavoriteItemInNavigationBar
-              : ColorResources().selectedItemInNavigationBar,
+              : Provider.of<ThemeProvider>(context).isDarkMode
+                  ? ColorResources().selectedItemInNavigationBarDark
+                  : ColorResources().selectedItemInNavigationBar,
           onTap: _onItemTapped),
     );
   }

@@ -90,7 +90,7 @@ class TextFormFieldCustom extends StatelessWidget {
                 ),
                 hintText: hintText,
                 hintStyle: TextStyle(
-                  color: ColorResources().textColorblack,
+                  color: ColorResources().textColorBlack,
                   fontSize: 14,
                 ),
               ),
@@ -98,7 +98,7 @@ class TextFormFieldCustom extends StatelessWidget {
               // textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,
-                color: ColorResources().textColorblack,
+                color: ColorResources().textColorBlack,
               ),
             ),
           ),
@@ -160,7 +160,7 @@ Widget textformediter(BuildContext context,
             validator: validator,
             decoration: InputDecoration(
               labelStyle: TextStyle(
-                color: ColorResources().textColorwhite,
+                color: ColorResources().textColorWhite,
                 fontFamily: 'Montserrat',
                 fontSize: 14,
               ),
@@ -187,7 +187,7 @@ Widget textformediter(BuildContext context,
               ),
               hintText: hintText,
               hintStyle: TextStyle(
-                color: ColorResources().textColorblack,
+                color: ColorResources().textColorBlack,
                 fontSize: 14,
               ),
             ),

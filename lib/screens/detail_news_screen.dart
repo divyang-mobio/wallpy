@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../widgets/appicon_text.dart';
 import '../widgets/network_image.dart';
 import '../resources/resources.dart';
 import '../models/articles_model.dart';
+import '../widgets/theme.dart';
 
 class DetailNewsScreen extends StatefulWidget {
   const DetailNewsScreen({Key? key, required this.articles}) : super(key: key);
@@ -19,9 +22,15 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: ColorResources().appBar,
+        iconTheme: IconThemeData(
+            color: Provider.of<ThemeProvider>(context).isDarkMode
+                ? ColorResources().appBarTextIconDark
+                : ColorResources().appBarTextIcon),
+        backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
+            ? ColorResources().appBarDark
+            : ColorResources().appBar,
         title: Text(TextResources().newsDetailAppTitle,
-            style: const TextStyle(fontWeight: FontWeight.bold)),
+            style: appBarTextStyle(context)),
         elevation: 0.0,
         actions: [
           IconButton(
@@ -61,9 +70,9 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(widget.articles.publishedAt.toString()),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 5),
                           Text(
-                              "Source:- ${(widget.articles.source?.name).toString()}"),
+                              "${TextResources().source} ${(widget.articles.source?.name).toString()}"),
                         ],
                       ),
                       const Expanded(child: SizedBox()),
@@ -73,16 +82,16 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                   ),
                   const SizedBox(height: 20),
                   Text(widget.articles.title.toString(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          ?.copyWith(color: ColorResources().newsDetailText)),
+                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                          color: Provider.of<ThemeProvider>(context).isDarkMode
+                              ? ColorResources().newsDetailTextDark
+                              : ColorResources().newsDetailText)),
                   const SizedBox(height: 20),
                   Text(widget.articles.description.toString(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6
-                          ?.copyWith(color: ColorResources().newsDetailText)),
+                      style: Theme.of(context).textTheme.headline6?.copyWith(
+                          color: Provider.of<ThemeProvider>(context).isDarkMode
+                              ? ColorResources().newsDetailTextDark
+                              : ColorResources().newsDetailText)),
                   const SizedBox(height: 20),
                   Text(widget.articles.content.toString()),
                   const SizedBox(height: 20),

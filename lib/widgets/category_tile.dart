@@ -17,7 +17,6 @@ class CategoriesTile extends StatelessWidget {
           margin:
               const EdgeInsets.only(top: 20, right: 10, bottom: 20, left: 5),
           decoration: BoxDecoration(
-              border: Border.all(color: ColorResources().categoriesTileBorder),
               borderRadius: BorderRadius.circular(15)),
           width: 100,
           child: Align(

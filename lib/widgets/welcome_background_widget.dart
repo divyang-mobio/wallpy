@@ -26,7 +26,7 @@ class WelcomeBackgroundWidget extends StatelessWidget {
         child: Text(
           title,
           style: Theme.of(context).textTheme.headline3!.copyWith(
-              color: ColorResources().textColorwhite,
+              color: ColorResources().textColorWhite,
               fontWeight: FontWeight.bold),
         ),
       ),

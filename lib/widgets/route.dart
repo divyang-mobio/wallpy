@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallpy/screens/redirect_screen.dart';
 import '../models/navigation_model.dart';
 import '../models/news_category_model.dart';
 import '../screens/bottom_navigation_screen.dart';
@@ -38,6 +39,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const SignUp());
       case "/signIn":
         return MaterialPageRoute(builder: (context) => const SignIn());
+      case "/redirect":
+        return MaterialPageRoute(builder: (context) => RedirectScreen());
       case "/newCategory":
         final args = setting.arguments as NewsCategory;
         return MaterialPageRoute(
