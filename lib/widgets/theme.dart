@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import '../resources/resources.dart';
+import '../utils/store_data.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.dark;
 
   bool get isDarkMode => themeMode == ThemeMode.dark;
 
+  Future<void> theme() async {
+    PreferenceServices preferenceServices = PreferenceServices();
+    bool value = await preferenceServices.getDarkToggle();
+    themeMode = value ? ThemeMode.dark : ThemeMode.light;
+    notifyListeners();
+  }
+
   void toggleTheme(bool isOn) {
+    PreferenceServices preferenceServices = PreferenceServices();
     themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
-    // notifyListeners();
+    preferenceServices.setDarkToggle(isOn);
+    notifyListeners();
   }
 }
 

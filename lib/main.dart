@@ -11,12 +11,7 @@ import 'package:wallpy/controllers/news_data_fetch_bloc/news_data_fetch_bloc.dar
 import 'package:wallpy/controllers/category_bloc/category_bloc.dart';
 import 'package:wallpy/controllers/weather_bloc/weather_bloc.dart';
 import 'package:wallpy/models/weather_model.dart';
-import 'package:wallpy/screens/search_screen.dart';
 import 'package:wallpy/utils/auth_repository.dart';
-import 'package:wallpy/screens/main_screen.dart';
-import 'package:wallpy/screens/sign_in_screen.dart';
-import 'package:wallpy/screens/sign_up_screen.dart';
-import 'package:wallpy/screens/welcome_screen.dart';
 import 'package:wallpy/utils/news_api_calling.dart';
 import 'widgets/route.dart';
 import 'package:wallpy/utils/http_requets.dart';
@@ -26,15 +21,8 @@ import 'controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'controllers/category_bloc/category_bloc.dart';
 import 'controllers/favorite_bloc/favorite_bloc.dart';
 import 'controllers/search_bloc/search_bloc.dart';
-import 'models/news_category_model.dart';
-import 'screens/detail_news_screen.dart';
-import 'screens/detail_screen.dart';
-import 'models/navigation_model.dart';
-import 'screens/bottom_navigation_screen.dart';
 import 'controllers/data_fetch_bloc/data_fetch_bloc.dart';
-import 'screens/news_category_list_screen.dart';
 import 'utils/firestore_database_calling.dart';
-import 'screens/splash_screen.dart';
 import 'resources/resources.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
@@ -135,7 +123,7 @@ class _MyAppState extends State<MyApp> {
         ),
         RepositoryProvider<HttpService>(
           create: (context) => HttpService(),
-          ),
+        ),
         RepositoryProvider<HttpRequests>(
           create: (context) => HttpRequests(),
         ),
@@ -153,8 +141,8 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
           BlocProvider<CategoryBloc>(
             create: (context) =>
-            CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
-              ..add(const GetAllCategory(category: [])),
+                CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
+                  ..add(const GetAllCategory(category: [])),
           ),
           BlocProvider<NewsDataFetchBloc>(
               create: (context) =>
@@ -166,8 +154,7 @@ class _MyAppState extends State<MyApp> {
                 googleSignIn: RepositoryProvider.of<GoogleSignIn>(context)),
           ),
           BlocProvider<NewsCategoryBloc>(
-            create: (context) => NewsCategoryBloc()
-          ),
+              create: (context) => NewsCategoryBloc()),
           BlocProvider<CategoryBloc>(
             create: (context) =>
                 CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
@@ -180,61 +167,17 @@ class _MyAppState extends State<MyApp> {
           ),
         ],
         child: ChangeNotifierProvider<ThemeProvider>(
-          create: (_) => ThemeProvider(),
-          builder: (context,_) {
-            return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: TextResources().appTitle,
-                themeMode: Provider.of<ThemeProvider>(context).themeMode,
-                darkTheme: MyTheme.darkTheme,
-                theme: MyTheme.lightTheme,
-                onGenerateRoute: RouteGenerator.generateRoute,
-                //     (RouteSettings setting) {
-                //   switch (setting.name) {
-                //     case "/":
-                //       return MaterialPageRoute(
-                //           builder: (context) => const SplashScreen());
-                //     case "/bottomBar":
-                //       return MaterialPageRoute(
-                //           builder: (context) => const BottomNavigationBarScreen());
-                //     case "/detail":
-                //       final args = setting.arguments as DetailScreenArgument;
-                //       return MaterialPageRoute(
-                //           builder: (context) =>
-                //               DetailScreen(dataModel: args.dataModel));
-                //     case "/detailNews":
-                //       final args = setting.arguments as DetailNewsScreenArgument;
-                //       return MaterialPageRoute(
-                //           builder: (context) =>
-                //               DetailNewsScreen(articles: args.articles));
-                //     case "/search":
-                //       final args = setting.arguments as SearchScreenArgument;
-                //       return MaterialPageRoute(
-                //           builder: (context) =>
-                //               SearchScreen(screen: args.selectedScreen));
-                //     case "/welcome":
-                //       return MaterialPageRoute(
-                //           builder: (context) => const WelcomeScreen());
-                //     case "/signUp":
-                //       return MaterialPageRoute(
-                //           builder: (context) => const SignUp());
-                //     case "/signIn":
-                //       return MaterialPageRoute(
-                //           builder: (context) => const SignIn());
-                //     case "/newCategory":
-                //       final args = setting.arguments as NewsCategory;
-                //       return MaterialPageRoute(
-                //           builder: (context) => NewsCategoryScreen(
-                //                 category: args,
-                //               ));
-                //     default:
-                //       return MaterialPageRoute(
-                //           builder: (context) => const MyHomePage());
-                //   }
-                // },
-                initialRoute: initialRoute);
-          }
-        ),
+            create: (_) => ThemeProvider()..theme(),
+            builder: (context, _) {
+              return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: TextResources().appTitle,
+                  themeMode: Provider.of<ThemeProvider>(context).themeMode,
+                  darkTheme: MyTheme.darkTheme,
+                  theme: MyTheme.lightTheme,
+                  onGenerateRoute: RouteGenerator.generateRoute,
+                  initialRoute: initialRoute);
+            }),
       ),
     );
   }
