@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+import 'theme.dart';
 import '../resources/resources.dart';
 import 'gridview.dart';
 import 'news_listview.dart';
 
-Shimmer shimmer(bool isGrid) {
+Shimmer shimmer(context, bool isGrid) {
   return Shimmer.fromColors(
-      baseColor: ColorResources().shimmerBase,
-      highlightColor: ColorResources().shimmerHighlight,
+      baseColor: Provider.of<ThemeProvider>(context).isDarkMode
+          ? ColorResources().shimmerBaseDark
+          : ColorResources().shimmerBase,
+      highlightColor: Provider.of<ThemeProvider>(context).isDarkMode
+          ? ColorResources().shimmerHighlightDark
+          : ColorResources().shimmerHighlight,
       child: isGrid ? gridView([], null, true) : listView([], true));
 }
 
 Shimmer categoryShimmer(BuildContext context) {
   return Shimmer.fromColors(
-      baseColor: ColorResources().shimmerBase,
-      highlightColor: ColorResources().shimmerHighlight,
+      baseColor: Provider.of<ThemeProvider>(context).isDarkMode
+          ? ColorResources().shimmerBaseDark
+          : ColorResources().shimmerBase,
+      highlightColor: Provider.of<ThemeProvider>(context).isDarkMode
+          ? ColorResources().shimmerHighlightDark
+          : ColorResources().shimmerHighlight,
       child: Column(
         children: [
           Container(
               height: MediaQuery.of(context).size.height * 0.14,
-              color: ColorResources().categoryColor,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 7,
@@ -38,7 +47,7 @@ Shimmer categoryShimmer(BuildContext context) {
                       ),
                     );
                   })),
-          Expanded(child: shimmer(true)),
+          Expanded(child: shimmer(context, true)),
         ],
       ));
 }

@@ -94,6 +94,7 @@ class TextResources {
   final String onSearchNoDataFound = "No Data Found :(";
   final String searchHint = "Search";
   final String placeHolderForLoadingImage = "assets/black_preloading.gif";
+  final String placeHolderForLoadingImageDark = "assets/preloading_dark.gif";
 }
 
 List<SettingModel> dialogDataForTimeLine = [

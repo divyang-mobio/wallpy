@@ -8,14 +8,14 @@ class ThemeProvider extends ChangeNotifier {
 
   void toggleTheme(bool isOn) {
     themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
-    notifyListeners();
+    // notifyListeners();
   }
 }
 
 class MyTheme {
   static final darkTheme = ThemeData(
     fontFamily: TextResources().fontFamily,
-    scaffoldBackgroundColor: Colors.grey.shade800,
+    scaffoldBackgroundColor: Colors.grey.shade700,
     colorScheme: const ColorScheme.dark(),
     primarySwatch: Colors.grey,
     textTheme: const TextTheme(

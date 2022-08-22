@@ -49,10 +49,10 @@ class _SearchScreenState extends State<SearchScreen> {
         backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
             ? ColorResources().appBarDark
             : ColorResources().appBar,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: appBarIcon(context, IconsResources().back),
-        ),
+        iconTheme: IconThemeData(
+            color: Provider.of<ThemeProvider>(context).isDarkMode
+                ? ColorResources().appBarTextIconDark
+                : ColorResources().appBarTextIcon),
         title: TextField(
           controller: textEditingController,
           decoration: InputDecoration(
@@ -67,12 +67,12 @@ class _SearchScreenState extends State<SearchScreen> {
           IconButton(
               onPressed: () => callBloc(
                   context, textEditingController.text, widget.screen, true),
-              icon: appBarIcon(context, IconsResources().search))
+              icon: Icon(IconsResources().search))
         ],
       ),
       body: BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
         if (state is SearchLoading) {
-          return shimmer(true);
+          return shimmer(context, true);
         } else if (state is SearchLoaded) {
           return (state.data.isEmpty)
               ? Center(child: Text(TextResources().onSearchNoDataFound))

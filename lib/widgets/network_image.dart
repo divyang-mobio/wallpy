@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:provider/provider.dart';
+import 'package:wallpy/widgets/theme.dart';
 import '../resources/resources.dart';
 
 networkImages(String link) {
@@ -10,7 +12,9 @@ networkImages(String link) {
     imageUrl: link,
     fit: BoxFit.fill,
     placeholder: (context, url) => Image.asset(
-        TextResources().placeHolderForLoadingImage,
+        Provider.of<ThemeProvider>(context).isDarkMode
+            ? TextResources().placeHolderForLoadingImageDark
+            : TextResources().placeHolderForLoadingImage,
         fit: BoxFit.fill),
     errorWidget: (context, url, error) =>
         Image.asset(ImageResources().loadingError, fit: BoxFit.fill),

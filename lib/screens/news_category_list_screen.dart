@@ -34,10 +34,10 @@ class _NewsCategoryScreenState extends State<NewsCategoryScreen> {
             ? ColorResources().appBarDark
             : ColorResources().appBar,
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: appBarIcon(context, IconsResources().back),
-        ),
+        iconTheme: IconThemeData(
+            color: Provider.of<ThemeProvider>(context).isDarkMode
+                ? ColorResources().appBarTextIconDark
+                : ColorResources().appBar),
         title: Text("${widget.category.title} News",
             style: appBarTextStyle(context)),
         elevation: 0.0,
@@ -45,7 +45,7 @@ class _NewsCategoryScreenState extends State<NewsCategoryScreen> {
       body: BlocBuilder<NewsCategoryBloc, NewsCategoryState>(
           builder: (context, state) {
         if (state is NewsCategoryLoading) {
-          return shimmer(false);
+          return shimmer(context, false);
         } else if (state is NewsCategoryLoaded) {
           return listView(state.data, false);
         } else if (state is NewsCategoryError) {

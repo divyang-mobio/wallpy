@@ -47,7 +47,12 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
+          iconTheme: IconThemeData(
+              color: Provider.of<ThemeProvider>(context).isDarkMode
+                  ? ColorResources().appBarTextIconDark
+                  : ColorResources().appBarTextIcon),
           actions: (_selectedIndex == 4)
               ? [
                   IconButton(
@@ -58,16 +63,18 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                           TextResources().welcomeScreenRoute,
                         );
                       },
-                      icon: appBarIcon(context, IconsResources().logOut))
+                      icon: Icon(IconsResources().logOut))
                 ]
-              : [
-                  IconButton(
-                      onPressed: () => Navigator.pushNamed(
-                          context, TextResources().searchScreenRoute,
-                          arguments: SearchScreenArgument(
-                              selectedScreen: _selectedIndex)),
-                      icon: appBarIcon(context, IconsResources().search))
-                ],
+              : (_selectedIndex == 1 || _selectedIndex == 3)
+                  ? []
+                  : [
+                      IconButton(
+                          onPressed: () => Navigator.pushNamed(
+                              context, TextResources().searchScreenRoute,
+                              arguments: SearchScreenArgument(
+                                  selectedScreen: _selectedIndex)),
+                          icon: Icon(IconsResources().search))
+                    ],
           backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
               ? ColorResources().appBarDark
               : ColorResources().appBar,
@@ -89,7 +96,9 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
           currentIndex: _selectedIndex,
           selectedItemColor: (_selectedIndex == 2)
               ? ColorResources().selectedFavoriteItemInNavigationBar
-              : ColorResources().selectedItemInNavigationBar,
+              : Provider.of<ThemeProvider>(context).isDarkMode
+                  ? ColorResources().selectedItemInNavigationBarDark
+                  : ColorResources().selectedItemInNavigationBar,
           onTap: _onItemTapped),
     );
   }

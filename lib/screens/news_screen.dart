@@ -32,7 +32,7 @@ class _NewsScreenState extends State<NewsScreen> {
           BlocBuilder<NewsDataFetchBloc, NewsDataFetchState>(
               builder: (context, state) {
             if (state is NewsDataFetchLoading) {
-              return shimmer(false);
+              return shimmer(context, false);
             } else if (state is NewsDataFetchLoaded) {
               return listView(state.data, false);
             } else if (state is NewsDataFetchError) {

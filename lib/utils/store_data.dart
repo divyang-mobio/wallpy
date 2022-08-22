@@ -12,6 +12,11 @@ class PreferenceServices {
     await preference.setBool("toggle", value);
   }
 
+  void setDarkToggle(bool value) async {
+    final preference = await SharedPreferences.getInstance();
+    await preference.setBool("Dark", value);
+  }
+
   void setScreen(int screen) async {
     final preference = await SharedPreferences.getInstance();
     await preference.setInt("screen", screen);
@@ -43,6 +48,12 @@ class PreferenceServices {
   Future<bool> getToggle() async {
     final preference = await SharedPreferences.getInstance();
     final value = preference.getBool("toggle");
+    return value ?? false;
+  }
+
+  Future<bool> getDarkToggle() async {
+    final preference = await SharedPreferences.getInstance();
+    final value = preference.getBool("Dark");
     return value ?? false;
   }
 }

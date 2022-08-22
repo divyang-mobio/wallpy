@@ -22,12 +22,13 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor:Provider.of<ThemeProvider>(context).isDarkMode
+        iconTheme: IconThemeData(
+            color: Provider.of<ThemeProvider>(context).isDarkMode
+                ? ColorResources().appBarTextIconDark
+                : ColorResources().appBarTextIcon),
+        backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
             ? ColorResources().appBarDark
             : ColorResources().appBar,
-        leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: appBarIcon(context, IconsResources().back)),
         title: Text(TextResources().newsDetailAppTitle,
             style: appBarTextStyle(context)),
         elevation: 0.0,
@@ -35,7 +36,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
           IconButton(
               onPressed: () => Share.share("""${widget.articles.title}
                 ${widget.articles.url ?? ""}"""),
-              icon: appBarIcon(context, IconsResources().share)),
+              icon: Icon(IconsResources().share)),
           IconButton(
               onPressed: () async {
                 Uri url = Uri.parse(widget.articles.url.toString());
@@ -46,7 +47,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                       SnackBar(content: Text(TextResources().urlNotLoading)));
                 }
               },
-              icon: appBarIcon(context, IconsResources().openUrl))
+              icon: Icon(IconsResources().openUrl))
         ],
       ),
       body: SingleChildScrollView(
@@ -69,7 +70,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(widget.articles.publishedAt.toString()),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 5),
                           Text(
                               "Source:- ${(widget.articles.source?.name).toString()}"),
                         ],
@@ -81,16 +82,16 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                   ),
                   const SizedBox(height: 20),
                   Text(widget.articles.title.toString(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          ?.copyWith(color: ColorResources().newsDetailText)),
+                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                          color: Provider.of<ThemeProvider>(context).isDarkMode
+                              ? ColorResources().newsDetailTextDark
+                              : ColorResources().newsDetailText)),
                   const SizedBox(height: 20),
                   Text(widget.articles.description.toString(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6
-                          ?.copyWith(color: ColorResources().newsDetailText)),
+                      style: Theme.of(context).textTheme.headline6?.copyWith(
+                          color: Provider.of<ThemeProvider>(context).isDarkMode
+                              ? ColorResources().newsDetailTextDark
+                              : ColorResources().newsDetailText)),
                   const SizedBox(height: 20),
                   Text(widget.articles.content.toString()),
                   const SizedBox(height: 20),

@@ -18,7 +18,9 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   // int ads = 0;
 
   _addFavorite(AddFavorite event, Emitter<FavoriteState> emit) async {
+    _firebaseDatabase.update(event.dataModel);
     if (event.dataModel.fav) {
+      print("2222");
       _firebaseDatabase.data.add(event.dataModel);
 
       /// if ads need to add in Favorite
@@ -26,7 +28,8 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       // if(ads == TextResources().adsInternalInList) {
       //   _firebaseDatabase.data.add("list");
       // }
-    } else {
+    } else if (event.dataModel.fav == false) {
+      print("1111");
       _firebaseDatabase.data.remove(event.dataModel);
       // ads -= 1;
     }

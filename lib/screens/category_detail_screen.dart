@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wallpy/models/data_model.dart';
 import 'package:wallpy/models/navigation_model.dart';
 import 'package:wallpy/resources/resources.dart';
 
 import 'package:wallpy/widgets/network_image.dart';
+import 'package:wallpy/widgets/theme.dart';
+
+import '../widgets/appicon_text.dart';
 
 class CategoryDetailScreen extends StatefulWidget {
   final List<Map> data;
@@ -32,9 +36,14 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        iconTheme: IconThemeData(color: ColorResources().appBarTextIcon),
-        backgroundColor: ColorResources().appBar,
-        title: Text(widget.title, style: Theme.of(context).textTheme.headline1),
+        iconTheme: IconThemeData(
+            color: Provider.of<ThemeProvider>(context).isDarkMode
+                ? ColorResources().appBarTextIconDark
+                : ColorResources().appBarTextIcon),
+        backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
+            ? ColorResources().appBarDark
+            : ColorResources().appBar,
+        title: Text(widget.title, style: appBarTextStyle(context)),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
