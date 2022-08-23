@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import 'weather_screen.dart';
-import '../widgets/theme.dart';
 import '../controllers/auth_bloc/auth_bloc_bloc.dart';
 import '../models/navigation_model.dart';
 import '../resources/resources.dart';
-import '../widgets/appicon_text.dart';
 import 'category_screen.dart';
 import 'favourite_screen.dart';
 import 'news_screen.dart';
@@ -48,11 +47,6 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
-          centerTitle: true,
-          iconTheme: IconThemeData(
-              color: Provider.of<ThemeProvider>(context).isDarkMode
-                  ? ColorResources().appBarTextIconDark
-                  : ColorResources().appBarTextIcon),
           actions: (_selectedIndex == 4)
               ? [
                   IconButton(
@@ -75,12 +69,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                                   selectedScreen: _selectedIndex)),
                           icon: Icon(IconsResources().search))
                     ],
-          backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
-              ? ColorResources().appBarDark
-              : ColorResources().appBar,
-          title: Text(_widgettitle[_selectedIndex],
-              style: appBarTextStyle(context)),
-          elevation: 0.0),
+          title: Text(_widgettitle[_selectedIndex])),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
           elevation: 0.0,
@@ -96,7 +85,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
           currentIndex: _selectedIndex,
           selectedItemColor: (_selectedIndex == 2)
               ? ColorResources().selectedFavoriteItemInNavigationBar
-              : Provider.of<ThemeProvider>(context).isDarkMode
+              : BlocProvider.of<DarkModeBloc>(context).isDark
                   ? ColorResources().selectedItemInNavigationBarDark
                   : ColorResources().selectedItemInNavigationBar,
           onTap: _onItemTapped),

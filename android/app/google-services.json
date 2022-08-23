@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "68139043137-osppcnl5sc6rkh0jj84bp1ehgk1laghm.apps.googleusercontent.com",
+          "client_id": "68139043137-pjmv8ea2vatkfpbv2e448msl8vuf1ofv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.wallpy",
@@ -37,6 +37,13 @@
             {
               "client_id": "68139043137-hq42je2vf7417q3n5a8ps7ov959e0lcc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "68139043137-qtdjg38ptf570qu0vi9nvbv8jj043mjv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.wallpy"
+              }
             }
           ]
         }

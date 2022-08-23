@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
-import '../widgets/theme.dart';
+import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../controllers/favorite_bloc/favorite_bloc.dart';
 import '../widgets/wallpaper_setter.dart';
 import '../resources/resources.dart';
@@ -37,7 +36,7 @@ class _DetailScreenState extends State<DetailScreen> {
               child: SizedBox(
                 height: double.infinity,
                 width: double.infinity,
-                child: networkImages(widget.dataModel.url),
+                child: networkImages(widget.dataModel.url, null),
               ),
             ),
           ),
@@ -51,7 +50,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: IconButton(
                       onPressed: () => Navigator.pop(context),
                       icon: Icon(IconsResources().back,
-                          color: Provider.of<ThemeProvider>(context).isDarkMode
+                          color: BlocProvider.of<DarkModeBloc>(context).isDark
                               ? ColorResources().appBarTextIconDark
                               : ColorResources().appBarTextIcon)),
                 )),
@@ -63,7 +62,7 @@ class _DetailScreenState extends State<DetailScreen> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 decoration: BoxDecoration(
-                    color: Provider.of<ThemeProvider>(context).isDarkMode
+                    color: BlocProvider.of<DarkModeBloc>(context).isDark
                         ? ColorResources().detailScreenContainerDark
                         : ColorResources().detailScreenContainer,
                     borderRadius: const BorderRadius.all(Radius.circular(20))),
@@ -113,7 +112,7 @@ Icon icons(context, IconData iconData) {
   return Icon(
     size: 30,
     iconData,
-    color: Provider.of<ThemeProvider>(context).isDarkMode
+    color: BlocProvider.of<DarkModeBloc>(context).isDark
         ? ColorResources().detailScreenIconsDark
         : ColorResources().detailScreenIcons,
   );

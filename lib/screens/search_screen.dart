@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import '../widgets/theme.dart';
+import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../controllers/search_bloc/search_bloc.dart';
 import '../resources/resources.dart';
 import '../utils/firestore_database_calling.dart';
@@ -44,14 +43,6 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
-            ? ColorResources().appBarDark
-            : ColorResources().appBar,
-        iconTheme: IconThemeData(
-            color: Provider.of<ThemeProvider>(context).isDarkMode
-                ? ColorResources().appBarTextIconDark
-                : ColorResources().appBarTextIcon),
         title: TextField(
           controller: textEditingController,
           decoration: InputDecoration(
@@ -61,7 +52,6 @@ class _SearchScreenState extends State<SearchScreen> {
           onSubmitted: (s) => callBloc(
               context, textEditingController.text, widget.screen, true),
         ),
-        elevation: 0.0,
         actions: [
           IconButton(
               onPressed: () => callBloc(

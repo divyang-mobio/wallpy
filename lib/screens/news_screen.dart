@@ -16,7 +16,13 @@ class NewsScreen extends StatefulWidget {
 class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return RefreshIndicator(
+        onRefresh: () async {
+      BlocProvider.of<NewsDataFetchBloc>(context)
+          .add(GetAllNewsData(url: TextResources().url));
+      return;
+    },
+    child: SingleChildScrollView(
       child: Column(
         children: [
           SizedBox(
@@ -43,6 +49,6 @@ class _NewsScreenState extends State<NewsScreen> {
           }),
         ],
       ),
-    );
+    ));
   }
 }

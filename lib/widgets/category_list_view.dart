@@ -50,7 +50,7 @@ class CategoryListView extends StatelessWidget {
                                     child: networkImages(data
                                         .elementAt(index)['data']
                                         .first['image_url']
-                                        .toString())),
+                                        .toString(), null)),
                               ),
                             ),
                             Positioned.fill(

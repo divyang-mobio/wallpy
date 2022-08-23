@@ -17,6 +17,7 @@ Padding gridView(
           crossAxisSpacing: 3,
           crossAxisCount: 2),
       itemBuilder: (context, index) {
+        print("build ");
         Object? item = isLoading ? loadingDataModel : data[index];
         return (item is DataModel)
             ? Padding(
