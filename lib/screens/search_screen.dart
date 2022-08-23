@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../controllers/search_bloc/search_bloc.dart';
 import '../resources/resources.dart';
 import '../widgets/gridview.dart';
@@ -41,14 +42,23 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              BlocProvider.of<SearchBloc>(context).add(CleanData());
               Navigator.pop(context);
+              BlocProvider.of<SearchBloc>(context).add(CleanData());
             },
             icon: Icon(IconsResources().back)),
         title: TextField(
+          cursorColor: BlocProvider.of<DarkModeBloc>(context).isDark
+              ? ColorResources().focusedBorderTextFieldDark
+              : ColorResources().focusedBorderTextField,
           controller: textEditingController,
           decoration: InputDecoration(
             hintText: TextResources().searchHint,
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: BlocProvider.of<DarkModeBloc>(context).isDark
+                      ? ColorResources().focusedBorderTextFieldDark
+                      : ColorResources().focusedBorderTextField),
+            ),
           ),
           keyboardType: TextInputType.text,
           onSubmitted: (s) => callBloc(
@@ -80,7 +90,5 @@ class _SearchScreenState extends State<SearchScreen> {
 
 void callBloc(context, String query, int screen, bool isSearch) {
   BlocProvider.of<SearchBloc>(context).add(SearchData(
-      query: query,
-      isFavorite: (screen == 2) ? true : false,
-      isSearch: true));
+      query: query, isFavorite: (screen == 2) ? true : false, isSearch: true));
 }

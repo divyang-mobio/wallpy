@@ -42,4 +42,6 @@ class ColorResources {
   final MaterialColor? primarySwatchDark = Colors.grey;
   final Color scaffoldBackgroundColor = Colors.white;
   final Color scaffoldBackgroundColorDark = Colors.grey.shade700;
+  final Color focusedBorderTextField = Colors.black;
+  final Color focusedBorderTextFieldDark = Colors.white;
 }
