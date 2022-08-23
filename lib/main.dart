@@ -86,8 +86,6 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.instance.getInitialMessage().then((event) {
       if (event != null) {
         final route = event.data["route"];
-        // ignore: avoid_print
-        print(route);
         if (route.toString() == "2") {
           initialRoute == TextResources().homeScreenRoute;
         }
@@ -152,7 +150,9 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<FavoriteBloc>(
               create: (context) => FavoriteBloc(FirebaseDatabase())
                 ..add(GetFavoriteData(isFavorite: true, category: null))),
-          BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
+          BlocProvider<SearchBloc>(
+              create: (context) =>
+                  SearchBloc(RepositoryProvider.of<FirebaseDatabase>(context))),
           BlocProvider<CategoryBloc>(
             create: (context) =>
                 CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
@@ -181,10 +181,6 @@ class _MyAppState extends State<MyApp> {
           ),
         ],
         child:
-            // ChangeNotifierProvider<ThemeProvider>(
-            //     create: (_) => ThemeProvider()..theme(),
-            //     builder: (context, _) {
-            //       return
             BlocBuilder<DarkModeBloc, DarkModeState>(builder: (context, state) {
           if (state is DarkModeLoaded) {
             return MaterialApp(
@@ -205,16 +201,6 @@ class _MyAppState extends State<MyApp> {
                 onGenerateRoute: RouteGenerator.generateRoute,
                 initialRoute: initialRoute);
           }
-          // });
-          // return MaterialApp(
-          //     debugShowCheckedModeBanner: false,
-          //     title: TextResources().appTitle,
-          //     themeMode: Provider.of<ThemeProvider>(context).themeMode,
-          //     darkTheme: MyTheme.darkTheme,
-          //     theme: MyTheme.lightTheme,
-          //     onGenerateRoute: RouteGenerator.generateRoute,
-          //     //   home:
-          //     initialRoute: initialRoute);
         }),
       ),
     );
