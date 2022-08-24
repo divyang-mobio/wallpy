@@ -94,6 +94,7 @@ class TextResources {
   final String detailScreenRoute = '/detail';
   final String detailNewsScreenRoute = "/detailNews";
   final String signUpScreenRoute = '/signUp';
+  final String detailGradiantScreenRoute = "/detailGradiant";
   final String searchScreenRoute = '/search';
   final String signInScreenRoute = '/signIn';
   final String newsCategoryScreenRoute = "/newCategory";
