@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../controllers/bottom_navigation_bloc/bottom_navigation_bloc.dart';
+import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
+import 'gradiant_screen.dart';
 import 'weather_screen.dart';
-import '../widgets/theme.dart';
 import '../controllers/auth_bloc/auth_bloc_bloc.dart';
 import '../models/navigation_model.dart';
 import '../resources/resources.dart';
-import '../widgets/appicon_text.dart';
 import 'category_screen.dart';
 import 'favourite_screen.dart';
 import 'news_screen.dart';
@@ -21,10 +22,10 @@ class BottomNavigationBarScreen extends StatefulWidget {
 }
 
 class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
-  int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     // MyHomePage(),
     CategoryScreen(),
+    GradiantScreen(),
     WeatherScreen(),
     FavouriteScreen(),
     NewsScreen(),
@@ -33,73 +34,77 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   static final List<String> _widgettitle = <String>[
     TextResources().appTitle,
     // TextResources().categoryAppTitle,
+    TextResources().gradiantAppTitle,
     TextResources().weatherTitle,
     TextResources().favoriteAppTitle,
     TextResources().newsAppTitle,
     TextResources().settingAppTitle,
   ];
 
-  void _onItemTapped(int index) => setState(() {
-        _selectedIndex = index;
-      });
+  void _onItemTapped(int index) =>
+      BlocProvider.of<BottomNavigationBloc>(context)
+          .add(OnChangeBar(index: index));
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          iconTheme: IconThemeData(
-              color: Provider.of<ThemeProvider>(context).isDarkMode
-                  ? ColorResources().appBarTextIconDark
-                  : ColorResources().appBarTextIcon),
-          actions: (_selectedIndex == 4)
-              ? [
-                  IconButton(
-                      onPressed: () {
-                        context.read<AuthBlocBloc>().add(SignOutRequested());
-                        Navigator.pushReplacementNamed(
-                          context,
-                          TextResources().welcomeScreenRoute,
-                        );
-                      },
-                      icon: Icon(IconsResources().logOut))
-                ]
-              : (_selectedIndex == 1 || _selectedIndex == 3)
-                  ? []
-                  : [
+    return BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
+        builder: (context, state) {
+      if (state is BottomNavigationInitial) {
+        return const Scaffold(body: CircularProgressIndicator.adaptive());
+      } else if (state is BottomNavigationLoaded) {
+        return Scaffold(
+          appBar: AppBar(
+              automaticallyImplyLeading: false,
+              actions: (state.index == 5)
+                  ? [
                       IconButton(
-                          onPressed: () => Navigator.pushNamed(
-                              context, TextResources().searchScreenRoute,
-                              arguments: SearchScreenArgument(
-                                  selectedScreen: _selectedIndex)),
-                          icon: Icon(IconsResources().search))
-                    ],
-          backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
-              ? ColorResources().appBarDark
-              : ColorResources().appBar,
-          title: Text(_widgettitle[_selectedIndex],
-              style: appBarTextStyle(context)),
-          elevation: 0.0),
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-          elevation: 0.0,
-          type: BottomNavigationBarType.fixed,
-          showUnselectedLabels: false,
-          items: <BottomNavigationBarItem>[
-            for (var i in bottomData)
-              BottomNavigationBarItem(
-                  icon: Icon(i.icon),
-                  activeIcon: Icon(i.actionIcon),
-                  label: i.label),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: (_selectedIndex == 2)
-              ? ColorResources().selectedFavoriteItemInNavigationBar
-              : Provider.of<ThemeProvider>(context).isDarkMode
-                  ? ColorResources().selectedItemInNavigationBarDark
-                  : ColorResources().selectedItemInNavigationBar,
-          onTap: _onItemTapped),
-    );
+                          onPressed: () {
+                            context
+                                .read<AuthBlocBloc>()
+                                .add(SignOutRequested());
+                            Navigator.pushReplacementNamed(
+                              context,
+                              TextResources().welcomeScreenRoute,
+                            );
+                          },
+                          icon: Icon(IconsResources().logOut))
+                    ]
+                  : (state.index == 1 || state.index == 2 || state.index == 4)
+                      ? []
+                      : [
+                          IconButton(
+                              onPressed: () => Navigator.pushNamed(
+                                  context, TextResources().searchScreenRoute,
+                                  arguments: SearchScreenArgument(
+                                      selectedScreen: state.index)),
+                              icon: Icon(IconsResources().search))
+                        ],
+              title: Text(_widgettitle[state.index])),
+          body: _widgetOptions.elementAt(state.index),
+          bottomNavigationBar: BottomNavigationBar(
+              elevation: 0.0,
+              type: BottomNavigationBarType.fixed,
+              showUnselectedLabels: false,
+              items: <BottomNavigationBarItem>[
+                for (var i in bottomData)
+                  BottomNavigationBarItem(
+                      icon: Icon(i.icon),
+                      activeIcon: Icon(i.actionIcon),
+                      label: i.label),
+              ],
+              currentIndex: state.index,
+              selectedItemColor: (state.index == 3)
+                  ? ColorResources().selectedFavoriteItemInNavigationBar
+                  : BlocProvider.of<DarkModeBloc>(context).isDark
+                      ? ColorResources().selectedItemInNavigationBarDark
+                      : ColorResources().selectedItemInNavigationBar,
+              onTap: _onItemTapped),
+        );
+      } else {
+        return Scaffold(
+          body: Text(TextResources().noData),
+        );
+      }
+    });
   }
 }

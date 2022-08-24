@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import '../widgets/theme.dart';
+import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../controllers/search_bloc/search_bloc.dart';
 import '../resources/resources.dart';
-import '../utils/firestore_database_calling.dart';
 import '../widgets/gridview.dart';
 import '../widgets/shimmer_loading.dart';
 
@@ -26,8 +24,6 @@ class _SearchScreenState extends State<SearchScreen> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent) {
-        // ignore: avoid_print
-        print("scroll");
         callBloc(context, textEditingController.text, widget.screen, false);
       }
     });
@@ -44,24 +40,30 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
-            ? ColorResources().appBarDark
-            : ColorResources().appBar,
-        iconTheme: IconThemeData(
-            color: Provider.of<ThemeProvider>(context).isDarkMode
-                ? ColorResources().appBarTextIconDark
-                : ColorResources().appBarTextIcon),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+              BlocProvider.of<SearchBloc>(context).add(CleanData());
+            },
+            icon: Icon(IconsResources().back)),
         title: TextField(
+          cursorColor: BlocProvider.of<DarkModeBloc>(context).isDark
+              ? ColorResources().focusedBorderTextFieldDark
+              : ColorResources().focusedBorderTextField,
           controller: textEditingController,
           decoration: InputDecoration(
             hintText: TextResources().searchHint,
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: BlocProvider.of<DarkModeBloc>(context).isDark
+                      ? ColorResources().focusedBorderTextFieldDark
+                      : ColorResources().focusedBorderTextField),
+            ),
           ),
           keyboardType: TextInputType.text,
           onSubmitted: (s) => callBloc(
               context, textEditingController.text, widget.screen, true),
         ),
-        elevation: 0.0,
         actions: [
           IconButton(
               onPressed: () => callBloc(
@@ -88,8 +90,5 @@ class _SearchScreenState extends State<SearchScreen> {
 
 void callBloc(context, String query, int screen, bool isSearch) {
   BlocProvider.of<SearchBloc>(context).add(SearchData(
-      firebaseDatabase: FirebaseDatabase(),
-      query: query,
-      isFavorite: (screen == 2) ? true : false,
-      isSearch: true));
+      query: query, isFavorite: (screen == 2) ? true : false, isSearch: true));
 }

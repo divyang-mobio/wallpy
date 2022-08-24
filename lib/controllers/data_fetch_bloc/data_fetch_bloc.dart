@@ -11,6 +11,19 @@ class DataFetchBloc extends Bloc<DataFetchEvent, DataFetchState> {
 
   DataFetchBloc(this._firebaseDatabase) : super(DataFetchLoading()) {
     on<GetAllData>(_getAllData);
+    on<OnRefresh>(_onReFresh);
+  }
+
+  Future<void> _onReFresh(OnRefresh event, Emitter<DataFetchState> emit) async {
+    emit(DataFetchLoading());
+    try {
+      List<Object> data = [];
+      data.addAll(await _firebaseDatabase.getAllData(
+          null, false, null, event.isRefresh, true));
+      emit(DataFetchLoaded(data: data));
+    } catch (e) {
+      emit(DataFetchError());
+    }
   }
 
   void _getAllData(GetAllData event, Emitter<DataFetchState> emit) async {

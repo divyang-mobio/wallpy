@@ -4,11 +4,13 @@ class TextResources {
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
   final String categoryAppTitle = "Category";
+  final String gradiantAppTitle = "Gradiant";
   final String favoriteAppTitle = "Favorite";
   final String newsDetailAppTitle = "News Details";
   final String newsAppTitle = "News";
   final String homeScreenLabel = "Home";
   final String categoryScreenLabel = "Category";
+  final String gradiantScreenLabel = "Gradiant";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String newsScreenLabel = "News";
@@ -56,7 +58,8 @@ class TextResources {
   final String intervalDec =
       "Wallpaper Change as per selected Time. By default it is 15 min.";
   final String screenTitle = "Select Screen";
-  final String screenDec = "Home & Lock Screen";
+  final String screenDec =
+      "Select Wallpaper setter screen. By default it is Home & lock screen";
   final String screenHomeDec = "Home Screen";
   final String screenLockDec = "Lock Screen";
   final String collectionTitle = "Collections";
@@ -140,10 +143,10 @@ List<BottomNavigationModel> bottomData = [
       actionIcon: IconsResources().homeScreenSelected,
       icon: IconsResources().homeScreenUnSelected,
       label: TextResources().homeScreenLabel),
-  // BottomNavigationModel(
-  //     actionIcon: IconsResources().categoryScreenSelected,
-  //     icon: IconsResources().categoryScreenUnSelected,
-  //     label: TextResources().categoryScreenLabel),
+  BottomNavigationModel(
+      actionIcon: IconsResources().gradiantScreenUnSelectedSelected,
+      icon: IconsResources().gradiantScreenUnSelectedSelected,
+      label: TextResources().gradiantAppTitle),
   BottomNavigationModel(
       actionIcon: IconsResources().weatherIconSelected,
       icon: IconsResources().weatherIconUnselected,
@@ -166,37 +169,55 @@ List<NewsCategory> categoryData = [
   NewsCategory(
       title: "War",
       link:
-          "https://newsapi.org/v2/everything?q=war&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+          "https://newsapi.org/v2/everything?q=war&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
+      imageLink:
+          "https://images.pexels.com/photos/264146/pexels-photo-264146.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
   NewsCategory(
       title: "Car",
       link:
-          "https://newsapi.org/v2/everything?q=car&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+          "https://newsapi.org/v2/everything?q=car&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
+      imageLink:
+          "https://images.pexels.com/photos/3221159/pexels-photo-3221159.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"),
   NewsCategory(
       title: "Airplane",
       link:
-          "https://newsapi.org/v2/everything?q=airplane&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+          "https://newsapi.org/v2/everything?q=airplane&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
+      imageLink:
+          "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
   NewsCategory(
       title: "Business",
       link:
-          "https://newsapi.org/v2/everything?q=business&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+          "https://newsapi.org/v2/everything?q=business&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
+      imageLink:
+          "https://images.pexels.com/photos/3183198/pexels-photo-3183198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
   NewsCategory(
       title: "BitCoin",
       link:
-          "https://newsapi.org/v2/everything?q=bitcoin&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+          "https://newsapi.org/v2/everything?q=bitcoin&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
+      imageLink:
+          "https://images.pexels.com/photos/730564/pexels-photo-730564.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
   NewsCategory(
       title: "Sport",
       link:
-          "https://newsapi.org/v2/everything?q=sport&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+          "https://newsapi.org/v2/everything?q=sport&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
+      imageLink:
+          "https://images.pexels.com/photos/47730/the-ball-stadion-football-the-pitch-47730.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
   NewsCategory(
       title: "Stock Market",
       link:
-          "https://newsapi.org/v2/everything?q=stock&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+          "https://newsapi.org/v2/everything?q=stock&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
+      imageLink:
+          "https://images.pexels.com/photos/187041/pexels-photo-187041.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
   NewsCategory(
       title: "Tech",
       link:
-          "https://newsapi.org/v2/everything?q=tech&apiKey=1b20cae31e6d41eeab3fad233fbeecbd"),
+          "https://newsapi.org/v2/everything?q=tech&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
+      imageLink:
+          "https://images.pexels.com/photos/1181673/pexels-photo-1181673.jpeg?auto=compress&cs=tinysrgb&w=600"),
   NewsCategory(
       title: "Apple",
       link:
-          "https://newsapi.org/v2/everything?q=apple&apiKey=1b20cae31e6d41eeab3fad233fbeecbd")
+          "https://newsapi.org/v2/everything?q=apple&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
+      imageLink:
+          "https://images.pexels.com/photos/434346/pexels-photo-434346.jpeg?auto=compress&cs=tinysrgb&w=600")
 ];

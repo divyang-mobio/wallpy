@@ -41,7 +41,7 @@ class FirebaseDatabase {
                                     isEqualTo: true)
                             : instances;
     if (isSearch) {
-      paginationData == null;
+      paginationData = null;
       isMore = true;
     }
     data.addAll(await getData(cat, showAds));
@@ -50,6 +50,7 @@ class FirebaseDatabase {
 
   Future<List<Object>> getData(
       Query<Map<String, dynamic>> instance, bool showAds) async {
+    print("object");
     List<Object> rawData = [];
     if (isMore) {
       var rawList = (paginationData?.data() == null)

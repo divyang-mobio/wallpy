@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:wallpy/controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'package:wallpy/resources/resources.dart';
 import 'package:wallpy/widgets/welcome_background_widget.dart';
+import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../utils/validators.dart';
 import '../widgets/sign_in_up_button.dart';
 import '../widgets/textfield_widget.dart';
-import '../widgets/theme.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -69,7 +68,7 @@ class _SignUpState extends State<SignUp> {
                   if (state is AuthBlocInitial) {
                     return Center(
                       child: CircularProgressIndicator(
-                        color: Provider.of<ThemeProvider>(context).isDarkMode
+                        color: BlocProvider.of<DarkModeBloc>(context).isDark
                             ? ColorResources().circularProgressDark
                             : ColorResources().circularProgress,
                       ),
