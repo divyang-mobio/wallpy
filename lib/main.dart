@@ -4,6 +4,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:wallpy/controllers/bottom_navigation_bloc/bottom_navigation_bloc.dart';
+import 'package:wallpy/controllers/detail_screen_bloc/detail_screen_bloc.dart';
 import 'package:wallpy/controllers/service_bloc/service_bloc.dart';
 import 'package:wallpy/utils/store_data.dart';
 import 'package:wallpy/widgets/theme.dart';
@@ -142,6 +144,13 @@ class _MyAppState extends State<MyApp> {
             create: (context) =>
                 DarkModeBloc(RepositoryProvider.of<PreferenceServices>(context))
                   ..add(Check()),
+          ),
+          BlocProvider<DetailScreenBloc>(
+            create: (context) => DetailScreenBloc()..add(OnTab(isVis: true)),
+          ),
+          BlocProvider<BottomNavigationBloc>(
+            create: (context) =>
+                BottomNavigationBloc()..add(OnChangeBar(index: 0)),
           ),
           BlocProvider<ServiceBloc>(
               create: (context) => ServiceBloc()
