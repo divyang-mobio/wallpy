@@ -4,11 +4,13 @@ class TextResources {
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
   final String categoryAppTitle = "Category";
+  final String gradiantAppTitle = "Gradiant";
   final String favoriteAppTitle = "Favorite";
   final String newsDetailAppTitle = "News Details";
   final String newsAppTitle = "News";
   final String homeScreenLabel = "Home";
   final String categoryScreenLabel = "Category";
+  final String gradiantScreenLabel = "Gradiant";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String newsScreenLabel = "News";
@@ -141,10 +143,10 @@ List<BottomNavigationModel> bottomData = [
       actionIcon: IconsResources().homeScreenSelected,
       icon: IconsResources().homeScreenUnSelected,
       label: TextResources().homeScreenLabel),
-  // BottomNavigationModel(
-  //     actionIcon: IconsResources().categoryScreenSelected,
-  //     icon: IconsResources().categoryScreenUnSelected,
-  //     label: TextResources().categoryScreenLabel),
+  BottomNavigationModel(
+      actionIcon: IconsResources().gradiantScreenUnSelectedSelected,
+      icon: IconsResources().gradiantScreenUnSelectedSelected,
+      label: TextResources().gradiantAppTitle),
   BottomNavigationModel(
       actionIcon: IconsResources().weatherIconSelected,
       icon: IconsResources().weatherIconUnselected,

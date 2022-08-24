@@ -44,4 +44,5 @@ class ColorResources {
   final Color scaffoldBackgroundColorDark = Colors.grey.shade700;
   final Color focusedBorderTextField = Colors.black;
   final Color focusedBorderTextFieldDark = Colors.white;
+  final List<Color> pickerGradiant = [Colors.blue, Colors.red];
 }
