@@ -26,7 +26,7 @@ cardView(context, Articles data) {
           SizedBox(
               height: 100,
               width: 100,
-              child: networkImages(data.urlToImage.toString())),
+              child: networkImages(data.urlToImage.toString(), null)),
           const SizedBox(width: 10),
           Flexible(
             child: Column(

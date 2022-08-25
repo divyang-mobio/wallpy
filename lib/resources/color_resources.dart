@@ -34,8 +34,14 @@ class ColorResources {
   final Color signUpButton = const Color.fromARGB(106, 255, 255, 255);
   final Color welcomeBackgroundColor = Colors.transparent;
   final Color googleSignInUpText = Colors.white;
-  final Color signUpInText = Colors.black; // Colors.white;
+  final Color signUpInText = Colors.black;
   final Color newsDetailText = Colors.black;
   final Color newsDetailTextDark = Colors.white;
-  final Color activeSwitch = Colors.black; // Colors.white;
+  final Color activeSwitch = Colors.black;
+  final MaterialColor? primarySwatch = Colors.grey;
+  final MaterialColor? primarySwatchDark = Colors.grey;
+  final Color scaffoldBackgroundColor = Colors.white;
+  final Color scaffoldBackgroundColorDark = Colors.grey.shade700;
+  final Color focusedBorderTextField = Colors.black;
+  final Color focusedBorderTextFieldDark = Colors.white;
 }

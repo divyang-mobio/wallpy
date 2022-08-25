@@ -8,3 +8,10 @@ class GetAllData extends DataFetchEvent {
 
   GetAllData({this.category, required this.isFavorite});
 }
+
+class OnRefresh extends DataFetchEvent {
+  bool isRefresh;
+
+  OnRefresh({required this.isRefresh});
+}
+

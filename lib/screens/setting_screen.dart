@@ -1,14 +1,9 @@
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:wallpy/widgets/theme.dart';
-import '../models/data_model.dart';
-import '../utils/firestore_database_calling.dart';
-import '../utils/store_data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
+import '../controllers/service_bloc/service_bloc.dart';
 import '../resources/resources.dart';
-import '../widgets/background_service.dart';
 import '../widgets/dialog_box.dart';
-import '../widgets/wallpaper_setter.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -18,50 +13,18 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  bool _service = false;
   int? time;
   int? screen;
   String? collection;
 
-  Future<void> _onClickEnable(enabled) async {
-    setState(() {
-      _service = enabled;
-    });
-    if (enabled) {
-      List<DataModel> data = await FirebaseSave().getData();
-      final pref = PreferenceServices();
-      pref.setScreen(screen ?? 3);
-      pref.setList(data);
-      pref.setNo(1);
-      pref.setToggle(true);
-
-      wallpaperSetter(data[0].url, screen ?? 3);
-      await AndroidAlarmManager.periodic(const Duration(minutes: 1),
-          TextResources().androidAlarmManagerId, callWallpaperSetter);
-    } else {
-      final pref = PreferenceServices();
-      pref.setToggle(false);
-      await AndroidAlarmManager.cancel(TextResources().androidAlarmManagerId);
-    }
-  }
+  void _onClickEnable(enabled) => BlocProvider.of<ServiceBloc>(context)
+      .add(OnChange(isOn: enabled, screen: screen ?? 3, interval: time ?? 15));
 
   ListTile listsTiles(String title, String dec) {
     return ListTile(
       title: Text(title),
       subtitle: Text(dec, maxLines: 5),
     );
-  }
-
-  getToggleValue() async {
-    final pref = PreferenceServices();
-    _service = await pref.getToggle();
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getToggleValue();
   }
 
   @override
@@ -77,10 +40,22 @@ class _SettingScreenState extends State<SettingScreen> {
                 TextResources().changeWallpaperDec,
                 maxLines: 5,
               ),
-              trailing: Switch.adaptive(
-                  value: _service,
-                  onChanged: _onClickEnable,
-                  activeColor: ColorResources().activeSwitch)),
+              trailing: BlocBuilder<ServiceBloc, ServiceState>(
+                builder: (_, state) {
+                  if (state is ServiceLoading) {
+                    return const CircularProgressIndicator();
+                  } else if (state is ServiceLoaded) {
+                    return Switch.adaptive(
+                        value: state.isOn,
+                        onChanged: _onClickEnable,
+                        activeColor: ColorResources().activeSwitch);
+                  } else if (state is ServiceError) {
+                    return Text(TextResources().blocError);
+                  } else {
+                    return Text(TextResources().blocError);
+                  }
+                },
+              )),
           const Divider(thickness: 2),
           GestureDetector(
               onTap: () async {
@@ -93,16 +68,9 @@ class _SettingScreenState extends State<SettingScreen> {
             onTap: () async {
               screen = await dialog(
                   context, TextResources().screenTitle, bottomSheetScreenData);
-              setState(() {});
             },
             child: listsTiles(
-              TextResources().screenTitle,
-              (screen == null || screen == 3)
-                  ? TextResources().screenDec
-                  : (screen == 1)
-                      ? TextResources().screenHomeDec
-                      : TextResources().screenLockDec,
-            ),
+                TextResources().screenTitle, TextResources().screenDec),
           ),
           GestureDetector(
             onTap: () async {
@@ -124,15 +92,25 @@ class _SettingScreenState extends State<SettingScreen> {
 
 class DarkTheme extends StatelessWidget {
   const DarkTheme({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
         title: Text(TextResources().darkModeTitle),
-        trailing: Switch.adaptive(
-            value: Provider.of<ThemeProvider>(context).isDarkMode,
-            onChanged: (value) =>
-                Provider.of<ThemeProvider>(context, listen: false)
-                    .toggleTheme(value),
-            activeColor: ColorResources().activeSwitch));
+        trailing:
+            BlocBuilder<DarkModeBloc, DarkModeState>(builder: (context, state) {
+          if (state is DarkModeLoaded) {
+            return Switch.adaptive(
+                value: state.isDark,
+                onChanged: (value) => BlocProvider.of<DarkModeBloc>(context)
+                    .add(OnChangeMode(isDark: value)),
+                activeColor: ColorResources().activeSwitch);
+          } else {
+            return Switch.adaptive(
+                value: false,
+                onChanged: (value) {},
+                activeColor: ColorResources().activeSwitch);
+          }
+        }));
   }
 }

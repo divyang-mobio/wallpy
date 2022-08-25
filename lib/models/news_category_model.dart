@@ -1,4 +1,6 @@
 class NewsCategory {
-  String title, link;
-  NewsCategory({required this.title, required this.link});
+  String title, link, imageLink;
+
+  NewsCategory(
+      {required this.title, required this.link, required this.imageLink});
 }

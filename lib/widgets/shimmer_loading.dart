@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
-import 'theme.dart';
+import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../resources/resources.dart';
 import 'gridview.dart';
 import 'news_listview.dart';
 
 Shimmer shimmer(context, bool isGrid) {
   return Shimmer.fromColors(
-      baseColor: Provider.of<ThemeProvider>(context).isDarkMode
+      baseColor: BlocProvider.of<DarkModeBloc>(context).isDark
           ? ColorResources().shimmerBaseDark
           : ColorResources().shimmerBase,
-      highlightColor: Provider.of<ThemeProvider>(context).isDarkMode
+      highlightColor: BlocProvider.of<DarkModeBloc>(context).isDark
           ? ColorResources().shimmerHighlightDark
           : ColorResources().shimmerHighlight,
       child: isGrid ? gridView([], null, true) : listView([], true));
@@ -19,10 +19,10 @@ Shimmer shimmer(context, bool isGrid) {
 
 Shimmer categoryShimmer(BuildContext context) {
   return Shimmer.fromColors(
-      baseColor: Provider.of<ThemeProvider>(context).isDarkMode
+      baseColor: BlocProvider.of<DarkModeBloc>(context).isDark
           ? ColorResources().shimmerBaseDark
           : ColorResources().shimmerBase,
-      highlightColor: Provider.of<ThemeProvider>(context).isDarkMode
+      highlightColor: BlocProvider.of<DarkModeBloc>(context).isDark
           ? ColorResources().shimmerHighlightDark
           : ColorResources().shimmerHighlight,
       child: Column(

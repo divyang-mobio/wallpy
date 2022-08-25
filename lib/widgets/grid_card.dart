@@ -22,7 +22,7 @@ GestureDetector gridCard(
       elevation: 10,
       child: isLoading
           ? null
-          : Hero(tag: dataModel.name, child: networkImages(dataModel.url)),
+          : Hero(tag: dataModel.name, child: networkImages(dataModel.url, null)),
     ),
   );
 }

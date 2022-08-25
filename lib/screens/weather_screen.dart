@@ -19,7 +19,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
       SizedBox(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
-        child: networkImages(TextResources().weatherUrl),
+        child: networkImages(TextResources().weatherUrl, null),
       ),
       BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
         if (state is WeatherLoading) {
