@@ -155,7 +155,8 @@ class _MyAppState extends State<MyApp> {
           ),
           BlocProvider<GradiantBloc>(
             create: (context) => GradiantBloc()
-              ..add(SelectedColor(myColor: ColorResources().pickerGradiant)),
+              ..add(SelectedColor(
+                  myColor: ColorResources().pickerGradiantDefault)),
           ),
           BlocProvider<ServiceBloc>(
               create: (context) => ServiceBloc()

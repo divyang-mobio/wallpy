@@ -11,3 +11,12 @@ wallpaperSetter(String url, int location) async {
     print("error");
   }
 }
+
+wallpaperGradiantSetter(File file, int location) async {
+  try {
+    await WallpaperManagerFlutter().setwallpaperfromFile(file, location);
+  } catch (e) {
+    // ignore: avoid_print
+    print("error");
+  }
+}

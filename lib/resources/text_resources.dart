@@ -25,7 +25,9 @@ class TextResources {
   final String noData = "Error No Data :(";
   final String downloadImage = "downloading";
   final String successDownloaded = "Save Image";
-
+  final String colorPicker = 'Pick a color!';
+  final String colorPickerApply = "Apply";
+  final String colorPickerButton = "change color";
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
   final String email = "Email";
@@ -94,6 +96,7 @@ class TextResources {
   final String detailScreenRoute = '/detail';
   final String detailNewsScreenRoute = "/detailNews";
   final String signUpScreenRoute = '/signUp';
+  final String detailGradiantScreenRoute = "/detailGradiant";
   final String searchScreenRoute = '/search';
   final String signInScreenRoute = '/signIn';
   final String newsCategoryScreenRoute = "/newCategory";

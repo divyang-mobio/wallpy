@@ -5,6 +5,7 @@ import '../models/news_category_model.dart';
 import '../screens/bottom_navigation_screen.dart';
 import '../screens/detail_news_screen.dart';
 import '../screens/detail_screen.dart';
+import '../screens/gradiant_detail.dart';
 import '../screens/main_screen.dart';
 import '../screens/news_category_list_screen.dart';
 import '../screens/search_screen.dart';
@@ -39,6 +40,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const SignUp());
       case "/signIn":
         return MaterialPageRoute(builder: (context) => const SignIn());
+      case "/detailGradiant":
+        final args = setting.arguments as DetailGradiantScreenArgument;
+        return MaterialPageRoute(
+            builder: (context) => DetailGradiantScreen(myColor: args.myColor));
       case "/redirect":
         return MaterialPageRoute(builder: (context) => RedirectScreen());
       case "/newCategory":
