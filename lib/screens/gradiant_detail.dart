@@ -6,11 +6,10 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import '../controllers/detail_screen_bloc/detail_screen_bloc.dart';
-import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
+import '../widgets/detail_screen_widgets.dart';
 import '../widgets/wallpaper_setter.dart';
 import '../resources/resources.dart';
 import '../widgets/bottom_sheet.dart';
-import 'detail_screen.dart';
 
 class DetailGradiantScreen extends StatefulWidget {
   const DetailGradiantScreen({Key? key, required this.myColor})
@@ -22,22 +21,15 @@ class DetailGradiantScreen extends StatefulWidget {
 }
 
 class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
-  Visibility backIcon(bool isVis) {
-    return Visibility(
-      maintainState: true,
-      visible: isVis,
-      child: Align(
-          alignment: Alignment.topLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(IconsResources().back,
-                    color: BlocProvider.of<DarkModeBloc>(context).isDark
-                        ? ColorResources().appBarTextIconDark
-                        : ColorResources().appBarTextIcon)),
-          )),
-    );
+
+  Future<File> getWidgetToImage() async {
+    final controller = ScreenshotController();
+    final bytes = await controller
+        .captureFromWidget(containerBuilder());
+    final tempDir = await getTemporaryDirectory();
+    final file =
+    File('${tempDir.path}/$generateRandomString.png');
+    return await file.writeAsBytes(bytes);
   }
 
   Widget containerBuilder() {
@@ -52,61 +44,32 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
     );
   }
 
-  Visibility allIcons(bool isVis) {
-    return Visibility(
-      maintainState: true,
-      visible: isVis,
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          decoration: BoxDecoration(
-              color: BlocProvider.of<DarkModeBloc>(context).isDark
-                  ? ColorResources().detailScreenContainerDark
-                  : ColorResources().detailScreenContainer,
-              borderRadius: const BorderRadius.all(Radius.circular(20))),
-          margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
-          height: 80,
-          width: MediaQuery.of(context).size.width * .8,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                  onPressed: () async {
-                    snackBar(TextResources().downloadImage, context);
-                    final controller = ScreenshotController();
-                    final bytes =
-                        await controller.captureFromWidget(containerBuilder());
-                    final tempDir = await getTemporaryDirectory();
-                    final file =
-                        File('${tempDir.path}/$generateRandomString.png');
-                    await file.writeAsBytes(bytes);
-                    GallerySaver.saveImage(file.path).whenComplete(() =>
-                        snackBar(TextResources().successDownloaded, context));
-                  },
-                  icon: icons(context, IconsResources().download)),
-              IconButton(
-                  onPressed: () async {
-                    int? location = await bottomSheet(
-                        context,
-                        TextResources().bottomSheetTitle,
-                        bottomSheetScreenData);
-                    if (location != null) {
-                      final controller = ScreenshotController();
-                      final bytes = await controller
-                          .captureFromWidget(containerBuilder());
-                      final tempDir = await getTemporaryDirectory();
-                      final file =
-                          File('${tempDir.path}/$generateRandomString.png');
-                      await file.writeAsBytes(bytes);
-                      wallpaperGradiantSetter(file, location);
-                    }
-                  },
-                  icon: icons(
-                      context, IconsResources().setWallpaperFromDetailScreen)),
-            ],
-          ),
-        ),
-      ),
+  Widget rowIcon() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+            onPressed: () async {
+              snackBar(TextResources().downloadImage, context);
+              File file = await getWidgetToImage();
+              GallerySaver.saveImage(file.path).whenComplete(() =>
+                  snackBar(TextResources().successDownloaded, context));
+            },
+            icon: icons(context, IconsResources().download)),
+        IconButton(
+            onPressed: () async {
+              int? location = await bottomSheet(
+                  context,
+                  TextResources().bottomSheetTitle,
+                  bottomSheetScreenData);
+              if (location != null) {
+                File file = await getWidgetToImage();
+                wallpaperGradiantSetter(file, location);
+              }
+            },
+            icon: icons(
+                context, IconsResources().setWallpaperFromDetailScreen)),
+      ],
     );
   }
 
@@ -125,13 +88,13 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
           ),
           BlocBuilder<DetailScreenBloc, DetailScreenState>(
             builder: (context, state) => (state is DetailScreenLoaded)
-                ? backIcon(state.isVis)
-                : backIcon(true),
+                ? backIcon(context, state.isVis)
+                : backIcon(context, true),
           ),
           BlocBuilder<DetailScreenBloc, DetailScreenState>(
             builder: (context, state) => (state is DetailScreenLoaded)
-                ? allIcons(state.isVis)
-                : allIcons(true),
+                ? allIcons(context, state.isVis, rowIcon())
+                : allIcons(context, true, rowIcon()),
           ),
         ],
       ),

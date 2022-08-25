@@ -44,7 +44,10 @@ class ColorResources {
   final Color scaffoldBackgroundColorDark = Colors.grey.shade700;
   final Color focusedBorderTextField = Colors.black;
   final Color focusedBorderTextFieldDark = Colors.white;
-  final List<Color> pickerGradiant = [Colors.blue, Colors.red];
+  final Color colorPickerButtonDark = Colors.black;
+  final Color colorPickerButton = Colors.white;
+  final List<Color> pickerGradiantDefault = [Colors.blue, Colors.red];
+  final List<Color> pickerGradiantEmpty = [Colors.white, Colors.white];
 }
 // Map<int, Color> colorCodes = {
 //   50: Color.fromRGBO(147, 205, 72, .1),

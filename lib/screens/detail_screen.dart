@@ -1,12 +1,12 @@
-import 'package:dio/dio.dart';
+import 'dart:io';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
 import '../controllers/detail_screen_bloc/detail_screen_bloc.dart';
-import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../controllers/favorite_bloc/favorite_bloc.dart';
+import '../widgets/detail_screen_widgets.dart';
 import '../widgets/wallpaper_setter.dart';
 import '../resources/resources.dart';
 import '../models/data_model.dart';
@@ -23,69 +23,33 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
 
-  Visibility backIcon(bool isVis) {
-    return Visibility(
-      maintainState: true,
-      visible: isVis,
-      child: Align(
-          alignment: Alignment.topLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(IconsResources().back,
-                    color: BlocProvider.of<DarkModeBloc>(context).isDark
-                        ? ColorResources().appBarTextIconDark
-                        : ColorResources().appBarTextIcon)),
-          )),
-    );
-  }
-
-  Visibility allIcons(bool isVis) {
-    return Visibility(
-      maintainState: true,
-      visible: isVis,
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          decoration: BoxDecoration(
-              color: BlocProvider.of<DarkModeBloc>(context).isDark
-                  ? ColorResources().detailScreenContainerDark
-                  : ColorResources().detailScreenContainer,
-              borderRadius: const BorderRadius.all(Radius.circular(20))),
-          margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
-          height: 80,
-          width: MediaQuery.of(context).size.width * .8,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                  onPressed: () async {
-                    snackBar(TextResources().downloadImage, context);
-                    final tempDir = await getTemporaryDirectory();
-                    final path = '${tempDir.path}/${widget.dataModel.name}';
-                    await Dio().download(widget.dataModel.url, path);
-                    GallerySaver.saveImage(path).whenComplete(() =>
-                        snackBar(TextResources().successDownloaded, context));
-                  },
-                  icon: icons(context, IconsResources().download)),
-              IconButton(
-                  onPressed: () async {
-                    int? location = await bottomSheet(
-                        context,
-                        TextResources().bottomSheetTitle,
-                        bottomSheetScreenData);
-                    if (location != null) {
-                      wallpaperSetter(widget.dataModel.url, location);
-                    }
-                  },
-                  icon: icons(
-                      context, IconsResources().setWallpaperFromDetailScreen)),
-              FavoriteIcon(dataModel: widget.dataModel)
-            ],
-          ),
-        ),
-      ),
+  Widget rowIcon() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+            onPressed: () async {
+              snackBar(TextResources().downloadImage, context);
+              File cachedImage = await DefaultCacheManager().getSingleFile(
+                  widget.dataModel.url);
+              GallerySaver.saveImage(cachedImage.path).whenComplete(() =>
+                  snackBar(TextResources().successDownloaded, context));
+            },
+            icon: icons(context, IconsResources().download)),
+        IconButton(
+            onPressed: () async {
+              int? location = await bottomSheet(
+                  context,
+                  TextResources().bottomSheetTitle,
+                  bottomSheetScreenData);
+              if (location != null) {
+                wallpaperSetter(widget.dataModel.url, location);
+              }
+            },
+            icon: icons(
+                context, IconsResources().setWallpaperFromDetailScreen)),
+        FavoriteIcon(dataModel: widget.dataModel)
+      ],
     );
   }
 
@@ -98,8 +62,9 @@ class _DetailScreenState extends State<DetailScreen> {
             onLongPressStart: (start) =>
                 BlocProvider.of<DetailScreenBloc>(context)
                     .add(OnTab(isVis: false)),
-            onLongPressEnd: (end) => BlocProvider.of<DetailScreenBloc>(context)
-                .add(OnTab(isVis: true)),
+            onLongPressEnd: (end) =>
+                BlocProvider.of<DetailScreenBloc>(context)
+                    .add(OnTab(isVis: true)),
             child: Hero(
               tag: widget.dataModel.name,
               child: SizedBox(
@@ -110,14 +75,16 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           ),
           BlocBuilder<DetailScreenBloc, DetailScreenState>(
-            builder: (context, state) => (state is DetailScreenLoaded)
-                ? backIcon(state.isVis)
-                : backIcon(true),
+            builder: (context, state) =>
+            (state is DetailScreenLoaded)
+                ? backIcon(context, state.isVis)
+                : backIcon(context, true),
           ),
           BlocBuilder<DetailScreenBloc, DetailScreenState>(
-            builder: (context, state) => (state is DetailScreenLoaded)
-                ? allIcons(state.isVis)
-                : allIcons(true),
+            builder: (context, state) =>
+            (state is DetailScreenLoaded)
+                ? allIcons(context, state.isVis, rowIcon())
+                : allIcons(context, true, rowIcon()),
           ),
         ],
       ),
@@ -125,15 +92,6 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 }
 
-Icon icons(context, IconData iconData) {
-  return Icon(
-    size: 30,
-    iconData,
-    color: BlocProvider.of<DarkModeBloc>(context).isDark
-        ? ColorResources().detailScreenIconsDark
-        : ColorResources().detailScreenIcons,
-  );
-}
 
 class FavoriteIcon extends StatefulWidget {
   const FavoriteIcon({Key? key, required this.dataModel}) : super(key: key);
@@ -154,10 +112,11 @@ class _FavoriteIconState extends State<FavoriteIcon> {
           EasyDebounce.debounce(
               'debounce',
               const Duration(seconds: 1),
-              () => BlocProvider.of<FavoriteBloc>(context).add(AddFavorite(
-                  dataModel: widget.dataModel,
-                  isFavorite: true,
-                  category: null)));
+                  () =>
+                  BlocProvider.of<FavoriteBloc>(context).add(AddFavorite(
+                      dataModel: widget.dataModel,
+                      isFavorite: true,
+                      category: null)));
         },
         icon: icons(
             context,
@@ -167,6 +126,3 @@ class _FavoriteIconState extends State<FavoriteIcon> {
   }
 }
 
-void snackBar(String data, context) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
-}
