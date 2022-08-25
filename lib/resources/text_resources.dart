@@ -4,11 +4,13 @@ class TextResources {
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
   final String categoryAppTitle = "Category";
+  final String gradiantAppTitle = "Gradiant";
   final String favoriteAppTitle = "Favorite";
   final String newsDetailAppTitle = "News Details";
   final String newsAppTitle = "News";
   final String homeScreenLabel = "Home";
   final String categoryScreenLabel = "Category";
+  final String gradiantScreenLabel = "Gradiant";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String newsScreenLabel = "News";
@@ -23,7 +25,9 @@ class TextResources {
   final String noData = "Error No Data :(";
   final String downloadImage = "downloading";
   final String successDownloaded = "Save Image";
-
+  final String colorPicker = 'Pick a color!';
+  final String colorPickerApply = "Apply";
+  final String colorPickerButton = "change color";
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
   final String email = "Email";
@@ -92,6 +96,7 @@ class TextResources {
   final String detailScreenRoute = '/detail';
   final String detailNewsScreenRoute = "/detailNews";
   final String signUpScreenRoute = '/signUp';
+  final String detailGradiantScreenRoute = "/detailGradiant";
   final String searchScreenRoute = '/search';
   final String signInScreenRoute = '/signIn';
   final String newsCategoryScreenRoute = "/newCategory";
@@ -141,10 +146,10 @@ List<BottomNavigationModel> bottomData = [
       actionIcon: IconsResources().homeScreenSelected,
       icon: IconsResources().homeScreenUnSelected,
       label: TextResources().homeScreenLabel),
-  // BottomNavigationModel(
-  //     actionIcon: IconsResources().categoryScreenSelected,
-  //     icon: IconsResources().categoryScreenUnSelected,
-  //     label: TextResources().categoryScreenLabel),
+  BottomNavigationModel(
+      actionIcon: IconsResources().gradiantScreenUnSelectedSelected,
+      icon: IconsResources().gradiantScreenUnSelectedSelected,
+      label: TextResources().gradiantAppTitle),
   BottomNavigationModel(
       actionIcon: IconsResources().weatherIconSelected,
       icon: IconsResources().weatherIconUnselected,

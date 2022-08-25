@@ -10,6 +10,7 @@ import 'package:wallpy/controllers/service_bloc/service_bloc.dart';
 import 'package:wallpy/utils/store_data.dart';
 import 'package:wallpy/widgets/theme.dart';
 import 'controllers/dark_mode_bloc/dark_mode_bloc.dart';
+import 'controllers/gradiant_bloc/gradiant_bloc.dart';
 import 'controllers/new_category_bloc/news_category_bloc.dart';
 import 'package:wallpy/controllers/news_data_fetch_bloc/news_data_fetch_bloc.dart';
 import 'package:wallpy/controllers/category_bloc/category_bloc.dart';
@@ -151,6 +152,11 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<BottomNavigationBloc>(
             create: (context) =>
                 BottomNavigationBloc()..add(OnChangeBar(index: 0)),
+          ),
+          BlocProvider<GradiantBloc>(
+            create: (context) => GradiantBloc()
+              ..add(SelectedColor(
+                  myColor: ColorResources().pickerGradiantDefault)),
           ),
           BlocProvider<ServiceBloc>(
               create: (context) => ServiceBloc()

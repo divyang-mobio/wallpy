@@ -6,6 +6,7 @@ class IconsResources {
   final setWallpaperFromDetailScreen = Icons.now_wallpaper_rounded;
   final homeScreenUnSelected = Icons.home_outlined;
   final homeScreenSelected = Icons.home;
+  final gradiantScreenUnSelectedSelected = Icons.gradient;
   final settingScreenUnSelected = Icons.settings_outlined;
   final settingScreenSelected = Icons.settings;
   final favouriteScreenUnSelected = Icons.favorite_border;
