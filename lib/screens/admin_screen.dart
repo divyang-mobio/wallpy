@@ -36,6 +36,16 @@ class _AdminScreenState extends State<AdminScreen> {
     }
   }
 
+  void reset() {
+    myCategory = [];
+    name = "";
+    url = null;
+    callBloc(context, []);
+    BlocProvider.of<UploadImageBloc>(context).add(OnSubmit());
+    BlocProvider.of<UploadDataFireStoreBloc>(context)
+        .add(OnSubmitForUpload());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,14 +134,8 @@ class _AdminScreenState extends State<AdminScreen> {
             BlocConsumer<UploadDataFireStoreBloc, UploadDataFireStoreState>(
                 listener: (context, state) async {
               if (state is UploadDataFireStoreSuccess) {
+                reset();
                 await alertDialog(context, "Success");
-                myCategory = [];
-                name = "";
-                url = null;
-                callBloc(context, []);
-                BlocProvider.of<UploadImageBloc>(context).add(OnSubmit());
-                BlocProvider.of<UploadDataFireStoreBloc>(context)
-                    .add(OnSubmitForUpload());
               }
             }, builder: (context, state) {
               if (state is UploadDataFireStoreInitial) {

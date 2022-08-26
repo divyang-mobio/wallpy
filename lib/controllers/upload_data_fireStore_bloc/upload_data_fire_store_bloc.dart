@@ -12,6 +12,7 @@ class UploadDataFireStoreBloc
   UploadDataFireStoreBloc() : super(UploadDataFireStoreInitial()) {
     on<UploadData>((event, emit) async {
       try {
+        emit(UploadDataFireStoreProcess());
         await FirebaseFirestore.instance
             .collection(TextResources().fireStoreCategory)
             .add({
