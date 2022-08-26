@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/widgets/alert_box.dart';
 import '../controllers/add_category_bloc/add_category_bloc.dart';
+import '../controllers/upload_data_fireStore_bloc/upload_data_fire_store_bloc.dart';
 import '../resources/resources.dart';
 import '../widgets/network_image.dart';
 import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
@@ -16,12 +18,22 @@ class AdminScreen extends StatefulWidget {
 
 class _AdminScreenState extends State<AdminScreen> {
   TextEditingController textEditingController = TextEditingController();
-  List<String>? myCategory;
+  List<String> myCategory = [];
+  String? url;
+  String? name;
 
   @override
   void dispose() {
     textEditingController.dispose();
     super.dispose();
+  }
+
+  void testText() {
+    if (textEditingController.text.contains(RegExp('^[a-zA-Z]+'))) {
+      myCategory.add(textEditingController.text);
+      callBloc(context, myCategory);
+      textEditingController.clear();
+    }
   }
 
   @override
@@ -33,37 +45,38 @@ class _AdminScreenState extends State<AdminScreen> {
           child: Column(children: [
             BlocBuilder<UploadImageBloc, UploadImageState>(builder: (_, state) {
               if (state is UploadImageInitial) {
-                return const SizedBox();
+                return imageContainer(MaterialButton(
+                    onPressed: () {
+                      BlocProvider.of<UploadImageBloc>(context)
+                          .add(OnButtonClick());
+                      uploadImage(context);
+                    },
+                    child: const Text("Upload image")));
+              } else if (state is OnUploadButtonClick) {
+                return imageContainer(
+                    const CircularProgressIndicator.adaptive());
               } else if (state is UploadImageLoaded) {
+                url = state.url;
+                name = state.name;
                 return SizedBox(
                     height: 150,
                     width: 150,
                     child: networkImages(state.url, null));
               } else if (state is UploadImageError) {
-                return Text(TextResources().blocError);
+                return imageContainer(Text(TextResources().blocError));
               } else {
                 return Text(TextResources().noData);
               }
             }),
-            MaterialButton(
-                onPressed: () {
-                  uploadImage(context);
-                },
-                child: BlocBuilder<UploadImageBloc, UploadImageState>(builder: (_, state) {
-                  if (state is UploadImageInitial) {
-                    return Text("test Image");
-                  } else if (state is UploadImageLoaded) {
-                    return Text("Upload Image");
-                  } else if (state is UploadImageError) {
-                    return Text(TextResources().blocError);
-                  } else {
-                    return Text(TextResources().noData);
-                  }
-                }), ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * .8,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * .8,
               child: TextField(
-                cursorColor: BlocProvider.of<DarkModeBloc>(context).isDark
+                cursorColor: BlocProvider
+                    .of<DarkModeBloc>(context)
+                    .isDark
                     ? ColorResources().focusedBorderTextFieldDark
                     : ColorResources().focusedBorderTextField,
                 controller: textEditingController,
@@ -71,25 +84,18 @@ class _AdminScreenState extends State<AdminScreen> {
                   hintText: "Add Category",
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
-                          color: BlocProvider.of<DarkModeBloc>(context).isDark
+                          color: BlocProvider
+                              .of<DarkModeBloc>(context)
+                              .isDark
                               ? ColorResources().focusedBorderTextFieldDark
                               : ColorResources().focusedBorderTextField)),
                 ),
                 keyboardType: TextInputType.text,
-                onSubmitted: (s) {
-                  myCategory?.add(textEditingController.text);
-                  callBloc(context, myCategory ?? []);
-                  textEditingController.clear();
-                },
+                onSubmitted: (s) => testText(),
               ),
             ),
             MaterialButton(
-                onPressed: () {
-                  myCategory?.add(textEditingController.text);
-                  callBloc(context, myCategory ?? []);
-                  textEditingController.clear();
-                },
-                child: const Text("Add Category")),
+                onPressed: () => testText(), child: const Text("Add Category")),
             BlocBuilder<AddCategoryBloc, AddCategoryState>(builder: (_, state) {
               if (state is AddCategoryInitial) {
                 return const SizedBox();
@@ -97,11 +103,17 @@ class _AdminScreenState extends State<AdminScreen> {
                 myCategory = state.myCategory;
                 return Wrap(spacing: 5, runSpacing: 5, children: [
                   for (var i in state.myCategory)
-                    Chip(
-                      elevation: 20,
-                      padding: const EdgeInsets.all(8),
-                      shadowColor: Colors.black,
-                      label: Text(i, style: const TextStyle(fontSize: 20)),
+                    InkWell(
+                      onTap: () {
+                        myCategory.remove(i);
+                        callBloc(context, myCategory);
+                      },
+                      child: Chip(
+                        elevation: 20,
+                        padding: const EdgeInsets.all(8),
+                        shadowColor: Colors.black,
+                        label: Text(i, style: const TextStyle(fontSize: 20)),
+                      ),
                     ),
                 ]);
               } else if (state is AddCategoryError) {
@@ -110,7 +122,22 @@ class _AdminScreenState extends State<AdminScreen> {
                 return Text(TextResources().noData);
               }
             }),
-            MaterialButton(onPressed: () {}, child: const Text("Submit")),
+            MaterialButton(
+                onPressed: () {
+                  if (myCategory.isEmpty || url == null) {
+                    alertDialog(
+                        context,
+                        (url == null && myCategory.isEmpty)
+                            ? "Pls enter Category & upload image"
+                            : (url == null)
+                            ? "Pls upload image"
+                            : "Pls enter Category");
+                  } else {
+                    BlocProvider.of<UploadDataFireStoreBloc>(context).add(
+                        UploadData(url: url!, name: name!, category: myCategory));
+                  }
+                },
+                child: const Text("Submit")),
           ]),
         ),
       ),
@@ -121,3 +148,6 @@ class _AdminScreenState extends State<AdminScreen> {
 void callBloc(context, List<String> data) =>
     BlocProvider.of<AddCategoryBloc>(context)
         .add(AddCategory(myCategory: data));
+
+Container imageContainer(Widget child) =>
+    Container(height: 150, width: 150, color: Colors.grey, child: child);

@@ -8,6 +8,7 @@ import 'controllers/add_category_bloc/add_category_bloc.dart';
 import 'controllers/bottom_navigation_bloc/bottom_navigation_bloc.dart';
 import 'controllers/detail_screen_bloc/detail_screen_bloc.dart';
 import 'controllers/service_bloc/service_bloc.dart';
+import 'controllers/upload_data_fireStore_bloc/upload_data_fire_store_bloc.dart';
 import 'controllers/upload_image_bloc/upload_image_bloc.dart';
 import 'utils/store_data.dart';
 import 'widgets/theme.dart';
@@ -163,6 +164,8 @@ class _MyAppState extends State<MyApp> {
               create: (context) => UploadImageBloc()),
           BlocProvider<AddCategoryBloc>(
               create: (context) => AddCategoryBloc()),
+          BlocProvider<UploadDataFireStoreBloc>(
+              create: (context) => UploadDataFireStoreBloc()),
           BlocProvider<AdminVisibleBloc>(
               create: (context) => AdminVisibleBloc(CheckAdminFireBase(),
                   RepositoryProvider.of<PreferenceServices>(context))
