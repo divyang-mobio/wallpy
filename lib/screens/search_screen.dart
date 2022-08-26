@@ -47,23 +47,22 @@ class _SearchScreenState extends State<SearchScreen> {
             },
             icon: Icon(IconsResources().back)),
         title: TextField(
-          cursorColor: BlocProvider.of<DarkModeBloc>(context).isDark
-              ? ColorResources().focusedBorderTextFieldDark
-              : ColorResources().focusedBorderTextField,
-          controller: textEditingController,
-          decoration: InputDecoration(
-            hintText: TextResources().searchHint,
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                  color: BlocProvider.of<DarkModeBloc>(context).isDark
-                      ? ColorResources().focusedBorderTextFieldDark
-                      : ColorResources().focusedBorderTextField),
+            cursorColor: BlocProvider.of<DarkModeBloc>(context).isDark
+                ? ColorResources().focusedBorderTextFieldDark
+                : ColorResources().focusedBorderTextField,
+            controller: textEditingController,
+            decoration: InputDecoration(
+              hintText: TextResources().searchHint,
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: BlocProvider.of<DarkModeBloc>(context).isDark
+                        ? ColorResources().focusedBorderTextFieldDark
+                        : ColorResources().focusedBorderTextField),
+              ),
             ),
-          ),
-          keyboardType: TextInputType.text,
-          onSubmitted: (s) => callBloc(
-              context, textEditingController.text, widget.screen, true),
-        ),
+            keyboardType: TextInputType.text,
+            onSubmitted: (s) => callBloc(
+                context, textEditingController.text, widget.screen, true)),
         actions: [
           IconButton(
               onPressed: () => callBloc(

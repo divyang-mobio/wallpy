@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../controllers/admin_visible_bloc/admin_visible_bloc.dart';
 import '../controllers/bottom_navigation_bloc/bottom_navigation_bloc.dart';
 import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import 'gradiant_screen.dart';
@@ -63,9 +64,9 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                                 .read<AuthBlocBloc>()
                                 .add(SignOutRequested());
                             Navigator.pushReplacementNamed(
-                              context,
-                              TextResources().welcomeScreenRoute,
-                            );
+                                context, TextResources().welcomeScreenRoute);
+                            BlocProvider.of<AdminVisibleBloc>(context)
+                                .add(UnSetAdmin());
                           },
                           icon: Icon(IconsResources().logOut))
                     ]

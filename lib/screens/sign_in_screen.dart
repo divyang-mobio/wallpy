@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallpy/controllers/admin_visible_bloc/admin_visible_bloc.dart';
 import 'package:wallpy/controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'package:wallpy/resources/resources.dart';
 import 'package:wallpy/utils/validators.dart';
@@ -53,6 +54,7 @@ class _SignInState extends State<SignIn> {
                   context,
                   TextResources().homeScreenRoute,
                 );
+                BlocProvider.of<AdminVisibleBloc>(context).add(SetAdmin());
               }
               if (state is AuthError) {
                 ScaffoldMessenger.of(context)

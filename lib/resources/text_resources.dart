@@ -83,6 +83,9 @@ class TextResources {
   final String source = "Source:-";
   final String categoryTitleNews = "News";
   final String fontFamily = "PTSans";
+  final String adminTitle = "Upload Image";
+  final String adminDec = "";
+  final String alertBox = "OK";
 
 //Int type
   final int adsInternalInList = 2;
@@ -100,6 +103,7 @@ class TextResources {
   final String searchScreenRoute = '/search';
   final String signInScreenRoute = '/signIn';
   final String newsCategoryScreenRoute = "/newCategory";
+  final String adminRoute = "/Admin";
   final String redirectScreen = "/redirect";
   final String onSearchNoDataFound = "No Data Found :(";
   final String searchHint = "Search";
@@ -139,7 +143,8 @@ DataModel loadingDataModel = DataModel(
     category: [],
     fav: false,
     timestamp: DateTime(2022 - 08 - 03, 1, 3),
-    url: "Loading");
+    url: "Loading",
+    wallpy_unm: "Loading");
 
 List<BottomNavigationModel> bottomData = [
   BottomNavigationModel(
