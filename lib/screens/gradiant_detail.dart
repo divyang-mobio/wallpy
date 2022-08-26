@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import '../controllers/detail_screen_bloc/detail_screen_bloc.dart';
+import '../controllers/download_image_bloc/download_image_bloc.dart';
 import '../widgets/detail_screen_widgets.dart';
 import '../widgets/wallpaper_setter.dart';
 import '../resources/resources.dart';
@@ -18,22 +18,15 @@ class DetailGradiantScreen extends StatefulWidget {
 }
 
 class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
-
   Widget rowIcon() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
             onPressed: () async {
-              try {
-                snackBar(TextResources().downloadImage, context);
-                File file = await getWidgetToImage(widget.myColor);
-                GallerySaver.saveImage(file.path).whenComplete(
-                        () =>
-                        snackBar(TextResources().successDownloaded, context));
-              }catch (e) {
-                print("error");
-              }
+              snackBar(TextResources().downloadImage, context);
+              BlocProvider.of<DownloadImageBloc>(context)
+                  .add(DownloadImageOfGradiant(color: widget.myColor));
             },
             icon: icons(context, IconsResources().download)),
         IconButton(

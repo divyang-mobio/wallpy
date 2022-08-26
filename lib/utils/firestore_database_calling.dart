@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../resources/resources.dart';
 import '../models/data_model.dart';
@@ -133,6 +135,7 @@ class FirebaseDatabase {
       }
     }
 
+    log(finalproduct.toString());
     return finalproduct;
   }
 }

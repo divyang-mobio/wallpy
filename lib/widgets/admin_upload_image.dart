@@ -15,7 +15,6 @@ uploadImage(context) async {
   var permissionStatus = await Permission.photos.status;
   if (permissionStatus.isGranted) {
     image = await imagePicker.pickImage(source: ImageSource.gallery);
-
     if (image != null) {
       final kb = (await image.length() / 1024);
       if (kb <= 100) {

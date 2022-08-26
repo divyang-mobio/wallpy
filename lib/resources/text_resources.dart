@@ -27,7 +27,7 @@ class TextResources {
   final String downloadImage = "downloading";
   final String successDownloaded = "Save Image";
   final String colorPicker = 'Pick a color!';
-  final String colorPickerApply = "Apply";
+  final String colorPickerApply = "Applying";
   final String colorPickerButton = "change color";
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
@@ -99,9 +99,11 @@ class TextResources {
   final String imgIsNotSelected = 'No Image Path Received';
   final String permissionIsNotGiven =
       'Permission not granted. Try Again with permission access';
+  final String applyNew = "Apply";
+  final String uploadingImg = "Uploading....";
 
 //Int type
-  final int adsInternalInList = 2;
+  final int adsInternalInList = 9;
   final int androidAlarmManagerId = 0;
   final int itemLimit = 5;
 

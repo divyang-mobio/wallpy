@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../controllers/category_bloc/category_bloc.dart';
 import '../widgets/alert_box.dart';
 import '../controllers/add_category_bloc/add_category_bloc.dart';
 import '../controllers/upload_data_fireStore_bloc/upload_data_fire_store_bloc.dart';
@@ -55,18 +56,18 @@ class _AdminScreenState extends State<AdminScreen> {
             const SizedBox(height: 10),
             BlocBuilder<UploadImageBloc, UploadImageState>(builder: (_, state) {
               if (state is UploadImageInitial) {
-                return imageContainer(
-                    context,
-                    MaterialButton(
-                        onPressed: () {
-                          BlocProvider.of<UploadImageBloc>(context)
-                              .add(OnButtonClick());
-                          uploadImage(context);
-                        },
-                        child: Text(TextResources().uploadImgButton)));
+                return GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<UploadImageBloc>(context)
+                        .add(OnButtonClick());
+                    uploadImage(context);
+                  },
+                  child: imageContainer(context,
+                      Center(child: Text(TextResources().uploadImgButton))),
+                );
               } else if (state is OnUploadButtonClick) {
                 return imageContainer(
-                    context, const CircularProgressIndicator.adaptive());
+                    context, Center(child: Text(TextResources().uploadingImg)));
               } else if (state is UploadImageLoaded) {
                 url = state.url;
                 name = state.name;
@@ -77,26 +78,44 @@ class _AdminScreenState extends State<AdminScreen> {
                         borderRadius: BorderRadius.circular(20),
                         child: networkImages(state.url, null)));
               } else if (state is UploadImageError) {
-                return imageContainer(
-                    context,
-                    MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                        minWidth: MediaQuery.of(context).size.width * .5,
-                        color: BlocProvider.of<DarkModeBloc>(context).isDark
-                            ? ColorResources().colorPickerButtonDark
-                            : ColorResources().colorPickerButton,
-                        onPressed: () {
-                          BlocProvider.of<UploadImageBloc>(context)
-                              .add(OnButtonClick());
-                          uploadImage(context);
-                        },
-                        child: Text(TextResources().errorAtUploadImg)));
+                return GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<UploadImageBloc>(context)
+                        .add(OnButtonClick());
+                    uploadImage(context);
+                  },
+                  child: imageContainer(context,
+                      Center(child: Text(TextResources().errorAtUploadImg))),
+                );
               } else {
-                return Text(TextResources().noData);
+                return imageContainer(
+                    context, Center(child: Text(TextResources().noData)));
               }
             }),
             const SizedBox(height: 10),
+            // BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
+            //   if (state is CategoryLoading) {
+            //     return const CircularProgressIndicator.adaptive();
+            //   } else if (state is CategoryLoaded) {
+            //     return DropdownButton(
+            //       value: "select",
+            //       icon: const Icon(Icons.keyboard_arrow_down),
+            //       items: state.data
+            //           .map((e) => DropdownMenuItem(
+            //                 value: e["name"],
+            //                 child: Text(e['name']
+            //                     .toString()
+            //                     .toUpperCase()),
+            //               ))
+            //           .toList(),
+            //       onChanged: (value) {},
+            //     );
+            //   } else if (state is CategoryError) {
+            //     return Center(child: Text(TextResources().blocError));
+            //   } else {
+            //     return Center(child: Text(TextResources().noData));
+            //   }
+            // }),
             SizedBox(
               width: MediaQuery.of(context).size.width * .8,
               child: TextField(

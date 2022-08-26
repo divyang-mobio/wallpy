@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'controllers/add_category_bloc/add_category_bloc.dart';
 import 'controllers/bottom_navigation_bloc/bottom_navigation_bloc.dart';
 import 'controllers/detail_screen_bloc/detail_screen_bloc.dart';
+import 'controllers/download_image_bloc/download_image_bloc.dart';
 import 'controllers/service_bloc/service_bloc.dart';
 import 'controllers/upload_data_fireStore_bloc/upload_data_fire_store_bloc.dart';
 import 'controllers/upload_image_bloc/upload_image_bloc.dart';
@@ -140,30 +141,25 @@ class _MyAppState extends State<MyApp> {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<DataFetchBloc>(
-            create: (context) =>
-                DataFetchBloc(RepositoryProvider.of<FirebaseDatabase>(context))
-                  ..add(GetAllData(isFavorite: false, category: null)),
-          ),
+              create: (context) => DataFetchBloc(
+                  RepositoryProvider.of<FirebaseDatabase>(context))
+                ..add(GetAllData(isFavorite: false, category: null))),
           BlocProvider<DarkModeBloc>(
-            create: (context) =>
-                DarkModeBloc(RepositoryProvider.of<PreferenceServices>(context))
-                  ..add(Check()),
-          ),
+              create: (context) => DarkModeBloc(
+                  RepositoryProvider.of<PreferenceServices>(context))
+                ..add(Check())),
           BlocProvider<DetailScreenBloc>(
-            create: (context) => DetailScreenBloc()..add(OnTab(isVis: true)),
-          ),
+              create: (context) => DetailScreenBloc()..add(OnTab(isVis: true))),
           BlocProvider<BottomNavigationBloc>(
-            create: (context) =>
-                BottomNavigationBloc()..add(OnChangeBar(index: 0)),
-          ),
+              create: (context) =>
+                  BottomNavigationBloc()..add(OnChangeBar(index: 0))),
           BlocProvider<GradiantBloc>(
               create: (context) => GradiantBloc()
                 ..add(SelectedColor(
                     myColor: ColorResources().pickerGradiantDefault))),
-          BlocProvider<UploadImageBloc>(
-              create: (context) => UploadImageBloc()),
-          BlocProvider<AddCategoryBloc>(
-              create: (context) => AddCategoryBloc()),
+          BlocProvider<UploadImageBloc>(create: (context) => UploadImageBloc()),
+          BlocProvider<AddCategoryBloc>(create: (context) => AddCategoryBloc()),
+          BlocProvider<DownloadImageBloc>(create: (context) => DownloadImageBloc()),
           BlocProvider<UploadDataFireStoreBloc>(
               create: (context) => UploadDataFireStoreBloc()),
           BlocProvider<AdminVisibleBloc>(
