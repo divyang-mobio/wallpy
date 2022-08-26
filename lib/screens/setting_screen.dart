@@ -4,7 +4,6 @@ import '../controllers/admin_visible_bloc/admin_visible_bloc.dart';
 import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../controllers/service_bloc/service_bloc.dart';
 import '../resources/resources.dart';
-import '../widgets/admin_upload_image.dart';
 import '../widgets/dialog_box.dart';
 
 class SettingScreen extends StatefulWidget {

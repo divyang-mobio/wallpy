@@ -4,6 +4,7 @@ class TextResources {
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
   final String categoryAppTitle = "Category";
+  final String adminAppTitle = "Admin";
   final String gradiantAppTitle = "Gradiant";
   final String favoriteAppTitle = "Favorite";
   final String newsDetailAppTitle = "News Details";
@@ -74,7 +75,7 @@ class TextResources {
   final String signUp = 'Sign_Up';
   final String signIn = 'Sign-In';
   final String welcomeSubtitle =
-      'Walpy does not rely on fixed-time alarms that prevent your device from getting enough sleep. It lets Android figure out when is the best time to change wallpapers. You can configure constraints to only change wallpaper while your device is:';
+      'Wallpy does not rely on fixed-time alarms that prevent your device from getting enough sleep. It lets Android figure out when is the best time to change wallpapers. You can configure constraints to only change wallpaper while your device is:';
   final String fireStoreCategory = "Category";
   final String fireStoreImgFav = "image_fav";
   final String fireStoreImgCat = "image_category";
@@ -83,9 +84,21 @@ class TextResources {
   final String source = "Source:-";
   final String categoryTitleNews = "News";
   final String fontFamily = "PTSans";
-  final String adminTitle = "Upload Image";
+  final String adminTitle = "Admin";
   final String adminDec = "";
   final String alertBox = "OK";
+  final String whenImgCatNotThere = "Pls enter Category & upload image";
+  final String whenImgNotThere = "Pls upload image";
+  final String whenCatNotThere = "Pls enter Category";
+  final String submitItemToFireStore = "Submit";
+  final String successItemToFireStore = "Success";
+  final String addCatName = "Add Category";
+  final String errorAtUploadImg = "Retry";
+  final String uploadImgButton = "Upload Image";
+  final String imgSizeMore = 'Image Size is more than 100kb';
+  final String imgIsNotSelected = 'No Image Path Received';
+  final String permissionIsNotGiven =
+      'Permission not granted. Try Again with permission access';
 
 //Int type
   final int adsInternalInList = 2;

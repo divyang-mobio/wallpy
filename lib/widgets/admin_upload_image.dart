@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../resources/resources.dart';
 import '../controllers/upload_image_bloc/upload_image_bloc.dart';
 import 'alert_box.dart';
 
@@ -16,9 +17,9 @@ uploadImage(context) async {
     image = await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
-      // final bytes = await image.readAsBytes();
-      // final kb = (bytes.lengthInBytes / 1024);
-      // if (kb <= 100) {
+      final bytes = await image.readAsBytes();
+      final kb = (bytes.lengthInBytes / 1024);
+      if (kb <= 100) {
         try {
           var file = File((image.path).toString());
           var snapshot = await firebaseStorage
@@ -31,18 +32,17 @@ uploadImage(context) async {
         } catch (e) {
           BlocProvider.of<UploadImageBloc>(context).add(NotGetImageUrl());
         }
-      // } else {
-      //   BlocProvider.of<UploadImageBloc>(context)
-      //       .add(NotGivePermissionOrImage());
-      //   await alertDialog(context, 'Image Size is more than 100kb');
-      // }
+      } else {
+        BlocProvider.of<UploadImageBloc>(context)
+            .add(NotGivePermissionOrImage());
+        await alertDialog(context, TextResources().imgSizeMore);
+      }
     } else {
       BlocProvider.of<UploadImageBloc>(context).add(NotGivePermissionOrImage());
-      await alertDialog(context, 'No Image Path Received');
+      await alertDialog(context, TextResources().imgIsNotSelected);
     }
   } else {
     BlocProvider.of<UploadImageBloc>(context).add(NotGivePermissionOrImage());
-    await alertDialog(
-        context, 'Permission not granted. Try Again with permission access');
+    await alertDialog(context, TextResources().permissionIsNotGiven);
   }
 }
