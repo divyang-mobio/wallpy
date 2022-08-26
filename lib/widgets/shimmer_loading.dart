@@ -27,7 +27,7 @@ Shimmer categoryShimmer(BuildContext context) {
           : ColorResources().shimmerHighlight,
       child: Column(
         children: [
-          Container(
+          SizedBox(
               height: MediaQuery.of(context).size.height * 0.14,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,

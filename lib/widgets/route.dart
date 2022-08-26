@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallpy/screens/occasion_detail_screen.dart';
 import 'package:wallpy/screens/redirect_screen.dart';
 import '../models/navigation_model.dart';
 import '../models/news_category_model.dart';
@@ -40,6 +41,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const SignUp());
       case "/signIn":
         return MaterialPageRoute(builder: (context) => const SignIn());
+      case "/ocassion":
+        return MaterialPageRoute(
+            builder: (context) => OccasionDetailScreen(
+                  data: [],
+                  title: '',
+                ));
       case "/detailGradiant":
         final args = setting.arguments as DetailGradiantScreenArgument;
         return MaterialPageRoute(

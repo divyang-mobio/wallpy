@@ -21,7 +21,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
       } else if (state is CategoryLoaded) {
         return CategoryListView(data: state.data);
       } else if (state is CategoryError) {
-        return Center(child: Text(TextResources().blocError));
+        return Center(
+            child: Text('${state.error ?? (TextResources().blocError)}'));
       } else {
         return Center(child: Text(TextResources().noData));
       }

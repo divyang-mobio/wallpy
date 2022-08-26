@@ -18,4 +18,11 @@ class CategoryLoaded extends CategoryState {
   List<Object> get props => [data];
 }
 
-class CategoryError extends CategoryState {}
+class CategoryError extends CategoryState {
+  final dynamic error;
+
+  const CategoryError({required this.error});
+
+  @override
+  List<Object> get props => [error];
+}

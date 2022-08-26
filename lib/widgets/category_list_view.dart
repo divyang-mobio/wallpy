@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wallpy/resources/resources.dart';
 import 'package:wallpy/screens/category_detail_screen.dart';
 import 'package:wallpy/screens/main_screen.dart';
+import 'package:wallpy/screens/occasion_detail_screen.dart';
 import 'package:wallpy/widgets/network_image.dart';
 
 class CategoryListView extends StatelessWidget {
@@ -13,7 +14,7 @@ class CategoryListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
+        SizedBox(
             height: MediaQuery.of(context).size.height * 0.14,
             // color: ColorResources().categoryColor,
             child: ListView.builder(
@@ -24,16 +25,23 @@ class CategoryListView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: InkWell(
                           onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (ctx) {
-                              return CategoryDetailScreen(
-                                data: data.elementAt(index)['data'],
-                                title: data
-                                    .elementAt(index)['name']
-                                    .toString()
-                                    .toUpperCase(),
-                              );
-                            }));
+                            data.elementAt(index)['name'] == 'occasion'
+                                ? Navigator.push(context,
+                                    MaterialPageRoute(builder: (ctx) {
+                                    return OccasionDetailScreen(
+                                        title: data.elementAt(index)['name'],
+                                        data: data.elementAt(index)['data']);
+                                  }))
+                                : Navigator.push(context,
+                                    MaterialPageRoute(builder: (ctx) {
+                                    return CategoryDetailScreen(
+                                      data: data.elementAt(index)['data'],
+                                      title: data
+                                          .elementAt(index)['name']
+                                          .toString()
+                                          .toUpperCase(),
+                                    );
+                                  }));
                           },
                           child: Stack(children: [
                             Padding(
@@ -47,10 +55,12 @@ class CategoryListView extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Hero(
                                     tag: data.elementAt(index)['data'],
-                                    child: networkImages(data
-                                        .elementAt(index)['data']
-                                        .first['image_url']
-                                        .toString(), null)),
+                                    child: networkImages(
+                                        data
+                                            .elementAt(index)['data']
+                                            .first['image_url']
+                                            .toString(),
+                                        null)),
                               ),
                             ),
                             Positioned.fill(

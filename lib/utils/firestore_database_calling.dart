@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../resources/resources.dart';
 import '../models/data_model.dart';
+import 'dart:developer';
 
 class FirebaseDatabase {
   final instances =
@@ -133,7 +136,7 @@ class FirebaseDatabase {
         }
       }
     }
-
+    log('final product  ${finalproduct.toString()}');
     return finalproduct;
   }
 }
