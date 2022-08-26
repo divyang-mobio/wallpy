@@ -17,8 +17,7 @@ uploadImage(context) async {
     image = await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
-      final bytes = await image.readAsBytes();
-      final kb = (bytes.lengthInBytes / 1024);
+      final kb = (await image.length() / 1024);
       if (kb <= 100) {
         try {
           var file = File((image.path).toString());
