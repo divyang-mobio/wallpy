@@ -19,25 +19,29 @@ uploadImage(context) async {
       // final bytes = await image.readAsBytes();
       // final kb = (bytes.lengthInBytes / 1024);
       // if (kb <= 100) {
-      try {
-        var file = File((image.path).toString());
-        var snapshot = await firebaseStorage
-            .ref()
-            .child('image/${image.name}')
-            .putFile(file);
-        var downloadUrl = await snapshot.ref.getDownloadURL();
-        BlocProvider.of<UploadImageBloc>(context)
-            .add(GetImageUrl(url: downloadUrl, name: image.name));
-      } catch (e) {
-        BlocProvider.of<UploadImageBloc>(context).add(NotGetImageUrl());
-      }
+        try {
+          var file = File((image.path).toString());
+          var snapshot = await firebaseStorage
+              .ref()
+              .child('image/${image.name}')
+              .putFile(file);
+          var downloadUrl = await snapshot.ref.getDownloadURL();
+          BlocProvider.of<UploadImageBloc>(context)
+              .add(GetImageUrl(url: downloadUrl, name: image.name));
+        } catch (e) {
+          BlocProvider.of<UploadImageBloc>(context).add(NotGetImageUrl());
+        }
       // } else {
+      //   BlocProvider.of<UploadImageBloc>(context)
+      //       .add(NotGivePermissionOrImage());
       //   await alertDialog(context, 'Image Size is more than 100kb');
       // }
     } else {
+      BlocProvider.of<UploadImageBloc>(context).add(NotGivePermissionOrImage());
       await alertDialog(context, 'No Image Path Received');
     }
   } else {
+    BlocProvider.of<UploadImageBloc>(context).add(NotGivePermissionOrImage());
     await alertDialog(
         context, 'Permission not granted. Try Again with permission access');
   }

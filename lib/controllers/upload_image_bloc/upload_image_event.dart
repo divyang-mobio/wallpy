@@ -10,4 +10,8 @@ class GetImageUrl extends UploadImageEvent {
 
 class NotGetImageUrl extends UploadImageEvent {}
 
+class OnSubmit extends UploadImageEvent {}
+
+class NotGivePermissionOrImage extends UploadImageEvent {}
+
 class OnButtonClick extends UploadImageEvent {}

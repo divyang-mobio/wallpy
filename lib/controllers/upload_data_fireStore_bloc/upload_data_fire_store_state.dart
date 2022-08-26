@@ -4,6 +4,8 @@ abstract class UploadDataFireStoreState {}
 
 class UploadDataFireStoreInitial extends UploadDataFireStoreState {}
 
+class UploadDataFireStoreProcess extends UploadDataFireStoreState {}
+
 class UploadDataFireStoreSuccess extends UploadDataFireStoreState {}
 
 class UploadDataFireStoreError extends UploadDataFireStoreState {}

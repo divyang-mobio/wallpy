@@ -29,5 +29,6 @@ class UploadDataFireStoreBloc
         emit(UploadDataFireStoreError());
       }
     });
+    on<OnSubmitForUpload>((event, emit) => emit(UploadDataFireStoreInitial()));
   }
 }

@@ -63,20 +63,21 @@ class _AdminScreenState extends State<AdminScreen> {
                     width: 150,
                     child: networkImages(state.url, null));
               } else if (state is UploadImageError) {
-                return imageContainer(Text(TextResources().blocError));
+                return imageContainer(MaterialButton(
+                    onPressed: () {
+                      BlocProvider.of<UploadImageBloc>(context)
+                          .add(OnButtonClick());
+                      uploadImage(context);
+                    },
+                    child: const Text("Retry")));
               } else {
                 return Text(TextResources().noData);
               }
             }),
             SizedBox(
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width * .8,
+              width: MediaQuery.of(context).size.width * .8,
               child: TextField(
-                cursorColor: BlocProvider
-                    .of<DarkModeBloc>(context)
-                    .isDark
+                cursorColor: BlocProvider.of<DarkModeBloc>(context).isDark
                     ? ColorResources().focusedBorderTextFieldDark
                     : ColorResources().focusedBorderTextField,
                 controller: textEditingController,
@@ -84,9 +85,7 @@ class _AdminScreenState extends State<AdminScreen> {
                   hintText: "Add Category",
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
-                          color: BlocProvider
-                              .of<DarkModeBloc>(context)
-                              .isDark
+                          color: BlocProvider.of<DarkModeBloc>(context).isDark
                               ? ColorResources().focusedBorderTextFieldDark
                               : ColorResources().focusedBorderTextField)),
                 ),
@@ -122,22 +121,47 @@ class _AdminScreenState extends State<AdminScreen> {
                 return Text(TextResources().noData);
               }
             }),
-            MaterialButton(
-                onPressed: () {
-                  if (myCategory.isEmpty || url == null) {
-                    alertDialog(
-                        context,
-                        (url == null && myCategory.isEmpty)
-                            ? "Pls enter Category & upload image"
-                            : (url == null)
-                            ? "Pls upload image"
-                            : "Pls enter Category");
-                  } else {
-                    BlocProvider.of<UploadDataFireStoreBloc>(context).add(
-                        UploadData(url: url!, name: name!, category: myCategory));
-                  }
-                },
-                child: const Text("Submit")),
+            BlocConsumer<UploadDataFireStoreBloc, UploadDataFireStoreState>(
+                listener: (context, state) async {
+              if (state is UploadDataFireStoreSuccess) {
+                await alertDialog(context, "Success");
+                myCategory = [];
+                name = "";
+                url = null;
+                callBloc(context, []);
+                BlocProvider.of<UploadImageBloc>(context).add(OnSubmit());
+                BlocProvider.of<UploadDataFireStoreBloc>(context)
+                    .add(OnSubmitForUpload());
+              }
+            }, builder: (context, state) {
+              if (state is UploadDataFireStoreInitial) {
+                return MaterialButton(
+                    onPressed: () {
+                      if (myCategory.isEmpty || url == null) {
+                        alertDialog(
+                            context,
+                            (url == null && myCategory.isEmpty)
+                                ? "Pls enter Category & upload image"
+                                : (url == null)
+                                    ? "Pls upload image"
+                                    : "Pls enter Category");
+                      } else {
+                        BlocProvider.of<UploadDataFireStoreBloc>(context).add(
+                            UploadData(
+                                url: url!, name: name!, category: myCategory));
+                      }
+                    },
+                    child: const Text("Submit"));
+              } else if (state is UploadDataFireStoreProcess) {
+                return const CircularProgressIndicator.adaptive();
+              } else if (state is UploadDataFireStoreSuccess) {
+                return Text("Success");
+              } else if (state is UploadDataFireStoreError) {
+                return Text(TextResources().blocError);
+              } else {
+                return Text(TextResources().noData);
+              }
+            }),
           ]),
         ),
       ),

@@ -8,3 +8,5 @@ class UploadData extends UploadDataFireStoreEvent {
 
   UploadData({required this.url, required this.name, required this.category});
 }
+
+class OnSubmitForUpload extends UploadDataFireStoreEvent {}
