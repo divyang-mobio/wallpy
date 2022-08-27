@@ -37,7 +37,6 @@ dependencies:
   bloc: ^8.0.3
   cached_network_image: ^3.2.1
   gallery_saver: ^2.3.2
-  dio: ^4.0.6
   path_provider: ^2.0.11
   shimmer: ^2.0.0
   android_alarm_manager_plus: ^2.0.6
@@ -57,6 +56,9 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   screenshot: ^1.2.3
   intl:
+  firebase_storage: ^10.3.6
+  image_picker: ^0.8.5+3
+  permission_handler: ^10.0.0
 
   
 #  flutter_wallpaper_manager: ^0.0.3
@@ -100,6 +102,7 @@ flutter:
     - assets/images/
     - assets/black_preloading.gif
     - assets/preloading_dark.gif
+    - assets/successful.gif
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

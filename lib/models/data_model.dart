@@ -1,6 +1,6 @@
 class DataModel {
   int id;
-  String name, uid, url;
+  String name, uid, url, wallpy_unm;
   List category;
   bool fav;
   DateTime timestamp;
@@ -12,7 +12,8 @@ class DataModel {
       required this.category,
       required this.fav,
       required this.timestamp,
-      required this.url});
+      required this.url,
+      required this.wallpy_unm});
 
   factory DataModel.fromJson(Map<String, dynamic> json) => DataModel(
       id: json["image_id"],
@@ -20,7 +21,7 @@ class DataModel {
       uid: json["image_uid"],
       category: json["image_category"],
       fav: json["image_fav"],
-      timestamp:
-          DateTime.parse(json["image_timestamp"].toDate().toString()),
-      url: json["image_url"]);
+      timestamp: DateTime.parse(json["image_timestamp"].toDate().toString()),
+      url: json["image_url"],
+      wallpy_unm: json["wallpy_unm"]);
 }

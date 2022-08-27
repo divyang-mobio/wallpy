@@ -48,16 +48,7 @@ class ColorResources {
   final Color colorPickerButton = Colors.white;
   final List<Color> pickerGradiantDefault = [Colors.blue, Colors.red];
   final List<Color> pickerGradiantEmpty = [Colors.white, Colors.white];
+  final Color chipShadow = Colors.black;
+  final Color chipShadowDark =Colors.white;
+  final Color uploadImgContainer =Colors.grey;
 }
-// Map<int, Color> colorCodes = {
-//   50: Color.fromRGBO(147, 205, 72, .1),
-//   100: Color.fromRGBO(147, 205, 72, .2),
-//   200: Color.fromRGBO(147, 205, 72, .3),
-//   300: Color.fromRGBO(147, 205, 72, .4),
-//   400: Color.fromRGBO(147, 205, 72, .5),
-//   500: Color.fromRGBO(147, 205, 72, .6),
-//   600: Color.fromRGBO(147, 205, 72, .7),
-//   700: Color.fromRGBO(147, 205, 72, .8),
-//   800: Color.fromRGBO(147, 205, 72, .9),
-//   900: Color.fromRGBO(147, 205, 72, 1),
-// };

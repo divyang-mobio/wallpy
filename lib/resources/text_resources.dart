@@ -4,6 +4,7 @@ class TextResources {
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
   final String categoryAppTitle = "Category";
+  final String adminAppTitle = "Admin";
   final String gradiantAppTitle = "Gradiant";
   final String favoriteAppTitle = "Favorite";
   final String newsDetailAppTitle = "News Details";
@@ -27,7 +28,7 @@ class TextResources {
   final String downloadImage = "downloading";
   final String successDownloaded = "Save Image";
   final String colorPicker = 'Pick a color!';
-  final String colorPickerApply = "Apply";
+  final String colorPickerApply = "Applying";
   final String colorPickerButton = "change color";
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
@@ -75,7 +76,7 @@ class TextResources {
   final String signUp = 'Sign_Up';
   final String signIn = 'Sign-In';
   final String welcomeSubtitle =
-      'Walpy does not rely on fixed-time alarms that prevent your device from getting enough sleep. It lets Android figure out when is the best time to change wallpapers. You can configure constraints to only change wallpaper while your device is:';
+      'Wallpy does not rely on fixed-time alarms that prevent your device from getting enough sleep. It lets Android figure out when is the best time to change wallpapers. You can configure constraints to only change wallpaper while your device is:';
   final String fireStoreCategory = "Category";
   final String fireStoreImgFav = "image_fav";
   final String fireStoreImgCat = "image_category";
@@ -84,9 +85,26 @@ class TextResources {
   final String source = "Source:-";
   final String categoryTitleNews = "News";
   final String fontFamily = "PTSans";
+  final String adminTitle = "Admin";
+  final String adminDec = "";
+  final String alertBox = "OK";
+  final String whenImgCatNotThere = "Pls enter Category & upload image";
+  final String whenImgNotThere = "Pls upload image";
+  final String whenCatNotThere = "Pls enter Category";
+  final String submitItemToFireStore = "Submit";
+  final String successItemToFireStore = "Success";
+  final String addCatName = "Add Category";
+  final String errorAtUploadImg = "Retry";
+  final String uploadImgButton = "Upload Image";
+  final String imgSizeMore = 'Image Size is more than 100kb';
+  final String imgIsNotSelected = 'No Image Path Received';
+  final String permissionIsNotGiven =
+      'Permission not granted. Try Again with permission access';
+  final String applyNew = "Apply";
+  final String uploadingImg = "Uploading....";
 
 //Int type
-  final int adsInternalInList = 2;
+  final int adsInternalInList = 9;
   final int androidAlarmManagerId = 0;
   final int itemLimit = 5;
 
@@ -101,6 +119,7 @@ class TextResources {
   final String searchScreenRoute = '/search';
   final String signInScreenRoute = '/signIn';
   final String newsCategoryScreenRoute = "/newCategory";
+  final String adminRoute = "/Admin";
   final String redirectScreen = "/redirect";
   final String onSearchNoDataFound = "No Data Found :(";
   final String searchHint = "Search";
@@ -141,7 +160,8 @@ DataModel loadingDataModel = DataModel(
     category: [],
     fav: false,
     timestamp: DateTime(2022 - 08 - 03, 1, 3),
-    url: "Loading");
+    url: "Loading",
+    wallpy_unm: "Loading");
 
 List<BottomNavigationModel> bottomData = [
   BottomNavigationModel(

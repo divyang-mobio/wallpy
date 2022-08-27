@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import 'dart:convert';
+=======
+import 'dart:developer';
+>>>>>>> 147bd6c50ba0f908ceb19d0171fbf8d377a40f70
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../resources/resources.dart';
@@ -53,7 +57,6 @@ class FirebaseDatabase {
 
   Future<List<Object>> getData(
       Query<Map<String, dynamic>> instance, bool showAds) async {
-    print("object");
     List<Object> rawData = [];
     if (isMore) {
       var rawList = (paginationData?.data() == null)
@@ -84,13 +87,13 @@ class FirebaseDatabase {
         if (rawData.length != TextResources().itemLimit) {
           isMore = false;
         }
-        // if (showAds) {
-        //   for (var i = rawData.length - 1;
-        //       i >= 1;
-        //       i -= TextResources().adsInternalInList) {
-        //     rawData.insert(i, "list");
-        //   }
-        // }
+        if (showAds) {
+          for (var i = rawData.length - 1;
+              i >= 1;
+              i -= TextResources().adsInternalInList) {
+            rawData.insert(i, "list");
+          }
+        }
       }
     }
     return rawData;
@@ -145,10 +148,6 @@ class FirebaseSave {
   final instances =
       FirebaseFirestore.instance.collection(TextResources().fireStoreCategory);
 
-  Future<List<DataModel>> getAllData() async {
-    return await getData();
-  }
-
   Future<List<DataModel>> getData() async {
     List<DataModel>? rawData;
     var rawList =
@@ -161,5 +160,19 @@ class FirebaseSave {
         .toList();
 
     return rawData;
+  }
+}
+
+class CheckAdminFireBase {
+  final instances = FirebaseFirestore.instance.collection("admin");
+
+  Future<bool> getData(String category) async {
+    var rawList = await instances
+        .where("email", isEqualTo: category)
+        .limit(TextResources().itemLimit)
+        .get()
+        .then((value) => value.docChanges.map((e) => e.doc.data()));
+
+    return rawList.isEmpty ? false : true;
   }
 }

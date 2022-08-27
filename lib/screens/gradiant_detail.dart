@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gallery_saver/gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:screenshot/screenshot.dart';
 import '../controllers/detail_screen_bloc/detail_screen_bloc.dart';
+import '../controllers/download_image_bloc/download_image_bloc.dart';
 import '../widgets/detail_screen_widgets.dart';
 import '../widgets/wallpaper_setter.dart';
 import '../resources/resources.dart';
@@ -21,29 +18,6 @@ class DetailGradiantScreen extends StatefulWidget {
 }
 
 class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
-
-  Future<File> getWidgetToImage() async {
-    final controller = ScreenshotController();
-    final bytes = await controller
-        .captureFromWidget(containerBuilder());
-    final tempDir = await getTemporaryDirectory();
-    final file =
-    File('${tempDir.path}/$generateRandomString.png');
-    return await file.writeAsBytes(bytes);
-  }
-
-  Widget containerBuilder() {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: widget.myColor)),
-    );
-  }
-
   Widget rowIcon() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -51,24 +25,21 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
         IconButton(
             onPressed: () async {
               snackBar(TextResources().downloadImage, context);
-              File file = await getWidgetToImage();
-              GallerySaver.saveImage(file.path).whenComplete(() =>
-                  snackBar(TextResources().successDownloaded, context));
+              BlocProvider.of<DownloadImageBloc>(context)
+                  .add(DownloadImageOfGradiant(color: widget.myColor));
             },
             icon: icons(context, IconsResources().download)),
         IconButton(
             onPressed: () async {
-              int? location = await bottomSheet(
-                  context,
-                  TextResources().bottomSheetTitle,
-                  bottomSheetScreenData);
+              int? location = await bottomSheet(context,
+                  TextResources().bottomSheetTitle, bottomSheetScreenData);
               if (location != null) {
-                File file = await getWidgetToImage();
+                File file = await getWidgetToImage(widget.myColor);
                 wallpaperGradiantSetter(file, location);
               }
             },
-            icon: icons(
-                context, IconsResources().setWallpaperFromDetailScreen)),
+            icon:
+                icons(context, IconsResources().setWallpaperFromDetailScreen)),
       ],
     );
   }
@@ -84,7 +55,7 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
                     .add(OnTab(isVis: false)),
             onLongPressEnd: (end) => BlocProvider.of<DetailScreenBloc>(context)
                 .add(OnTab(isVis: true)),
-            child: Hero(tag: 1, child: containerBuilder()),
+            child: Hero(tag: 1, child: containerBuilder(widget.myColor)),
           ),
           BlocBuilder<DetailScreenBloc, DetailScreenState>(
             builder: (context, state) => (state is DetailScreenLoaded)
@@ -100,11 +71,4 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
       ),
     );
   }
-}
-
-String generateRandomString() {
-  var r = Random();
-  String randomString =
-      String.fromCharCodes(List.generate(5, (index) => r.nextInt(33) + 89));
-  return randomString;
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wallpy/controllers/auth_bloc/auth_bloc_bloc.dart';
 import 'package:wallpy/resources/resources.dart';
 import 'package:wallpy/widgets/welcome_background_widget.dart';
+import '../controllers/admin_visible_bloc/admin_visible_bloc.dart';
 import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../utils/validators.dart';
 import '../widgets/sign_in_up_button.dart';
@@ -57,6 +58,7 @@ class _SignUpState extends State<SignUp> {
                   if (state is Authenticated) {
                     Navigator.popAndPushNamed(
                         context, TextResources().homeScreenRoute);
+                    BlocProvider.of<AdminVisibleBloc>(context).add(SetAdmin());
                     return;
                   }
                   if (state is AuthError) {

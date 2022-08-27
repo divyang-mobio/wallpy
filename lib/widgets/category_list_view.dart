@@ -16,7 +16,6 @@ class CategoryListView extends StatelessWidget {
       children: [
         SizedBox(
             height: MediaQuery.of(context).size.height * 0.14,
-            // color: ColorResources().categoryColor,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: data.length,
@@ -52,7 +51,9 @@ class CategoryListView extends StatelessWidget {
                                     MediaQuery.of(context).size.height * 0.1,
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10)),
+                                    color: ColorResources()
+                                        .detailScreenContainerDark,
+                                    borderRadius: BorderRadius.circular(20)),
                                 child: Hero(
                                     tag: data.elementAt(index)['data'],
                                     child: networkImages(
@@ -60,7 +61,19 @@ class CategoryListView extends StatelessWidget {
                                             .elementAt(index)['data']
                                             .first['image_url']
                                             .toString(),
-                                        null)),
+                                        BoxFit.fitWidth)),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.1,
+                                decoration: BoxDecoration(
+                                    color: ColorResources()
+                                        .detailScreenContainerDark,
+                                    borderRadius: BorderRadius.circular(20)),
                               ),
                             ),
                             Positioned.fill(
