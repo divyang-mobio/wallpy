@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import 'dart:convert';
-=======
-import 'dart:developer';
->>>>>>> 147bd6c50ba0f908ceb19d0171fbf8d377a40f70
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../resources/resources.dart';
