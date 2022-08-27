@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../../utils/firestore_database_calling.dart';
 
@@ -18,9 +19,13 @@ class DataFetchBloc extends Bloc<DataFetchEvent, DataFetchState> {
     emit(DataFetchLoading());
     try {
       List<Object> data = [];
+      String month = DateFormat('MMMM').format(DateTime.now());
+      List<Object> monthdata = [];
+      monthdata.addAll(await _firebaseDatabase.getAllData(
+          null, false, month.toString(), event.isRefresh, true));
       data.addAll(await _firebaseDatabase.getAllData(
           null, false, null, event.isRefresh, true));
-      emit(DataFetchLoaded(data: data));
+      emit(DataFetchLoaded(data: [...monthdata, ...data]));
     } catch (e) {
       emit(DataFetchError());
     }
