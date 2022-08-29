@@ -24,6 +24,8 @@ class IconsResources {
   final back = Icons.arrow_back_ios_new;
   final weatherIconSelected = Icons.cloud;
   final weatherIconUnselected = Icons.cloud_outlined;
+  final removeImageAtAdminScreen = Icons.cancel_outlined;
+  final dropDown = Icons.keyboard_arrow_down;
 
   final logout = Icons.logout;
 

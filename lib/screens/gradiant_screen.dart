@@ -42,7 +42,7 @@ class _GradiantScreenState extends State<GradiantScreen> {
                       BoxDecoration(borderRadius: BorderRadius.circular(20)),
                   height: MediaQuery.of(context).size.height * .4,
                   width: MediaQuery.of(context).size.width * .5,
-                  child: Center(child: Text(TextResources().applyNew)));
+                  child: const Center(child: CircularProgressIndicator.adaptive()));
             } else if (state is GradiantLoaded) {
               return GestureDetector(
                 onTap: () => Navigator.pushNamed(

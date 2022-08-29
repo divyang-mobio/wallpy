@@ -99,8 +99,9 @@ class TextResources {
   final String imgIsNotSelected = 'No Image Path Received';
   final String permissionIsNotGiven =
       'Permission not granted. Try Again with permission access';
-  final String applyNew = "Apply";
-  final String uploadingImg = "Uploading....";
+  final String ifErrorHappenTimeOfRemoveImage = "Not Able to remove Image :(";
+  final String imageStoreInStoragePath = "image/";
+
 
 //Int type
   final int adsInternalInList = 9;
@@ -147,7 +148,7 @@ List<SettingModel> bottomSheetScreenData = [
 ];
 
 List<SettingModel> dialogDataForCollection = [
-  SettingModel(title: "Random", onclick: "homeScreen"),
+  SettingModel(title: "Random", onclick: "random"),
   SettingModel(title: "Favorite", onclick: "favorite"),
 ];
 

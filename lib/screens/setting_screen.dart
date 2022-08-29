@@ -14,15 +14,18 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  int? time;
-  int? screen;
+  int? time, screen;
   String? collection;
 
-  void _onClickEnable(enabled) => BlocProvider.of<ServiceBloc>(context)
-      .add(OnChange(isOn: enabled, screen: screen ?? 3, interval: time ?? 15));
+  void _onClickEnable(enabled) =>
+      BlocProvider.of<ServiceBloc>(context).add(OnChange(
+          isOn: enabled,
+          screen: screen ?? 3,
+          interval: time ?? 15,
+          isFavorite: false));
 
-  ListTile listsTiles(String title, String? dec) =>
-      ListTile(title: Text(title), subtitle: Text(dec ?? "", maxLines: 5));
+  ListTile listsTiles(String title, String dec) =>
+      ListTile(title: Text(title), subtitle: Text(dec, maxLines: 5));
 
   @override
   Widget build(BuildContext context) {

@@ -51,4 +51,5 @@ class ColorResources {
   final Color chipShadow = Colors.black;
   final Color chipShadowDark =Colors.white;
   final Color uploadImgContainer =Colors.grey;
+  final Color removeImageButtonAtAdminScreen =Colors.red;
 }

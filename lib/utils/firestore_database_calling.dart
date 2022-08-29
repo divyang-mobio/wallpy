@@ -144,10 +144,19 @@ class FirebaseSave {
   final instances =
       FirebaseFirestore.instance.collection(TextResources().fireStoreCategory);
 
-  Future<List<DataModel>> getData() async {
+  Future<List<DataModel>> getAllData(bool isFavorite) async {
+    List<DataModel> data = [];
+    final cat = (isFavorite == false)
+        ? instances
+        : instances.where(TextResources().fireStoreImgFav, isEqualTo: true);
+    data.addAll(await getData(cat));
+    return data;
+  }
+
+  Future<List<DataModel>> getData(Query<Map<String, dynamic>> cat) async {
     List<DataModel>? rawData;
     var rawList =
-        await instances.limit(TextResources().itemLimit).get().then((value) {
+        await cat.limit(TextResources().itemLimit).get().then((value) {
       return value.docChanges.map((e) => e.doc.data());
     });
 
@@ -162,9 +171,9 @@ class FirebaseSave {
 class CheckAdminFireBase {
   final instances = FirebaseFirestore.instance.collection("admin");
 
-  Future<bool> getData(String category) async {
+  Future<bool> getData(String email) async {
     var rawList = await instances
-        .where("email", isEqualTo: category)
+        .where("email", isEqualTo: email)
         .limit(TextResources().itemLimit)
         .get()
         .then((value) => value.docChanges.map((e) => e.doc.data()));

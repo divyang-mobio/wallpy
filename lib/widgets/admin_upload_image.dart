@@ -16,25 +16,25 @@ uploadImage(context) async {
   if (permissionStatus.isGranted) {
     image = await imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      // final kiloByte = (await image.length() / 1024);
-      // if (kiloByte <= 100) {
-        try {
-          var file = File((image.path).toString());
-          var snapshot = await firebaseStorage
-              .ref()
-              .child('image/${image.name}')
-              .putFile(file);
-          var downloadUrl = await snapshot.ref.getDownloadURL();
-          BlocProvider.of<UploadImageBloc>(context)
-              .add(GetImageUrl(url: downloadUrl, name: image.name));
-        } catch (e) {
-          BlocProvider.of<UploadImageBloc>(context).add(NotGetImageUrl());
-        }
-      // } else {
-      //   BlocProvider.of<UploadImageBloc>(context)
-      //       .add(NotGivePermissionOrImage());
-      //   await alertDialog(context, TextResources().imgSizeMore);
-      // }
+      final kiloByte = (await image.length() / 1024);
+      if (kiloByte <= 100) {
+      try {
+        var file = File((image.path).toString());
+        var snapshot = await firebaseStorage
+            .ref()
+            .child('${TextResources().imageStoreInStoragePath}${image.name}')
+            .putFile(file);
+        var downloadUrl = await snapshot.ref.getDownloadURL();
+        BlocProvider.of<UploadImageBloc>(context)
+            .add(GetImageUrl(url: downloadUrl, name: image.name));
+      } catch (e) {
+        BlocProvider.of<UploadImageBloc>(context).add(NotGetImageUrl());
+      }
+      } else {
+        BlocProvider.of<UploadImageBloc>(context)
+            .add(NotGivePermissionOrImage());
+        await alertDialog(context, TextResources().imgSizeMore);
+      }
     } else {
       BlocProvider.of<UploadImageBloc>(context).add(NotGivePermissionOrImage());
       await alertDialog(context, TextResources().imgIsNotSelected);

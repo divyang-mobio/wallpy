@@ -29,6 +29,11 @@ class _AdminScreenState extends State<AdminScreen> {
     super.dispose();
   }
 
+  void uploadImagesToStorage() {
+    BlocProvider.of<UploadImageBloc>(context).add(OnButtonClick());
+    uploadImage(context);
+  }
+
   void addNewCat() {
     BlocProvider.of<AddOtherCategoryBloc>(context)
         .add(AddNewCategory(data: textEditingController.text));
@@ -59,17 +64,13 @@ class _AdminScreenState extends State<AdminScreen> {
             BlocBuilder<UploadImageBloc, UploadImageState>(builder: (_, state) {
               if (state is UploadImageInitial) {
                 return GestureDetector(
-                  onTap: () {
-                    BlocProvider.of<UploadImageBloc>(context)
-                        .add(OnButtonClick());
-                    uploadImage(context);
-                  },
+                  onTap: () => uploadImagesToStorage(),
                   child: imageContainer(context,
                       Center(child: Text(TextResources().uploadImgButton))),
                 );
               } else if (state is OnUploadButtonClick) {
-                return imageContainer(
-                    context, Center(child: Text(TextResources().uploadingImg)));
+                return imageContainer(context,
+                    const Center(child: CircularProgressIndicator.adaptive()));
               } else if (state is UploadImageLoaded) {
                 url = state.url;
                 name = state.name;
@@ -88,27 +89,26 @@ class _AdminScreenState extends State<AdminScreen> {
                           try {
                             await FirebaseStorage.instance
                                 .ref()
-                                .child("image/${state.name}")
+                                .child(
+                                    "${TextResources().imageStoreInStoragePath}${state.name}")
                                 .delete();
                             BlocProvider.of<UploadImageBloc>(context)
                                 .add(OnRemoveImage());
                             url = null;
                             name = null;
                           } catch (e) {
-                            alertDialog(context, "Not Able to remove Image :(");
+                            alertDialog(context,
+                                TextResources().ifErrorHappenTimeOfRemoveImage);
                           }
                         },
-                        icon: const Icon(Icons.cancel_outlined,
-                            color: Colors.red))
+                        icon: Icon(IconsResources().removeImageAtAdminScreen,
+                            color: ColorResources()
+                                .removeImageButtonAtAdminScreen))
                   ],
                 );
               } else if (state is UploadImageError) {
                 return GestureDetector(
-                  onTap: () {
-                    BlocProvider.of<UploadImageBloc>(context)
-                        .add(OnButtonClick());
-                    uploadImage(context);
-                  },
+                  onTap: () => uploadImagesToStorage(),
                   child: imageContainer(context,
                       Center(child: Text(TextResources().errorAtUploadImg))),
                 );
@@ -125,12 +125,10 @@ class _AdminScreenState extends State<AdminScreen> {
                 myCategory = state.select;
                 return DropdownButton(
                   value: state.select,
-                  icon: const Icon(Icons.keyboard_arrow_down),
+                  icon: Icon(IconsResources().dropDown),
                   items: state.data
-                      .map((e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e.toUpperCase()),
-                          ))
+                      .map((data) => DropdownMenuItem(
+                          value: data, child: Text(data.toUpperCase())))
                       .toList(),
                   onChanged: (value) {
                     BlocProvider.of<AddCategoryBloc>(context)
@@ -169,12 +167,10 @@ class _AdminScreenState extends State<AdminScreen> {
                 month = state.selected;
                 return DropdownButton(
                   value: state.selected,
-                  icon: const Icon(Icons.keyboard_arrow_down),
+                  icon: Icon(IconsResources().dropDown),
                   items: state.data
-                      .map((e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e.toUpperCase()),
-                          ))
+                      .map((data) => DropdownMenuItem(
+                          value: data, child: Text(data.toUpperCase())))
                       .toList(),
                   onChanged: (value) {
                     BlocProvider.of<MonthSelectedBloc>(context)
@@ -197,27 +193,33 @@ class _AdminScreenState extends State<AdminScreen> {
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width * .8,
-                      child: TextField(
-                          cursorColor:
-                              BlocProvider.of<DarkModeBloc>(context).isDark
-                                  ? ColorResources().focusedBorderTextFieldDark
-                                  : ColorResources().focusedBorderTextField,
-                          controller: textEditingController,
-                          decoration: InputDecoration(
-                            hintText: TextResources().addCatName,
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color:
-                                        BlocProvider.of<DarkModeBloc>(context)
-                                                .isDark
-                                            ? ColorResources()
-                                                .focusedBorderTextFieldDark
-                                            : ColorResources()
-                                                .focusedBorderTextField)),
-                          ),
-                          keyboardType: TextInputType.text,
-                          onSubmitted: (s) => addNewCat()),
+                      child: TextFormField(
+                        textCapitalization: TextCapitalization.words,
+                        onFieldSubmitted: (value) {
+                          if (value.contains(RegExp('^[a-zA-Z]+'))) {
+                            addNewCat();
+                          }
+                        },
+                        cursorColor:
+                            BlocProvider.of<DarkModeBloc>(context).isDark
+                                ? ColorResources().focusedBorderTextFieldDark
+                                : ColorResources().focusedBorderTextField,
+                        controller: textEditingController,
+                        decoration: InputDecoration(
+                          hintText: TextResources().addCatName,
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: BlocProvider.of<DarkModeBloc>(context)
+                                          .isDark
+                                      ? ColorResources()
+                                          .focusedBorderTextFieldDark
+                                      : ColorResources()
+                                          .focusedBorderTextField)),
+                        ),
+                        keyboardType: TextInputType.text,
+                      ),
                     ),
+                    const SizedBox(height: 10),
                     MaterialButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0)),
@@ -225,7 +227,12 @@ class _AdminScreenState extends State<AdminScreen> {
                         color: BlocProvider.of<DarkModeBloc>(context).isDark
                             ? ColorResources().colorPickerButtonDark
                             : ColorResources().colorPickerButton,
-                        onPressed: () => addNewCat(),
+                        onPressed: () {
+                          if (textEditingController.text
+                              .contains(RegExp('^[a-zA-Z]+'))) {
+                            addNewCat();
+                          }
+                        },
                         child: Text(TextResources().addCatName))
                   ],
                 );
