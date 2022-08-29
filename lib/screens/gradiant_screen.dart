@@ -13,7 +13,7 @@ class GradiantScreen extends StatefulWidget {
 }
 
 class _GradiantScreenState extends State<GradiantScreen> {
-  List<Color> selectedColor = [];
+  List<Color> selectedColor = ColorResources().pickerGradiantDefault;
 
   MultipleChoiceBlockPicker selectColor() {
     return MultipleChoiceBlockPicker(
@@ -42,7 +42,7 @@ class _GradiantScreenState extends State<GradiantScreen> {
                       BoxDecoration(borderRadius: BorderRadius.circular(20)),
                   height: MediaQuery.of(context).size.height * .4,
                   width: MediaQuery.of(context).size.width * .5,
-                  child: Text(TextResources().applyNew));
+                  child: Center(child: Text(TextResources().applyNew)));
             } else if (state is GradiantLoaded) {
               return GestureDetector(
                 onTap: () => Navigator.pushNamed(

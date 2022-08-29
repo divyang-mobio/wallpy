@@ -5,9 +5,11 @@ abstract class AddCategoryState {}
 class AddCategoryInitial extends AddCategoryState {}
 
 class AddCategoryLoaded extends AddCategoryState {
-  List<String> myCategory;
+  List<String> data;
+  String select;
 
-  AddCategoryLoaded({required this.myCategory});
+  AddCategoryLoaded(
+      {required this.data, required this.select});
 }
 
 class AddCategoryError extends AddCategoryState {}

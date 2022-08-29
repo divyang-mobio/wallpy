@@ -244,3 +244,18 @@ List<NewsCategory> categoryData = [
       imageLink:
           "https://images.pexels.com/photos/434346/pexels-photo-434346.jpeg?auto=compress&cs=tinysrgb&w=600")
 ];
+
+List<String> monthData = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];

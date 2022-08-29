@@ -12,5 +12,5 @@ class UploadImageLoaded extends UploadImageState {
 
 class OnUploadButtonClick extends UploadImageState {}
 
-
 class UploadImageError extends UploadImageState {}
+

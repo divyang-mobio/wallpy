@@ -16,3 +16,5 @@ class GetAllCategory extends CategoryEvent {
   @override
   List<Object> get props => [category];
 }
+
+

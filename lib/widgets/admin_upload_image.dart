@@ -16,8 +16,8 @@ uploadImage(context) async {
   if (permissionStatus.isGranted) {
     image = await imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      final kb = (await image.length() / 1024);
-      if (kb <= 100) {
+      // final kiloByte = (await image.length() / 1024);
+      // if (kiloByte <= 100) {
         try {
           var file = File((image.path).toString());
           var snapshot = await firebaseStorage
@@ -30,11 +30,11 @@ uploadImage(context) async {
         } catch (e) {
           BlocProvider.of<UploadImageBloc>(context).add(NotGetImageUrl());
         }
-      } else {
-        BlocProvider.of<UploadImageBloc>(context)
-            .add(NotGivePermissionOrImage());
-        await alertDialog(context, TextResources().imgSizeMore);
-      }
+      // } else {
+      //   BlocProvider.of<UploadImageBloc>(context)
+      //       .add(NotGivePermissionOrImage());
+      //   await alertDialog(context, TextResources().imgSizeMore);
+      // }
     } else {
       BlocProvider.of<UploadImageBloc>(context).add(NotGivePermissionOrImage());
       await alertDialog(context, TextResources().imgIsNotSelected);

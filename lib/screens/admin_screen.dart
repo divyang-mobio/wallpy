@@ -1,6 +1,8 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../controllers/category_bloc/category_bloc.dart';
+import '../controllers/add_other_category_bloc/add_other_category_bloc.dart';
+import '../controllers/month_selected_bloc/month_selected_bloc.dart';
 import '../widgets/alert_box.dart';
 import '../controllers/add_category_bloc/add_category_bloc.dart';
 import '../controllers/upload_data_fireStore_bloc/upload_data_fire_store_bloc.dart';
@@ -19,9 +21,7 @@ class AdminScreen extends StatefulWidget {
 
 class _AdminScreenState extends State<AdminScreen> {
   TextEditingController textEditingController = TextEditingController();
-  List<String> myCategory = [];
-  String? url;
-  String? name;
+  String? myCategory, month, url, name;
 
   @override
   void dispose() {
@@ -29,21 +29,23 @@ class _AdminScreenState extends State<AdminScreen> {
     super.dispose();
   }
 
-  void testText() {
-    if (textEditingController.text.contains(RegExp('^[a-zA-Z]+'))) {
-      myCategory.add(textEditingController.text);
-      callBloc(context, myCategory);
-      textEditingController.clear();
-    }
+  void addNewCat() {
+    BlocProvider.of<AddOtherCategoryBloc>(context)
+        .add(AddNewCategory(data: textEditingController.text));
+    textEditingController.clear();
   }
 
   void reset() {
-    myCategory = [];
     name = "";
     url = null;
-    callBloc(context, []);
+    month = null;
+    BlocProvider.of<MonthSelectedBloc>(context).add(RemoveOccasion());
+    BlocProvider.of<AddCategoryBloc>(context)
+        .add(OnSubmitCategory(data: myCategory ?? ""));
+    BlocProvider.of<AddOtherCategoryBloc>(context).add(SubmitNewCategory());
     BlocProvider.of<UploadImageBloc>(context).add(OnSubmit());
     BlocProvider.of<UploadDataFireStoreBloc>(context).add(OnSubmitForUpload());
+    myCategory = null;
   }
 
   @override
@@ -71,12 +73,35 @@ class _AdminScreenState extends State<AdminScreen> {
               } else if (state is UploadImageLoaded) {
                 url = state.url;
                 name = state.name;
-                return SizedBox(
-                    height: MediaQuery.of(context).size.height * .4,
-                    width: MediaQuery.of(context).size.width * .5,
-                    child: ClipRRect(
+                return Stack(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .4,
+                      width: MediaQuery.of(context).size.width * .5,
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: networkImages(state.url, null)));
+                        child: networkImages(state.url, null),
+                      ),
+                    ),
+                    IconButton(
+                        onPressed: () async {
+                          try {
+                            await FirebaseStorage.instance
+                                .ref()
+                                .child("image/${state.name}")
+                                .delete();
+                            BlocProvider.of<UploadImageBloc>(context)
+                                .add(OnRemoveImage());
+                            url = null;
+                            name = null;
+                          } catch (e) {
+                            alertDialog(context, "Not Able to remove Image :(");
+                          }
+                        },
+                        icon: const Icon(Icons.cancel_outlined,
+                            color: Colors.red))
+                  ],
+                );
               } else if (state is UploadImageError) {
                 return GestureDetector(
                   onTap: () {
@@ -93,83 +118,133 @@ class _AdminScreenState extends State<AdminScreen> {
               }
             }),
             const SizedBox(height: 10),
-            // BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
-            //   if (state is CategoryLoading) {
-            //     return const CircularProgressIndicator.adaptive();
-            //   } else if (state is CategoryLoaded) {
-            //     return DropdownButton(
-            //       value: "select",
-            //       icon: const Icon(Icons.keyboard_arrow_down),
-            //       items: state.data
-            //           .map((e) => DropdownMenuItem(
-            //                 value: e["name"],
-            //                 child: Text(e['name']
-            //                     .toString()
-            //                     .toUpperCase()),
-            //               ))
-            //           .toList(),
-            //       onChanged: (value) {},
-            //     );
-            //   } else if (state is CategoryError) {
-            //     return Center(child: Text(TextResources().blocError));
-            //   } else {
-            //     return Center(child: Text(TextResources().noData));
-            //   }
-            // }),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * .8,
-              child: TextField(
-                cursorColor: BlocProvider.of<DarkModeBloc>(context).isDark
-                    ? ColorResources().focusedBorderTextFieldDark
-                    : ColorResources().focusedBorderTextField,
-                controller: textEditingController,
-                decoration: InputDecoration(
-                  hintText: TextResources().addCatName,
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: BlocProvider.of<DarkModeBloc>(context).isDark
-                              ? ColorResources().focusedBorderTextFieldDark
-                              : ColorResources().focusedBorderTextField)),
-                ),
-                keyboardType: TextInputType.text,
-                onSubmitted: (s) => testText(),
-              ),
-            ),
-            const SizedBox(height: 10),
-            MaterialButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                minWidth: MediaQuery.of(context).size.width * .5,
-                color: BlocProvider.of<DarkModeBloc>(context).isDark
-                    ? ColorResources().colorPickerButtonDark
-                    : ColorResources().colorPickerButton,
-                onPressed: () => testText(),
-                child: Text(TextResources().addCatName)),
-            const SizedBox(height: 10),
             BlocBuilder<AddCategoryBloc, AddCategoryState>(builder: (_, state) {
               if (state is AddCategoryInitial) {
-                return const SizedBox();
+                return const CircularProgressIndicator.adaptive();
               } else if (state is AddCategoryLoaded) {
-                myCategory = state.myCategory;
-                return Wrap(spacing: 5, runSpacing: 5, children: [
-                  for (var i in state.myCategory)
-                    InkWell(
-                      onTap: () {
-                        myCategory.remove(i);
-                        callBloc(context, myCategory);
-                      },
-                      child: Chip(
-                        elevation: 20,
-                        padding: const EdgeInsets.all(8),
-                        shadowColor:
-                            BlocProvider.of<DarkModeBloc>(context).isDark
-                                ? ColorResources().chipShadowDark
-                                : ColorResources().chipShadow,
-                        label: Text(i, style: const TextStyle(fontSize: 20)),
-                      ),
-                    ),
-                ]);
+                myCategory = state.select;
+                return DropdownButton(
+                  value: state.select,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: state.data
+                      .map((e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(e.toUpperCase()),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    BlocProvider.of<AddCategoryBloc>(context)
+                        .add(OnSelectCategory(myCategory: value.toString()));
+                    if (value == "occasion") {
+                      BlocProvider.of<MonthSelectedBloc>(context)
+                          .add(IsOccasion());
+                      BlocProvider.of<AddOtherCategoryBloc>(context)
+                          .add(RemoveCategoryField());
+                    } else if (value == "other") {
+                      BlocProvider.of<MonthSelectedBloc>(context)
+                          .add(RemoveOccasion());
+                      BlocProvider.of<AddOtherCategoryBloc>(context)
+                          .add(ShowTextField());
+                    } else {
+                      BlocProvider.of<MonthSelectedBloc>(context)
+                          .add(RemoveOccasion());
+                      BlocProvider.of<AddOtherCategoryBloc>(context)
+                          .add(RemoveCategoryField());
+                    }
+                  },
+                );
               } else if (state is AddCategoryError) {
+                return Text(TextResources().blocError);
+              } else {
+                return Text(TextResources().noData);
+              }
+            }),
+            const SizedBox(height: 10),
+            BlocBuilder<MonthSelectedBloc, MonthSelectedState>(
+                builder: (_, state) {
+              if (state is MonthSelectedLoading) {
+                month = null;
+                return const SizedBox();
+              } else if (state is MonthSelectedLoaded) {
+                month = state.selected;
+                return DropdownButton(
+                  value: state.selected,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: state.data
+                      .map((e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(e.toUpperCase()),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    BlocProvider.of<MonthSelectedBloc>(context)
+                        .add(OnSelectMonth(month: value.toString()));
+                  },
+                );
+              } else if (state is MonthSelectedError) {
+                return Text(TextResources().blocError);
+              } else {
+                return Text(TextResources().noData);
+              }
+            }),
+            BlocBuilder<AddOtherCategoryBloc, AddOtherCategoryState>(
+                builder: (_, state) {
+              if (state is AddOtherCategoryInitial) {
+                return const SizedBox();
+              } else if (state is AddOtherCategoryShowTextField) {
+                myCategory = null;
+                return Column(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .8,
+                      child: TextField(
+                          cursorColor:
+                              BlocProvider.of<DarkModeBloc>(context).isDark
+                                  ? ColorResources().focusedBorderTextFieldDark
+                                  : ColorResources().focusedBorderTextField,
+                          controller: textEditingController,
+                          decoration: InputDecoration(
+                            hintText: TextResources().addCatName,
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color:
+                                        BlocProvider.of<DarkModeBloc>(context)
+                                                .isDark
+                                            ? ColorResources()
+                                                .focusedBorderTextFieldDark
+                                            : ColorResources()
+                                                .focusedBorderTextField)),
+                          ),
+                          keyboardType: TextInputType.text,
+                          onSubmitted: (s) => addNewCat()),
+                    ),
+                    MaterialButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        minWidth: MediaQuery.of(context).size.width * .5,
+                        color: BlocProvider.of<DarkModeBloc>(context).isDark
+                            ? ColorResources().colorPickerButtonDark
+                            : ColorResources().colorPickerButton,
+                        onPressed: () => addNewCat(),
+                        child: Text(TextResources().addCatName))
+                  ],
+                );
+              } else if (state is AddOtherCategoryData) {
+                myCategory = state.data;
+                return InkWell(
+                  onTap: () => BlocProvider.of<AddOtherCategoryBloc>(context)
+                      .add(RemoveCategory()),
+                  child: Chip(
+                    elevation: 20,
+                    padding: const EdgeInsets.all(8),
+                    shadowColor: BlocProvider.of<DarkModeBloc>(context).isDark
+                        ? ColorResources().chipShadowDark
+                        : ColorResources().chipShadow,
+                    label:
+                        Text(state.data, style: const TextStyle(fontSize: 20)),
+                  ),
+                );
+              } else if (state is AddOtherCategoryError) {
                 return Text(TextResources().blocError);
               } else {
                 return Text(TextResources().noData);
@@ -180,7 +255,8 @@ class _AdminScreenState extends State<AdminScreen> {
                 listener: (context, state) async {
               if (state is UploadDataFireStoreSuccess) {
                 reset();
-                await alertDialog(context, TextResources().successDownloaded);
+                await alertDialog(
+                    context, TextResources().successItemToFireStore);
               }
             }, builder: (context, state) {
               if (state is UploadDataFireStoreInitial) {
@@ -192,10 +268,10 @@ class _AdminScreenState extends State<AdminScreen> {
                         ? ColorResources().colorPickerButtonDark
                         : ColorResources().colorPickerButton,
                     onPressed: () {
-                      if (myCategory.isEmpty || url == null) {
+                      if (myCategory == null || url == null) {
                         alertDialog(
                             context,
-                            (url == null && myCategory.isEmpty)
+                            (url == null && myCategory == null)
                                 ? TextResources().whenImgCatNotThere
                                 : (url == null)
                                     ? TextResources().whenImgNotThere
@@ -203,7 +279,10 @@ class _AdminScreenState extends State<AdminScreen> {
                       } else {
                         BlocProvider.of<UploadDataFireStoreBloc>(context).add(
                             UploadData(
-                                url: url!, name: name!, category: myCategory));
+                                url: url!,
+                                name: name!,
+                                category: [myCategory!],
+                                months: month ?? ""));
                       }
                     },
                     child: Text(TextResources().submitItemToFireStore));
@@ -222,10 +301,6 @@ class _AdminScreenState extends State<AdminScreen> {
     );
   }
 }
-
-void callBloc(context, List<String> data) =>
-    BlocProvider.of<AddCategoryBloc>(context)
-        .add(AddCategory(myCategory: data));
 
 Container imageContainer(context, Widget child) => Container(
     decoration: BoxDecoration(

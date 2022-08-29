@@ -15,3 +15,5 @@ class OnSubmit extends UploadImageEvent {}
 class NotGivePermissionOrImage extends UploadImageEvent {}
 
 class OnButtonClick extends UploadImageEvent {}
+
+class OnRemoveImage extends UploadImageEvent {}

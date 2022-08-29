@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../resources/resources.dart';
 import '../models/data_model.dart';
@@ -94,14 +92,14 @@ class FirebaseDatabase {
     return rawData;
   }
 
-  Future<List<Map>> getCategoryData() async {
+  getCategoryData(bool dataAndName) async {
     final instances = FirebaseFirestore.instance.collection("Category");
 
     QuerySnapshot querySnapshot = await instances.get();
 
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     Set<String> finalcategory = <String>{};
-
+    List<Map> finalproduct = [];
     List<Map<String, dynamic>> finalImage = [];
 
     for (var element in allData) {
@@ -114,29 +112,31 @@ class FirebaseDatabase {
       }
     }
 
-    for (var element in finalcategory) {
-      var img = await instances
-          .where(
-            "image_category",
-            arrayContains: element,
-          )
-          .get();
-      var data = img.docs.map((doc) => doc.data()).toList();
-      finalImage.add({'name': element, 'data': data});
-    }
+    if (dataAndName) {
+      for (var element in finalcategory) {
+        var img = await instances
+            .where(
+              "image_category",
+              arrayContains: element,
+            )
+            .get();
+        var data = img.docs.map((doc) => doc.data()).toList();
+        finalImage.add({'name': element, 'data': data});
+      }
 
-    List<Map> finalproduct = [];
-
-    for (var category in finalcategory) {
-      for (var data in finalImage) {
-        if (category.contains(data['name'])) {
-          finalproduct.add(data);
+      for (var category in finalcategory) {
+        for (var data in finalImage) {
+          if (category.contains(data['name'])) {
+            finalproduct.add(data);
+          }
         }
       }
     }
 
-    log(finalproduct.toString());
-    return finalproduct;
+    if (!dataAndName) {
+      finalcategory.add("other");
+    }
+    return dataAndName ? finalproduct : finalcategory;
   }
 }
 
