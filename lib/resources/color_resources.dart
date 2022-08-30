@@ -7,10 +7,10 @@ class ColorResources {
   final Color detailScreenContainerDark = Colors.black.withOpacity(0.4);
   final Color detailScreenIcons = Colors.black;
   final Color detailScreenIconsDark = Colors.white;
-  final Color categoryContainerBorder = Colors.grey;
-  final Color categoryContainer = Colors.grey.shade100;
-  final Color categoryText = Colors.black;
-  final Color categoryTextDark = Colors.white;
+  // final Color categoryContainerBorder = Colors.grey;
+  // final Color categoryContainer = Colors.grey.shade100;
+  // final Color categoryText = Colors.black;
+  // final Color categoryTextDark = Colors.white;
   final Color appBarTextIcon = Colors.black;
   final Color appBarTextIconDark = Colors.white;
   final Color appBar = Colors.white;
@@ -19,7 +19,7 @@ class ColorResources {
   final Color textColorBlack = Colors.black;
   final Color textWhite24 = Colors.white24;
   final Color textFieldIcon = Colors.black;
-  final Color background = Colors.white;
+  // final Color background = Colors.white;
   final Color shimmerBase = Colors.grey.shade300;
   final Color shimmerBaseDark = Colors.grey.shade900;
   final Color shimmerHighlight = Colors.grey.shade100;
@@ -44,8 +44,8 @@ class ColorResources {
   final Color scaffoldBackgroundColorDark = Colors.grey.shade700;
   final Color focusedBorderTextField = Colors.black;
   final Color focusedBorderTextFieldDark = Colors.white;
-  final Color colorPickerButtonDark = Colors.black;
-  final Color colorPickerButton = Colors.white;
+  final Color adminScreenButtonDark = Colors.black;
+  final Color adminScreenButton = Colors.white;
   final List<Color> pickerGradiantDefault = [Colors.blue, Colors.red];
   final List<Color> pickerGradiantEmpty = [Colors.white, Colors.white];
   final Color chipShadow = Colors.black;

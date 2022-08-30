@@ -17,7 +17,9 @@ class FirebaseDatabase {
 
   Future<List<Object>> getAllData(String? category, bool isFavorite,
       String? query, bool isSearch, bool showAds) async {
-    final cat = (category == null && isFavorite == false && query == null)
+    final categoryInstance = (category == null &&
+            isFavorite == false &&
+            query == null)
         ? instances
         : (category != null && isFavorite == false && query == null)
             ? instances.where(TextResources().fireStoreImgCat,
@@ -44,7 +46,7 @@ class FirebaseDatabase {
       paginationData = null;
       isMore = true;
     }
-    data.addAll(await getData(cat, showAds));
+    data.addAll(await getData(categoryInstance, showAds));
     return data;
   }
 
@@ -140,7 +142,7 @@ class FirebaseDatabase {
   }
 }
 
-class FirebaseSave {
+class FireStoreForBackgroundService {
   final instances =
       FirebaseFirestore.instance.collection(TextResources().fireStoreCategory);
 
@@ -168,7 +170,7 @@ class FirebaseSave {
   }
 }
 
-class CheckAdminFireBase {
+class CheckAdminFireStore {
   final instances = FirebaseFirestore.instance.collection("admin");
 
   Future<bool> getData(String email) async {

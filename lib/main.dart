@@ -125,20 +125,12 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<FirebaseDatabase>(
             create: (context) => (FirebaseDatabase())),
         RepositoryProvider<AuthRepository>(
-          create: (context) => AuthRepository(),
-        ),
-        RepositoryProvider<GoogleSignIn>(
-          create: (context) => GoogleSignIn(),
-        ),
-        RepositoryProvider<HttpService>(
-          create: (context) => HttpService(),
-        ),
-        RepositoryProvider<HttpRequests>(
-          create: (context) => HttpRequests(),
-        ),
+            create: (context) => AuthRepository()),
+        RepositoryProvider<GoogleSignIn>(create: (context) => GoogleSignIn()),
+        RepositoryProvider<HttpService>(create: (context) => HttpService()),
+        RepositoryProvider<HttpRequests>(create: (context) => HttpRequests()),
         RepositoryProvider<PreferenceServices>(
-          create: (context) => PreferenceServices(),
-        ),
+            create: (context) => PreferenceServices()),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -171,7 +163,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<UploadDataFireStoreBloc>(
               create: (context) => UploadDataFireStoreBloc()),
           BlocProvider<AdminVisibleBloc>(
-              create: (context) => AdminVisibleBloc(CheckAdminFireBase(),
+              create: (context) => AdminVisibleBloc(CheckAdminFireStore(),
                   RepositoryProvider.of<PreferenceServices>(context))
                 ..add(CheckAdmin())),
           BlocProvider<ServiceBloc>(

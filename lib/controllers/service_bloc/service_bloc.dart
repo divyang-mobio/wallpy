@@ -17,7 +17,7 @@ class ServiceBloc extends Bloc<ServiceEvent, ServiceState> {
       emit(ServiceLoaded(isOn: event.isOn));
       if (event.isOn) {
         List<DataModel> data =
-            await FirebaseSave().getAllData(event.isFavorite);
+            await FireStoreForBackgroundService().getAllData(event.isFavorite);
         final pref = PreferenceServices();
         pref.setScreen(event.screen);
         pref.setList(data);

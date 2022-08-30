@@ -9,11 +9,10 @@ part 'dark_mode_state.dart';
 
 class DarkModeBloc extends Bloc<DarkModeEvent, DarkModeState> {
   PreferenceServices pref;
-  ThemeMode themeMode = ThemeMode.dark;
+  ThemeMode themeMode = ThemeMode.light;
   DarkModeBloc(this.pref) : super(DarkModeLoading()) {
     on<OnChangeMode>((event, emit) {
       pref.setDarkToggle(event.isDark);
-      print("test");
       themeMode = event.isDark ? ThemeMode.dark : ThemeMode.light;
       emit(DarkModeLoaded(themeMode: themeMode, isDark: event.isDark));
     });

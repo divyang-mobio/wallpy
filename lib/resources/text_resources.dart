@@ -3,22 +3,22 @@ part of 'resources.dart';
 class TextResources {
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
-  final String categoryAppTitle = "Category";
+  // final String categoryAppTitle = "Category";
   final String adminAppTitle = "Admin";
   final String gradiantAppTitle = "Gradiant";
   final String favoriteAppTitle = "Favorite";
   final String newsDetailAppTitle = "News Details";
   final String newsAppTitle = "News";
   final String homeScreenLabel = "Home";
-  final String categoryScreenLabel = "Category";
+  // final String categoryScreenLabel = "Category";
   final String gradiantScreenLabel = "Gradiant";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String newsScreenLabel = "News";
   final String splashScreenTile = "Wallpy";
   final String weatherTitle = "Weather";
-  final String latitude = "Latitude";
-  final String longitude = "Longitude";
+  // final String latitude = "Latitude";
+  // final String longitude = "Longitude";
   final String humidity = "Humidity";
   final String swWind = "SW Wind";
   final String visibility = "Visibility";
@@ -26,9 +26,9 @@ class TextResources {
   final String noData = "Error No Data :(";
   final String downloadImage = "downloading";
   final String successDownloaded = "Save Image";
-  final String colorPicker = 'Pick a color!';
-  final String colorPickerApply = "Applying";
-  final String colorPickerButton = "change color";
+  // final String colorPicker = 'Pick a color!';
+  // final String colorPickerApply = "Applying";
+  // final String colorPickerButton = "change color";
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
   final String email = "Email";
@@ -47,9 +47,6 @@ class TextResources {
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToY5hNtemPEvOyyPKrWdVOZWR-gQBRI-ThmA&usqp=CAU";
   final String snackBarLoadingInPagination = 'Loading';
   final String snackBarAllDataFetchInPagination = 'All Data Fetch';
-  final String methodChannelName = "wallpyBackgroundService";
-  final String methodChannelCallingServiceName = "StartService";
-  final String methodChannelStopServiceName = "StopService";
   final String bottomSheetTitle = "Select Screen";
   final String homeScreenWallpaper = "On Home Screen";
   final String lockScreenWallpaper = "On Lock Screen";
@@ -104,7 +101,7 @@ class TextResources {
 
 
 //Int type
-  final int adsInternalInList = 9;
+  final int adsInternalInList = 5;
   final int androidAlarmManagerId = 0;
   final int itemLimit = 5;
 

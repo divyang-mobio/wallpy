@@ -225,8 +225,8 @@ class _AdminScreenState extends State<AdminScreen> {
                             borderRadius: BorderRadius.circular(20.0)),
                         minWidth: MediaQuery.of(context).size.width * .5,
                         color: BlocProvider.of<DarkModeBloc>(context).isDark
-                            ? ColorResources().colorPickerButtonDark
-                            : ColorResources().colorPickerButton,
+                            ? ColorResources().adminScreenButtonDark
+                            : ColorResources().adminScreenButton,
                         onPressed: () {
                           if (textEditingController.text
                               .contains(RegExp('^[a-zA-Z]+'))) {
@@ -272,8 +272,8 @@ class _AdminScreenState extends State<AdminScreen> {
                         borderRadius: BorderRadius.circular(20.0)),
                     minWidth: MediaQuery.of(context).size.width * .5,
                     color: BlocProvider.of<DarkModeBloc>(context).isDark
-                        ? ColorResources().colorPickerButtonDark
-                        : ColorResources().colorPickerButton,
+                        ? ColorResources().adminScreenButtonDark
+                        : ColorResources().adminScreenButton,
                     onPressed: () {
                       if (myCategory == null || url == null) {
                         alertDialog(

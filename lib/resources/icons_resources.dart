@@ -26,10 +26,7 @@ class IconsResources {
   final weatherIconUnselected = Icons.cloud_outlined;
   final removeImageAtAdminScreen = Icons.cancel_outlined;
   final dropDown = Icons.keyboard_arrow_down;
-
   final logout = Icons.logout;
-
-  final searchBack = Icons.arrow_back_ios_new;
   final logOut = Icons.logout_rounded;
   final openUrl = Icons.launch;
   final share = Icons.share;
