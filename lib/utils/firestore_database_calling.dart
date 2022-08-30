@@ -45,6 +45,7 @@ class FirebaseDatabase {
     if (isSearch) {
       paginationData = null;
       isMore = true;
+      data = [];
     }
     data.addAll(await getData(categoryInstance, showAds));
     return data;

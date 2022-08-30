@@ -26,6 +26,7 @@ class TextResources {
   final String noData = "Error No Data :(";
   final String downloadImage = "downloading";
   final String successDownloaded = "Save Image";
+  final String errorWallpaperSetting = "Wallpaper Not Set";
   // final String colorPicker = 'Pick a color!';
   // final String colorPickerApply = "Applying";
   // final String colorPickerButton = "change color";
@@ -93,6 +94,7 @@ class TextResources {
   final String errorAtUploadImg = "Retry";
   final String uploadImgButton = "Upload Image";
   final String imgSizeMore = 'Image Size is more than 100kb';
+  final String imgAspectRatio = "pls upload image of aspect ratio of 16:9";
   final String imgIsNotSelected = 'No Image Path Received';
   final String permissionIsNotGiven =
       'Permission not granted. Try Again with permission access';

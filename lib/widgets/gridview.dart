@@ -12,7 +12,7 @@ Padding gridView(
       shrinkWrap: true,
       itemCount: isLoading ? 10 : data.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 4 / 6.5,
+          childAspectRatio: 9 / 16,
           mainAxisSpacing: 3,
           crossAxisSpacing: 3,
           crossAxisCount: 2),

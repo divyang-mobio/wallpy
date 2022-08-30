@@ -35,7 +35,7 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
                   TextResources().bottomSheetTitle, bottomSheetScreenData);
               if (location != null) {
                 File file = await getWidgetToImage(widget.myColor);
-                wallpaperGradiantSetter(file, location);
+                wallpaperGradiantSetter(context, file, location);
               }
             },
             icon:
