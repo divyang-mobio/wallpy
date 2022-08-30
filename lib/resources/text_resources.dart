@@ -1,6 +1,7 @@
 part of 'resources.dart';
 
 class TextResources {
+  // AppBar title
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
   // final String categoryAppTitle = "Category";
@@ -10,13 +11,16 @@ class TextResources {
   final String newsDetailAppTitle = "News Details";
   final String newsAppTitle = "News";
   final String homeScreenLabel = "Home";
+
   // final String categoryScreenLabel = "Category";
+  //bottom navigation bar name
   final String gradiantScreenLabel = "Gradiant";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String newsScreenLabel = "News";
   final String splashScreenTile = "Wallpy";
   final String weatherTitle = "Weather";
+
   // final String latitude = "Latitude";
   // final String longitude = "Longitude";
   final String humidity = "Humidity";
@@ -27,6 +31,7 @@ class TextResources {
   final String downloadImage = "downloading";
   final String successDownloaded = "Save Image";
   final String errorWallpaperSetting = "Wallpaper Not Set";
+
   // final String colorPicker = 'Pick a color!';
   // final String colorPickerApply = "Applying";
   // final String colorPickerButton = "change color";
@@ -48,6 +53,8 @@ class TextResources {
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToY5hNtemPEvOyyPKrWdVOZWR-gQBRI-ThmA&usqp=CAU";
   final String snackBarLoadingInPagination = 'Loading';
   final String snackBarAllDataFetchInPagination = 'All Data Fetch';
+
+  //setting screen data
   final String bottomSheetTitle = "Select Screen";
   final String homeScreenWallpaper = "On Home Screen";
   final String lockScreenWallpaper = "On Lock Screen";
@@ -66,6 +73,7 @@ class TextResources {
   final String collectionTitle = "Collections";
   final String collectionDec =
       "Set wallpaper from Favorite/Random. By default it is Random.";
+
   final String emptyCart = "No Data in Favorite :(";
   final String blocError = "Error :(";
   final String categoryDetail = "CategoryDetails";
@@ -101,7 +109,6 @@ class TextResources {
   final String ifErrorHappenTimeOfRemoveImage = "Not Able to remove Image :(";
   final String imageStoreInStoragePath = "image/";
 
-
 //Int type
   final int adsInternalInList = 5;
   final int androidAlarmManagerId = 0;
@@ -131,7 +138,7 @@ List<SettingModel> dialogDataForTimeLine = [
   SettingModel(title: "30 minutes", onclick: 30),
   SettingModel(title: "60 minutes", onclick: 60),
   SettingModel(title: "6 hours", onclick: 360),
-  SettingModel(title: "24 hours", onclick: 1440),
+  SettingModel(title: "24 hours", onclick: 1440)
 ];
 
 List<SettingModel> bottomSheetScreenData = [

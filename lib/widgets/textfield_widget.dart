@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wallpy/resources/resources.dart';
-
-import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 
 class TextFormFieldCustom extends StatelessWidget {
   const TextFormFieldCustom(
