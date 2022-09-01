@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:oktoast/oktoast.dart';
 import 'controllers/add_category_bloc/add_category_bloc.dart';
 import 'controllers/add_other_category_bloc/add_other_category_bloc.dart';
 import 'controllers/bottom_navigation_bloc/bottom_navigation_bloc.dart';
@@ -203,23 +204,27 @@ class _MyAppState extends State<MyApp> {
         child:
             BlocBuilder<DarkModeBloc, DarkModeState>(builder: (context, state) {
           if (state is DarkModeLoaded) {
-            return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: TextResources().appTitle,
-                themeMode: state.themeMode,
-                darkTheme: MyTheme.darkTheme,
-                theme: MyTheme.lightTheme,
-                onGenerateRoute: RouteGenerator.generateRoute,
-                initialRoute: initialRoute);
+            return OKToast(
+              child: MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: TextResources().appTitle,
+                  themeMode: state.themeMode,
+                  darkTheme: MyTheme.darkTheme,
+                  theme: MyTheme.lightTheme,
+                  onGenerateRoute: RouteGenerator.generateRoute,
+                  initialRoute: initialRoute),
+            );
           } else {
-            return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: TextResources().appTitle,
-                themeMode: ThemeMode.light,
-                darkTheme: MyTheme.darkTheme,
-                theme: MyTheme.lightTheme,
-                onGenerateRoute: RouteGenerator.generateRoute,
-                initialRoute: initialRoute);
+            return OKToast(
+              child: MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: TextResources().appTitle,
+                  themeMode: ThemeMode.light,
+                  darkTheme: MyTheme.darkTheme,
+                  theme: MyTheme.lightTheme,
+                  onGenerateRoute: RouteGenerator.generateRoute,
+                  initialRoute: initialRoute),
+            );
           }
         }),
       ),

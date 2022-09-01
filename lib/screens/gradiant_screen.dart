@@ -40,8 +40,8 @@ class _GradiantScreenState extends State<GradiantScreen> {
               Container(
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                  height: MediaQuery.of(context).size.height * .4,
-                  width: MediaQuery.of(context).size.width * .5,
+                  height: 338,
+                  width: 206,
                   child: const Center(
                       child: CircularProgressIndicator.adaptive())),
               const SizedBox(height: 10),
@@ -64,19 +64,18 @@ class _GradiantScreenState extends State<GradiantScreen> {
                 child: Hero(
                   tag: 1,
                   child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            colors: (state.myColor.length < 2)
-                                ? (state.myColor.isEmpty)
-                                    ? ColorResources().pickerGradiantEmpty
-                                    : [state.myColor[0], state.myColor[0]]
-                                : state.myColor)),
-                    height: MediaQuery.of(context).size.height * .4,
-                    width: MediaQuery.of(context).size.width * .5,
-                  ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: (state.myColor.length < 2)
+                                  ? (state.myColor.isEmpty)
+                                      ? ColorResources().pickerGradiantEmpty
+                                      : [state.myColor[0], state.myColor[0]]
+                                  : state.myColor)),
+                      height: 338,
+                      width: 206),
                 ),
               ),
               const SizedBox(height: 10),
@@ -91,12 +90,13 @@ class _GradiantScreenState extends State<GradiantScreen> {
   }
 }
 
-Widget _layoutBuilder(BuildContext context, List<Color> colors, PickerItem child) {
+Widget _layoutBuilder(
+    BuildContext context, List<Color> colors, PickerItem child) {
   Orientation orientation = MediaQuery.of(context).orientation;
 
   return SizedBox(
     width: 300,
-    height: orientation == Orientation.portrait ? 360 :  200,
+    height: orientation == Orientation.portrait ? 360 : 200,
     child: GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),

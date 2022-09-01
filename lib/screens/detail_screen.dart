@@ -26,7 +26,6 @@ class _DetailScreenState extends State<DetailScreen> {
       children: [
         IconButton(
             onPressed: () async {
-              snackBar(TextResources().downloadImage, context);
               BlocProvider.of<DownloadImageBloc>(context)
                   .add(DownloadImageOfWallpaper(url: widget.dataModel.url));
             },

@@ -9,6 +9,7 @@ class MyTheme {
     primarySwatch: ColorResources().primarySwatchDark,
     appBarTheme: AppBarTheme(
         titleTextStyle: TextStyle(
+          fontSize: 20,
             color: ColorResources().appBarTextIconDark,
             fontWeight: FontWeight.bold),
         centerTitle: true,
@@ -25,6 +26,7 @@ class MyTheme {
     colorScheme: const ColorScheme.light(),
     appBarTheme: AppBarTheme(
         titleTextStyle: TextStyle(
+            fontSize: 20,
             color: ColorResources().appBarTextIcon,
             fontWeight: FontWeight.bold),
         centerTitle: true,

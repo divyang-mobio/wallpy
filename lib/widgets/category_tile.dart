@@ -16,32 +16,32 @@ class CategoriesTile extends StatelessWidget {
           arguments: category),
       child: Stack(
         children: [
-          Container(
-            margin:
-                const EdgeInsets.only(top: 20, right: 10, bottom: 20, left: 5),
-            width: 120,
-            height: 80,
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: networkImages(category.imageLink, BoxFit.fitWidth)),
-          ),
-          Container(
-              margin: const EdgeInsets.only(
-                  top: 20, right: 10, bottom: 20, left: 5),
-              width: 100,
-              height: 80,
-              child: Align(
-                alignment: Alignment.center,
-                child: Text(category.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.clip,
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: ColorResources().textColorBlack)),
-              )),
+          categoryContainerForNews(ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: networkImages(category.imageLink, BoxFit.fitWidth))),
+          categoryContainerForNews(Align(
+            alignment: Alignment.center,
+            child: Text(category.title,
+                maxLines: 2,
+                overflow: TextOverflow.clip,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: ColorResources().textColorWhite)),
+          )),
         ],
       ),
     );
   }
+}
+
+Container categoryContainerForNews(Widget child) {
+  return Container(
+      margin: const EdgeInsets.only(top: 20, right: 10, bottom: 20, left: 5),
+      decoration: BoxDecoration(
+          color: ColorResources().newsScreenTextCategoryContainer,
+          borderRadius: BorderRadius.circular(15)),
+      width: 120,
+      height: 80,
+      child: child);
 }

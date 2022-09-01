@@ -4,6 +4,7 @@ import '../controllers/admin_visible_bloc/admin_visible_bloc.dart';
 import '../controllers/bottom_navigation_bloc/bottom_navigation_bloc.dart';
 import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import 'gradiant_screen.dart';
+import 'main_screen.dart';
 import 'weather_screen.dart';
 import '../controllers/auth_bloc/auth_bloc_bloc.dart';
 import '../models/navigation_model.dart';

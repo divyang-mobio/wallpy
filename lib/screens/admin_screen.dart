@@ -77,13 +77,11 @@ class _AdminScreenState extends State<AdminScreen> {
                 return Stack(
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * .4,
-                      width: MediaQuery.of(context).size.width * .5,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: networkImages(state.url, null),
-                      ),
-                    ),
+                        height: 338,
+                        width: 206,
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: networkImages(state.url, null))),
                     IconButton(
                         onPressed: () async {
                           try {
@@ -194,30 +192,29 @@ class _AdminScreenState extends State<AdminScreen> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * .8,
                       child: TextFormField(
-                        textCapitalization: TextCapitalization.words,
-                        onFieldSubmitted: (value) {
-                          if (value.contains(RegExp('^[a-zA-Z]+'))) {
-                            addNewCat();
-                          }
-                        },
-                        cursorColor:
-                            BlocProvider.of<DarkModeBloc>(context).isDark
-                                ? ColorResources().focusedBorderTextFieldDark
-                                : ColorResources().focusedBorderTextField,
-                        controller: textEditingController,
-                        decoration: InputDecoration(
-                          hintText: TextResources().addCatName,
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: BlocProvider.of<DarkModeBloc>(context)
-                                          .isDark
-                                      ? ColorResources()
-                                          .focusedBorderTextFieldDark
-                                      : ColorResources()
-                                          .focusedBorderTextField)),
-                        ),
-                        keyboardType: TextInputType.text,
-                      ),
+                          textCapitalization: TextCapitalization.words,
+                          onFieldSubmitted: (value) {
+                            if (value.contains(RegExp('^[a-zA-Z]+'))) {
+                              addNewCat();
+                            }
+                          },
+                          cursorColor:
+                              BlocProvider.of<DarkModeBloc>(context).isDark
+                                  ? ColorResources().focusedBorderTextFieldDark
+                                  : ColorResources().focusedBorderTextField,
+                          controller: textEditingController,
+                          decoration: InputDecoration(
+                              hintText: TextResources().addCatName,
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color:
+                                          BlocProvider.of<DarkModeBloc>(context)
+                                                  .isDark
+                                              ? ColorResources()
+                                                  .focusedBorderTextFieldDark
+                                              : ColorResources()
+                                                  .focusedBorderTextField))),
+                          keyboardType: TextInputType.text),
                     ),
                     const SizedBox(height: 10),
                     MaterialButton(
@@ -313,6 +310,6 @@ Container imageContainer(context, Widget child) => Container(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: ColorResources().uploadImgContainer),
-    height: MediaQuery.of(context).size.height * .4,
-    width: MediaQuery.of(context).size.width * .5,
+    height: 338,
+    width: 206,
     child: child);

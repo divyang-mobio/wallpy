@@ -24,7 +24,7 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
       children: [
         IconButton(
             onPressed: () async {
-              snackBar(TextResources().downloadImage, context);
+              // snackBar(TextResources().downloadImage, context);
               BlocProvider.of<DownloadImageBloc>(context)
                   .add(DownloadImageOfGradiant(color: widget.myColor));
             },

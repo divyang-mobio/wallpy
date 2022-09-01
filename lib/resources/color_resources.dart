@@ -7,6 +7,7 @@ class ColorResources {
   final Color detailScreenContainerDark = Colors.black.withOpacity(0.4);
   final Color detailScreenIcons = Colors.black;
   final Color detailScreenIconsDark = Colors.white;
+
   // final Color categoryContainerBorder = Colors.grey;
   // final Color categoryContainer = Colors.grey.shade100;
   // final Color categoryText = Colors.black;
@@ -19,6 +20,7 @@ class ColorResources {
   final Color textColorBlack = Colors.black;
   final Color textWhite24 = Colors.white24;
   final Color textFieldIcon = Colors.black;
+
   // final Color background = Colors.white;
   final Color shimmerBase = Colors.grey.shade300;
   final Color shimmerBaseDark = Colors.grey.shade900;
@@ -37,6 +39,7 @@ class ColorResources {
   final Color signUpInText = Colors.black;
   final Color newsDetailText = Colors.black;
   final Color newsDetailTextDark = Colors.white;
+  final Color newsScreenTextCategoryContainer = Colors.black.withOpacity(0.4);
   final Color activeSwitch = Colors.black;
   final MaterialColor? primarySwatch = Colors.grey;
   final MaterialColor? primarySwatchDark = Colors.grey;
@@ -49,7 +52,7 @@ class ColorResources {
   final List<Color> pickerGradiantDefault = [Colors.blue, Colors.red];
   final List<Color> pickerGradiantEmpty = [Colors.white, Colors.white];
   final Color chipShadow = Colors.black;
-  final Color chipShadowDark =Colors.white;
-  final Color uploadImgContainer =Colors.grey;
-  final Color removeImageButtonAtAdminScreen =Colors.red;
+  final Color chipShadowDark = Colors.white;
+  final Color uploadImgContainer = Colors.grey;
+  final Color removeImageButtonAtAdminScreen = Colors.red;
 }
