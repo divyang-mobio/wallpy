@@ -28,7 +28,6 @@ class ColorResources {
   final Color shimmerHighlightDark = Colors.grey.shade700;
   final Color selectedItemInNavigationBar = Colors.black;
   final Color selectedItemInNavigationBarDark = Colors.white;
-  final Color selectedFavoriteItemInNavigationBar = Colors.red;
   final Color signInButton = Colors.amber;
   final Color boxShadow = Colors.black12;
   final Color circularProgress = Colors.white;

@@ -95,11 +95,8 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                       label: i.label),
               ],
               currentIndex: state.index,
-              selectedItemColor: (state.index == 3)
-                  ? ColorResources().selectedFavoriteItemInNavigationBar
-                  : BlocProvider.of<DarkModeBloc>(context).isDark
-                      ? ColorResources().selectedItemInNavigationBarDark
-                      : ColorResources().selectedItemInNavigationBar,
+              selectedItemColor:
+                  Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
               onTap: _onItemTapped),
         );
       } else {
