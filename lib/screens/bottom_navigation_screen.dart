@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../controllers/admin_visible_bloc/admin_visible_bloc.dart';
 import '../controllers/bottom_navigation_bloc/bottom_navigation_bloc.dart';
-import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import 'gradiant_screen.dart';
-import 'main_screen.dart';
 import 'weather_screen.dart';
 import '../controllers/auth_bloc/auth_bloc_bloc.dart';
 import '../models/navigation_model.dart';
@@ -87,13 +85,12 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
               elevation: 0.0,
               type: BottomNavigationBarType.fixed,
               showUnselectedLabels: false,
-              items: <BottomNavigationBarItem>[
-                for (var i in bottomData)
-                  BottomNavigationBarItem(
-                      icon: Icon(i.icon),
-                      activeIcon: Icon(i.actionIcon),
-                      label: i.label),
-              ],
+              items: bottomData
+                  .map((e) => BottomNavigationBarItem(
+                      icon: Icon(e.icon),
+                      activeIcon: Icon(e.actionIcon),
+                      label: e.label))
+                  .toList(),
               currentIndex: state.index,
               selectedItemColor:
                   Theme.of(context).bottomNavigationBarTheme.selectedItemColor,

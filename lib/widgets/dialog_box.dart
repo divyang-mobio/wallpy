@@ -9,16 +9,14 @@ dialog(context, String title, List<SettingModel> dialogData) {
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            actions: [
-              for (var data in dialogData)
-                CupertinoDialogAction(
-                  onPressed: () {
-                    Navigator.pop(context, data.onclick);
-                  },
-                  child: Text(data.title),
-                )
-            ],
-          );
+              actions: dialogData
+                  .map((data) => CupertinoDialogAction(
+                        onPressed: () {
+                          Navigator.pop(context, data.onclick);
+                        },
+                        child: Text(data.title),
+                      ))
+                  .toList());
         });
   } else {
     return showDialog<void>(
@@ -26,17 +24,17 @@ dialog(context, String title, List<SettingModel> dialogData) {
         barrierDismissible: true,
         builder: (BuildContext context) {
           return SimpleDialog(
-            title: Text(title, style: Theme.of(context).textTheme.headline5),
-            children: <Widget>[
-              for (var data in dialogData)
-                SimpleDialogOption(
-                  onPressed: () {
-                    Navigator.pop(context, data.onclick);
-                  },
-                  child: Text(data.title),
-                ),
-            ],
-          );
+              title: Text(title, style: Theme.of(context).textTheme.headline5),
+              children: dialogData
+                  .map(
+                    (data) => SimpleDialogOption(
+                      onPressed: () {
+                        Navigator.pop(context, data.onclick);
+                      },
+                      child: Text(data.title),
+                    ),
+                  )
+                  .toList());
         });
   }
 }
