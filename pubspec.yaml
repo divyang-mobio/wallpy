@@ -105,7 +105,7 @@ flutter:
     - assets/images/
     - assets/black_preloading.gif
     - assets/preloading_dark.gif
-    - assets/successful.gif
+#    - assets/successful.gif
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
