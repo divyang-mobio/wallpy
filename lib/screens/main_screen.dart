@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wallpy/utils/store_data.dart';
 import '../controllers/data_fetch_bloc/data_fetch_bloc.dart';
 import '../resources/resources.dart';
 import '../widgets/gridview.dart';

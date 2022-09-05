@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wallpy/screens/redirect_screen.dart';
 import '../models/navigation_model.dart';
 import '../models/news_category_model.dart';
+import '../screens/admin_screen.dart';
 import '../screens/bottom_navigation_screen.dart';
 import '../screens/detail_news_screen.dart';
 import '../screens/detail_screen.dart';
@@ -44,6 +45,8 @@ class RouteGenerator {
         final args = setting.arguments as DetailGradiantScreenArgument;
         return MaterialPageRoute(
             builder: (context) => DetailGradiantScreen(myColor: args.myColor));
+      case "/Admin":
+        return MaterialPageRoute(builder: (context) => const AdminScreen());
       case "/redirect":
         return MaterialPageRoute(builder: (context) => RedirectScreen());
       case "/newCategory":
