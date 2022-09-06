@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:wallpy/resources/extension/text_extension.dart';
 import 'package:wallpy/screens/category_detail_screen.dart';
+import 'package:wallpy/widgets/shimmer_loading.dart';
 
 class OccasionDetailScreen extends StatelessWidget {
   final List<Map> data;
@@ -10,8 +12,35 @@ class OccasionDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Set<String> monthName =
-        data.map((element) => element['month'].toString()).toSet();
+    String month = DateFormat('MMMM').format(DateTime.now());
+    print('month=== ${month}');
+
+    List<String> _monthName =
+        data.map((element) => element['month'].toString()).toSet().toList();
+
+    List<String> monthName = [];
+
+    for (int i = 0; i < _monthName.length; i++) {
+      if (i ==
+          _monthName.indexOf(
+              _monthName.firstWhere((element) => element.contains(month)))) {
+        print(_monthName.elementAt(i));
+        monthName.add(_monthName.elementAt(i));
+      }
+
+      if (i >
+          _monthName.indexOf(
+              _monthName.firstWhere((element) => element.contains(month)))) {
+        monthName.add(_monthName.elementAt(i));
+      }
+    }
+    for (int i = 0; i < _monthName.length; i++) {
+      if (i <
+          _monthName.indexOf(
+              _monthName.firstWhere((element) => element.contains(month)))) {
+        monthName.add(_monthName.elementAt(i));
+      }
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -23,7 +52,7 @@ class OccasionDetailScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: ListView.builder(
-                    shrinkWrap: true,
+                    shrinkWrap: false,
                     itemCount: monthName.length,
                     itemBuilder: (context, index) {
                       return Column(
@@ -55,100 +84,101 @@ class OccasionDetailScreen extends StatelessWidget {
                                           .elementAt(index)
                                           .toLowerCase()));
 
-                              return ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 3,
-                                  itemBuilder: (context, monthindex) {
-                                    final Map<dynamic, dynamic> month =
-                                        selectMonthList.elementAt(monthindex);
-                                    return monthindex == 2
-                                        ? Container(
-                                            margin: const EdgeInsets.symmetric(
-                                                vertical: 20, horizontal: 10),
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.4,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.2,
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            decoration: BoxDecoration(
-                                                image:
-                                                    month['image_url'] == null
-                                                        ? null
-                                                        : DecorationImage(
-                                                            fit: BoxFit.fill,
-                                                            image: NetworkImage(
-                                                              month['image_url']
-                                                                  .toString(),
-                                                            )),
-                                                //   color: Colors.grey.shade300,
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: const Center(
-                                              child: Text(
-                                                'More',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.w700),
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (ctx) {
+                                    return CategoryDetailScreen(
+                                      data: selectMonthList.toList(),
+                                      title: monthName
+                                          .elementAt(index)
+                                          .toString()
+                                          .firstCaps(),
+                                    );
+                                  }));
+                                },
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 3,
+                                    itemBuilder: (context, monthindex) {
+                                      final Map<dynamic, dynamic> month =
+                                          selectMonthList.elementAt(monthindex);
+                                      return month.length > 2 && monthindex == 2
+                                          ? Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 20,
+                                                      horizontal: 10),
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.5,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.2,
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              decoration: BoxDecoration(
+                                                  image: month['image_url'] ==
+                                                          null
+                                                      ? null
+                                                      : DecorationImage(
+                                                          fit: BoxFit.fill,
+                                                          image: NetworkImage(
+                                                            month['image_url']
+                                                                .toString(),
+                                                          )),
+                                                  //   color: Colors.grey.shade300,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: const Center(
+                                                child: Text(
+                                                  'More',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                ),
                                               ),
-                                            ),
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 10),
-                                            child: InkWell(
-                                                onTap: () {
-                                                  Navigator.push(context,
-                                                      MaterialPageRoute(
-                                                          builder: (ctx) {
-                                                    return CategoryDetailScreen(
-                                                      data: selectMonthList
-                                                          .toList(),
-                                                      title: monthName
-                                                          .elementAt(index)
-                                                          .toString()
-                                                          .firstCaps(),
-                                                    );
-                                                  }));
-                                                },
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.4,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.2,
-                                                    clipBehavior: Clip
-                                                        .antiAliasWithSaveLayer,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    child: Hero(
-                                                      tag: 1,
-                                                      child: Image.network(
-                                                        month['image_url']
-                                                            .toString(),
-                                                        fit: BoxFit.fill,
-                                                      ),
+                                            )
+                                          : Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.5,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.2,
+                                                  clipBehavior: Clip
+                                                      .antiAliasWithSaveLayer,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  child: Hero(
+                                                    tag: month,
+                                                    child: Image.network(
+                                                      month['image_url']
+                                                          .toString(),
+                                                      fit: BoxFit.fill,
                                                     ),
                                                   ),
-                                                )));
-                                  });
+                                                ),
+                                              ));
+                                    }),
+                              );
                             }),
                           ),
                           const SizedBox(

@@ -19,13 +19,14 @@ class DataFetchBloc extends Bloc<DataFetchEvent, DataFetchState> {
     emit(DataFetchLoading());
     try {
       List<Object> data = [];
-      String month = DateFormat('MMMM').format(DateTime.now());
-      List<Object> monthdata = [];
-      monthdata.addAll(await _firebaseDatabase.getAllData(
-          null, false, month.toString(), event.isRefresh, true));
+      // String month = DateFormat('MMMM').format(DateTime.now());
+      // print('month=== ${month}');
+      //  List<Object> monthdata = [];
+      // monthdata.addAll(await _firebaseDatabase.getAllData(
+      //     null, false, month.toString(), event.isRefresh, true));
       data.addAll(await _firebaseDatabase.getAllData(
           null, false, null, event.isRefresh, true));
-      emit(DataFetchLoaded(data: [...monthdata, ...data]));
+      // emit(DataFetchLoaded(data: [...monthdata, ...data]));
     } catch (e) {
       emit(DataFetchError());
     }
@@ -34,6 +35,7 @@ class DataFetchBloc extends Bloc<DataFetchEvent, DataFetchState> {
   void _getAllData(GetAllData event, Emitter<DataFetchState> emit) async {
     try {
       List<Object> data = [];
+
       data.addAll(await _firebaseDatabase.getAllData(
           event.category, event.isFavorite, null, false, true));
       emit(DataFetchLoaded(data: data));

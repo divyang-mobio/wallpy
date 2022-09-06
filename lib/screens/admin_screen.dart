@@ -19,6 +19,9 @@ class AdminScreen extends StatefulWidget {
 
 class _AdminScreenState extends State<AdminScreen> {
   TextEditingController textEditingController = TextEditingController();
+
+  TextEditingController monthEditingController = TextEditingController();
+
   List<String> myCategory = [];
   String? url;
   String? name;
@@ -136,6 +139,29 @@ class _AdminScreenState extends State<AdminScreen> {
               ),
             ),
             const SizedBox(height: 10),
+
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .8,
+              child: TextField(
+                cursorColor: BlocProvider.of<DarkModeBloc>(context).isDark
+                    ? ColorResources().focusedBorderTextFieldDark
+                    : ColorResources().focusedBorderTextField,
+                controller: monthEditingController,
+                decoration: InputDecoration(
+                  hintText: TextResources().addCatName,
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: BlocProvider.of<DarkModeBloc>(context).isDark
+                              ? ColorResources().focusedBorderTextFieldDark
+                              : ColorResources().focusedBorderTextField)),
+                ),
+                keyboardType: TextInputType.text,
+                onSubmitted: (s) => testText(),
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
             MaterialButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
@@ -201,9 +227,14 @@ class _AdminScreenState extends State<AdminScreen> {
                                     ? TextResources().whenImgNotThere
                                     : TextResources().whenCatNotThere);
                       } else {
-                        BlocProvider.of<UploadDataFireStoreBloc>(context).add(
-                            UploadData(
-                                url: url!, name: name!, category: myCategory));
+                        BlocProvider.of<UploadDataFireStoreBloc>(context)
+                            .add(UploadData(
+                          month: monthEditingController.text,
+                          url: url!,
+                          name: name!,
+                          category: myCategory,
+                          //month: monthEditingController.text,
+                        ));
                       }
                     },
                     child: Text(TextResources().submitItemToFireStore));

@@ -1,9 +1,11 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 import 'controllers/add_category_bloc/add_category_bloc.dart';
 import 'controllers/bottom_navigation_bloc/bottom_navigation_bloc.dart';
 import 'controllers/detail_screen_bloc/detail_screen_bloc.dart';
@@ -72,6 +74,7 @@ Future<void> main() async {
   );
   // NotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
   runApp(const MyApp());
 }
 
@@ -88,6 +91,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+
 
     /// open app from terminated state
     FirebaseMessaging.instance.getInitialMessage().then((event) {
@@ -159,7 +163,8 @@ class _MyAppState extends State<MyApp> {
                     myColor: ColorResources().pickerGradiantDefault))),
           BlocProvider<UploadImageBloc>(create: (context) => UploadImageBloc()),
           BlocProvider<AddCategoryBloc>(create: (context) => AddCategoryBloc()),
-          BlocProvider<DownloadImageBloc>(create: (context) => DownloadImageBloc()),
+          BlocProvider<DownloadImageBloc>(
+              create: (context) => DownloadImageBloc()),
           BlocProvider<UploadDataFireStoreBloc>(
               create: (context) => UploadDataFireStoreBloc()),
           BlocProvider<AdminVisibleBloc>(
