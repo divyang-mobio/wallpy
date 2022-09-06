@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../controllers/data_fetch_bloc/data_fetch_bloc.dart';
 import '../resources/resources.dart';
 import '../widgets/gridview.dart';
@@ -40,7 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
         if (state is DataFetchLoading) {
           return shimmer(context, true);
         } else if (state is DataFetchLoaded) {
-          return gridView(state.data, _scrollController, false);
+          return RefreshIndicator(
+              onRefresh: () async {
+                BlocProvider.of<DataFetchBloc>(context)
+                    .add(OnRefresh(isRefresh: true));
+                return;
+              },
+              child: gridView(state.data, _scrollController, false));
         } else if (state is DataFetchError) {
           return Center(child: Text(TextResources().blocError));
         } else {

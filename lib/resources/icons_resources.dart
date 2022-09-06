@@ -6,6 +6,7 @@ class IconsResources {
   final setWallpaperFromDetailScreen = Icons.now_wallpaper_rounded;
   final homeScreenUnSelected = Icons.home_outlined;
   final homeScreenSelected = Icons.home;
+  final gradiantScreenUnSelectedSelected = Icons.gradient;
   final settingScreenUnSelected = Icons.settings_outlined;
   final settingScreenSelected = Icons.settings;
   final favouriteScreenUnSelected = Icons.favorite_border;
@@ -23,10 +24,9 @@ class IconsResources {
   final back = Icons.arrow_back_ios_new;
   final weatherIconSelected = Icons.cloud;
   final weatherIconUnselected = Icons.cloud_outlined;
-
+  final removeImageAtAdminScreen = Icons.cancel_outlined;
+  final dropDown = Icons.keyboard_arrow_down;
   final logout = Icons.logout;
-
-  final searchBack = Icons.arrow_back_ios_new;
   final logOut = Icons.logout_rounded;
   final openUrl = Icons.launch;
   final share = Icons.share;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallpy/widgets/network_image.dart';
 import '../models/news_category_model.dart';
 import '../resources/resources.dart';
 
@@ -13,21 +14,34 @@ class CategoriesTile extends StatelessWidget {
       onTap: () => Navigator.pushNamed(
           context, TextResources().newsCategoryScreenRoute,
           arguments: category),
-      child: Container(
-          margin:
-              const EdgeInsets.only(top: 20, right: 10, bottom: 20, left: 5),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15)),
-          width: 100,
-          child: Align(
+      child: Stack(
+        children: [
+          categoryContainerForNews(ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: networkImages(category.imageLink, BoxFit.fitWidth))),
+          categoryContainerForNews(Align(
             alignment: Alignment.center,
-            child: Text(
-              category.title,
-              maxLines: 2,
-              overflow: TextOverflow.clip,
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-            ),
+            child: Text(category.title,
+                maxLines: 2,
+                overflow: TextOverflow.clip,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: ColorResources().textColorWhite)),
           )),
+        ],
+      ),
     );
   }
+}
+
+Container categoryContainerForNews(Widget child) {
+  return Container(
+      margin: const EdgeInsets.only(top: 20, right: 10, bottom: 20, left: 5),
+      decoration: BoxDecoration(
+          color: ColorResources().newsScreenTextCategoryContainer,
+          borderRadius: BorderRadius.circular(15)),
+      width: 120,
+      height: 80,
+      child: child);
 }

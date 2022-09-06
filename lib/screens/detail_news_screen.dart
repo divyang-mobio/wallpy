@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../widgets/appicon_text.dart';
+import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../widgets/network_image.dart';
 import '../resources/resources.dart';
 import '../models/articles_model.dart';
-import '../widgets/theme.dart';
 
 class DetailNewsScreen extends StatefulWidget {
   const DetailNewsScreen({Key? key, required this.articles}) : super(key: key);
@@ -21,17 +20,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        iconTheme: IconThemeData(
-            color: Provider.of<ThemeProvider>(context).isDarkMode
-                ? ColorResources().appBarTextIconDark
-                : ColorResources().appBarTextIcon),
-        backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
-            ? ColorResources().appBarDark
-            : ColorResources().appBar,
-        title: Text(TextResources().newsDetailAppTitle,
-            style: appBarTextStyle(context)),
-        elevation: 0.0,
+        title: Text(TextResources().newsDetailAppTitle),
         actions: [
           IconButton(
               onPressed: () => Share.share("""${widget.articles.title}
@@ -57,7 +46,7 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
             SizedBox(
                 height: 300,
                 width: double.infinity,
-                child: networkImages(widget.articles.urlToImage.toString())),
+                child: networkImages(widget.articles.urlToImage.toString(), null)),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               child: Column(
@@ -83,13 +72,13 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
                   const SizedBox(height: 20),
                   Text(widget.articles.title.toString(),
                       style: Theme.of(context).textTheme.headline4?.copyWith(
-                          color: Provider.of<ThemeProvider>(context).isDarkMode
+                          color: BlocProvider.of<DarkModeBloc>(context).isDark
                               ? ColorResources().newsDetailTextDark
                               : ColorResources().newsDetailText)),
                   const SizedBox(height: 20),
                   Text(widget.articles.description.toString(),
                       style: Theme.of(context).textTheme.headline6?.copyWith(
-                          color: Provider.of<ThemeProvider>(context).isDarkMode
+                          color: BlocProvider.of<DarkModeBloc>(context).isDark
                               ? ColorResources().newsDetailTextDark
                               : ColorResources().newsDetailText)),
                   const SizedBox(height: 20),

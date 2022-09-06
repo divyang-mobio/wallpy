@@ -1,12 +1,15 @@
-import 'package:dio/dio.dart';
+import 'dart:io';
+
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+import 'package:http/http.dart ' as http;
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
-import '../widgets/theme.dart';
+import 'package:share_plus/share_plus.dart';
+import '../controllers/detail_screen_bloc/detail_screen_bloc.dart';
+import '../controllers/download_image_bloc/download_image_bloc.dart';
 import '../controllers/favorite_bloc/favorite_bloc.dart';
+import '../widgets/detail_screen_widgets.dart';
 import '../widgets/wallpaper_setter.dart';
 import '../resources/resources.dart';
 import '../models/data_model.dart';
@@ -21,8 +24,36 @@ class DetailScreen extends StatefulWidget {
   State<DetailScreen> createState() => _DetailScreenState();
 }
 
+String text = '';
+String subject = '';
+List<String> imagePaths = [];
+
 class _DetailScreenState extends State<DetailScreen> {
-  bool vis = true;
+  Widget rowIcon() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+            onPressed: () async {
+              BlocProvider.of<DownloadImageBloc>(context)
+                  .add(DownloadImageOfWallpaper(url: widget.dataModel.url));
+            },
+            icon: icons(context, IconsResources().download)),
+        IconButton(
+            onPressed: () async {
+              int? location = await bottomSheet(context,
+                  TextResources().bottomSheetTitle, bottomSheetScreenData);
+              if (location != null) {
+                wallpaperSetter(widget.dataModel.url, location);
+              }
+            },
+            icon:
+                icons(context, IconsResources().setWallpaperFromDetailScreen)),
+        FavoriteIcon(dataModel: widget.dataModel),
+        IconButton(onPressed: () => onShare(context), icon: Icon(Icons.share))
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,93 +61,50 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Stack(
         children: [
           GestureDetector(
-            onLongPressStart: (start) => setState(() => vis = false),
-            onLongPressEnd: (end) => setState(() => vis = true),
+            onLongPressStart: (start) =>
+                BlocProvider.of<DetailScreenBloc>(context)
+                    .add(OnTab(isVis: false)),
+            onLongPressEnd: (end) => BlocProvider.of<DetailScreenBloc>(context)
+                .add(OnTab(isVis: true)),
             child: Hero(
               tag: widget.dataModel.name,
               child: SizedBox(
                 height: double.infinity,
                 width: double.infinity,
-                child: networkImages(widget.dataModel.url),
+                child: networkImages(widget.dataModel.url, null),
               ),
             ),
           ),
-          Visibility(
-            maintainState: true,
-            visible: vis,
-            child: Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: Icon(IconsResources().back,
-                          color: Provider.of<ThemeProvider>(context).isDarkMode
-                              ? ColorResources().appBarTextIconDark
-                              : ColorResources().appBarTextIcon)),
-                )),
+          BlocBuilder<DetailScreenBloc, DetailScreenState>(
+            builder: (context, state) => (state is DetailScreenLoaded)
+                ? backIcon(context, state.isVis)
+                : backIcon(context, true),
           ),
-          Visibility(
-            maintainState: true,
-            visible: vis,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Provider.of<ThemeProvider>(context).isDarkMode
-                        ? ColorResources().detailScreenContainerDark
-                        : ColorResources().detailScreenContainer,
-                    borderRadius: const BorderRadius.all(Radius.circular(20))),
-                margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
-                height: 80,
-                width: MediaQuery.of(context).size.width * .8,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                        onPressed: () async {
-                          snackBar(TextResources().downloadImage, context);
-                          final tempDir = await getTemporaryDirectory();
-                          final path =
-                              '${tempDir.path}/${widget.dataModel.name}';
-                          await Dio().download(widget.dataModel.url, path);
-                          GallerySaver.saveImage(path).whenComplete(() =>
-                              snackBar(
-                                  TextResources().successDownloaded, context));
-                        },
-                        icon: icons(context, IconsResources().download)),
-                    IconButton(
-                        onPressed: () async {
-                          int? location = await bottomSheet(
-                              context,
-                              TextResources().bottomSheetTitle,
-                              bottomSheetScreenData);
-                          if (location != null) {
-                            wallpaperSetter(widget.dataModel.url, location);
-                          }
-                        },
-                        icon: icons(context,
-                            IconsResources().setWallpaperFromDetailScreen)),
-                    FavoriteIcon(dataModel: widget.dataModel)
-                  ],
-                ),
-              ),
-            ),
-          )
+          BlocBuilder<DetailScreenBloc, DetailScreenState>(
+            builder: (context, state) => (state is DetailScreenLoaded)
+                ? allIcons(context, state.isVis, rowIcon())
+                : allIcons(context, true, rowIcon()),
+          ),
         ],
       ),
     );
   }
-}
 
-Icon icons(context, IconData iconData) {
-  return Icon(
-    size: 30,
-    iconData,
-    color: Provider.of<ThemeProvider>(context).isDarkMode
-        ? ColorResources().detailScreenIconsDark
-        : ColorResources().detailScreenIcons,
-  );
+  void onShare(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final imageUrl = Uri.parse(widget.dataModel.url.toString());
+    final http.Response response = await http.get(imageUrl);
+    final bytes = response.bodyBytes;
+    final temp = await getTemporaryDirectory();
+    final path = '${temp.path}/${widget.dataModel.name}.jpg';
+
+    File file = await File(path).writeAsBytes(bytes);
+    print('urllllll....... ${widget.dataModel.url}');
+    print('imagePaths====${file.path}');
+    await Share.shareFiles([path],
+        subject: subject,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+  }
 }
 
 class FavoriteIcon extends StatefulWidget {
@@ -149,8 +137,4 @@ class _FavoriteIconState extends State<FavoriteIcon> {
                 ? IconsResources().removeFavorite
                 : IconsResources().addFavorite));
   }
-}
-
-void snackBar(String data, context) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
 }

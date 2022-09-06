@@ -1,28 +1,38 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:provider/provider.dart';
-import 'package:wallpy/screens/bottom_navigation_screen.dart';
-import 'package:wallpy/screens/main_screen.dart';
-import 'package:wallpy/screens/welcome_screen.dart';
-import 'package:wallpy/widgets/theme.dart';
+
+import 'package:oktoast/oktoast.dart';
+import 'controllers/add_category_bloc/add_category_bloc.dart';
+import 'controllers/add_other_category_bloc/add_other_category_bloc.dart';
+import 'controllers/bottom_navigation_bloc/bottom_navigation_bloc.dart';
+import 'controllers/detail_screen_bloc/detail_screen_bloc.dart';
+import 'controllers/download_image_bloc/download_image_bloc.dart';
+import 'controllers/month_selected_bloc/month_selected_bloc.dart';
+import 'controllers/service_bloc/service_bloc.dart';
+import 'controllers/upload_data_fireStore_bloc/upload_data_fire_store_bloc.dart';
+import 'controllers/upload_image_bloc/upload_image_bloc.dart';
+import 'utils/store_data.dart';
+import 'widgets/theme.dart';
+import 'controllers/admin_visible_bloc/admin_visible_bloc.dart';
+import 'controllers/dark_mode_bloc/dark_mode_bloc.dart';
+import 'controllers/gradiant_bloc/gradiant_bloc.dart';
 import 'controllers/new_category_bloc/news_category_bloc.dart';
-import 'package:wallpy/controllers/news_data_fetch_bloc/news_data_fetch_bloc.dart';
-import 'package:wallpy/controllers/category_bloc/category_bloc.dart';
-import 'package:wallpy/controllers/weather_bloc/weather_bloc.dart';
-import 'package:wallpy/models/weather_model.dart';
-import 'package:wallpy/utils/auth_repository.dart';
-import 'package:wallpy/utils/news_api_calling.dart';
+import 'controllers/news_data_fetch_bloc/news_data_fetch_bloc.dart';
+import 'controllers/category_bloc/category_bloc.dart';
+import 'controllers/weather_bloc/weather_bloc.dart';
+import 'models/weather_model.dart';
+import 'utils/auth_repository.dart';
+import 'utils/news_api_calling.dart';
 import 'widgets/route.dart';
-import 'package:wallpy/utils/http_requets.dart';
-import 'package:wallpy/utils/notification.dart';
+import 'utils/http_requets.dart';
+import 'utils/notification.dart';
 import 'package:workmanager/workmanager.dart';
 import 'controllers/auth_bloc/auth_bloc_bloc.dart';
-import 'controllers/category_bloc/category_bloc.dart';
 import 'controllers/favorite_bloc/favorite_bloc.dart';
 import 'controllers/search_bloc/search_bloc.dart';
 import 'controllers/data_fetch_bloc/data_fetch_bloc.dart';
@@ -67,6 +77,7 @@ Future<void> main() async {
   );
   // NotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
   runApp(const MyApp());
 }
 
@@ -79,17 +90,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String initialRoute = TextResources().splashScreenRoute;
-  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
+
   @override
   void initState() {
     super.initState();
+
 
     /// open app from terminated state
     FirebaseMessaging.instance.getInitialMessage().then((event) {
       if (event != null) {
         final route = event.data["route"];
-        // ignore: avoid_print
-        print(route);
         if (route.toString() == "2") {
           initialRoute == TextResources().homeScreenRoute;
         }
@@ -120,69 +130,108 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<FirebaseDatabase>(
             create: (context) => (FirebaseDatabase())),
         RepositoryProvider<AuthRepository>(
-          create: (context) => AuthRepository(),
-        ),
-        RepositoryProvider<GoogleSignIn>(
-          create: (context) => GoogleSignIn(),
-        ),
-        RepositoryProvider<HttpService>(
-          create: (context) => HttpService(),
-        ),
-        RepositoryProvider<HttpRequests>(
-          create: (context) => HttpRequests(),
-        ),
+            create: (context) => AuthRepository()),
+        RepositoryProvider<GoogleSignIn>(create: (context) => GoogleSignIn()),
+        RepositoryProvider<HttpService>(create: (context) => HttpService()),
+        RepositoryProvider<HttpRequests>(create: (context) => HttpRequests()),
+        RepositoryProvider<PreferenceServices>(
+            create: (context) => PreferenceServices()),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<DataFetchBloc>(
-            create: (context) =>
-                DataFetchBloc(RepositoryProvider.of<FirebaseDatabase>(context))
-                  ..add(GetAllData(isFavorite: false, category: null)),
-          ),
+              create: (context) => DataFetchBloc(
+                  RepositoryProvider.of<FirebaseDatabase>(context))
+                ..add(GetAllData(isFavorite: false, category: null))),
+          BlocProvider<DarkModeBloc>(
+              create: (context) => DarkModeBloc(
+                  RepositoryProvider.of<PreferenceServices>(context))
+                ..add(Check())),
+          BlocProvider<DetailScreenBloc>(
+              create: (context) => DetailScreenBloc()..add(OnTab(isVis: true))),
+          BlocProvider<BottomNavigationBloc>(
+              create: (context) =>
+                  BottomNavigationBloc()..add(OnChangeBar(index: 0))),
+          BlocProvider<GradiantBloc>(
+              create: (context) => GradiantBloc()
+                ..add(SelectedColor(
+                    myColor: ColorResources().pickerGradiantDefault))),
+          BlocProvider<MonthSelectedBloc>(
+              create: (context) => MonthSelectedBloc(monthData)),
+          BlocProvider<UploadImageBloc>(create: (context) => UploadImageBloc()),
+          BlocProvider<AddCategoryBloc>(create: (context) => AddCategoryBloc()),
+          BlocProvider<DownloadImageBloc>(
+              create: (context) => DownloadImageBloc()),
+          BlocProvider<AddCategoryBloc>(
+              create: (context) => AddCategoryBloc()..add(ShowCategory())),
+          BlocProvider<AddOtherCategoryBloc>(
+              create: (context) => AddOtherCategoryBloc()),
+          BlocProvider<UploadDataFireStoreBloc>(
+              create: (context) => UploadDataFireStoreBloc()),
+          BlocProvider<AdminVisibleBloc>(
+              create: (context) => AdminVisibleBloc(CheckAdminFireStore(),
+                  RepositoryProvider.of<PreferenceServices>(context))
+                ..add(CheckAdmin())),
+          BlocProvider<ServiceBloc>(
+              create: (context) => ServiceBloc()
+                ..add(CheckService(
+                    pref: RepositoryProvider.of<PreferenceServices>(context)))),
           BlocProvider<FavoriteBloc>(
               create: (context) => FavoriteBloc(FirebaseDatabase())
                 ..add(GetFavoriteData(isFavorite: true, category: null))),
-          BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
+          BlocProvider<SearchBloc>(
+              create: (context) =>
+                  SearchBloc(RepositoryProvider.of<FirebaseDatabase>(context))),
           BlocProvider<CategoryBloc>(
-            create: (context) =>
-                CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
-                  ..add(const GetAllCategory(category: [])),
-          ),
+              create: (context) =>
+                  CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
+                    ..add(const GetAllCategory(category: []))),
           BlocProvider<NewsDataFetchBloc>(
               create: (context) =>
                   NewsDataFetchBloc(RepositoryProvider.of<HttpService>(context))
                     ..add(GetAllNewsData(url: TextResources().url))),
           BlocProvider<AuthBlocBloc>(
-            create: (context) => AuthBlocBloc(
-                authRepository: RepositoryProvider.of<AuthRepository>(context),
-                googleSignIn: RepositoryProvider.of<GoogleSignIn>(context)),
-          ),
+              create: (context) => AuthBlocBloc(
+                  authRepository:
+                      RepositoryProvider.of<AuthRepository>(context),
+                  googleSignIn: RepositoryProvider.of<GoogleSignIn>(context))),
           BlocProvider<NewsCategoryBloc>(
               create: (context) => NewsCategoryBloc()),
           BlocProvider<CategoryBloc>(
-            create: (context) =>
-                CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
-                  ..add(const GetAllCategory(category: [])),
-          ),
+              create: (context) =>
+                  CategoryBloc(RepositoryProvider.of<FirebaseDatabase>(context))
+                    ..add(const GetAllCategory(category: []))),
           BlocProvider<WeatherBloc>(
-            create: (context) =>
-                WeatherBloc(RepositoryProvider.of<HttpRequests>(context))
-                  ..add(const GetAllWeather(weather: null)),
-          ),
+              create: (context) =>
+                  WeatherBloc(RepositoryProvider.of<HttpRequests>(context))
+                    ..add(const GetAllWeather(weather: null))),
         ],
-        child: ChangeNotifierProvider<ThemeProvider>(
-            create: (_) => ThemeProvider()..theme(),
-            builder: (context, _) {
-              return MaterialApp(
+        child:
+            BlocBuilder<DarkModeBloc, DarkModeState>(builder: (context, state) {
+          if (state is DarkModeLoaded) {
+            return OKToast(
+              child: MaterialApp(
                   debugShowCheckedModeBanner: false,
                   title: TextResources().appTitle,
-                  themeMode: Provider.of<ThemeProvider>(context).themeMode,
+                  themeMode: state.themeMode,
                   darkTheme: MyTheme.darkTheme,
                   theme: MyTheme.lightTheme,
                   onGenerateRoute: RouteGenerator.generateRoute,
-                  //   home:
-                  initialRoute: initialRoute);
-            }),
+                  initialRoute: initialRoute),
+            );
+          } else {
+            return OKToast(
+              child: MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: TextResources().appTitle,
+                  themeMode: ThemeMode.light,
+                  darkTheme: MyTheme.darkTheme,
+                  theme: MyTheme.lightTheme,
+                  onGenerateRoute: RouteGenerator.generateRoute,
+                  initialRoute: initialRoute),
+            );
+          }
+        }),
       ),
     );
   }

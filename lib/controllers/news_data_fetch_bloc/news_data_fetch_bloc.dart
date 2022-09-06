@@ -14,6 +14,7 @@ class NewsDataFetchBloc extends Bloc<NewsDataFetchEvent, NewsDataFetchState> {
 
   _getAllNewsData(
       GetAllNewsData event, Emitter<NewsDataFetchState> emit) async {
+    emit(NewsDataFetchLoading());
     try {
       emit(NewsDataFetchLoaded(data: await httpService.getData(event.url)));
     } catch (e) {

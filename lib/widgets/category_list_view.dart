@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wallpy/resources/resources.dart';
 import 'package:wallpy/screens/category_detail_screen.dart';
 import 'package:wallpy/screens/main_screen.dart';
+import 'package:wallpy/screens/occasion_detail_screen.dart';
 import 'package:wallpy/widgets/network_image.dart';
 
 class CategoryListView extends StatelessWidget {
@@ -13,9 +14,8 @@ class CategoryListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
+        SizedBox(
             height: MediaQuery.of(context).size.height * 0.14,
-            // color: ColorResources().categoryColor,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: data.length,
@@ -24,16 +24,23 @@ class CategoryListView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: InkWell(
                           onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (ctx) {
-                              return CategoryDetailScreen(
-                                data: data.elementAt(index)['data'],
-                                title: data
-                                    .elementAt(index)['name']
-                                    .toString()
-                                    .toUpperCase(),
-                              );
-                            }));
+                            data.elementAt(index)['name'] == 'occasion'
+                                ? Navigator.push(context,
+                                    MaterialPageRoute(builder: (ctx) {
+                                    return OccasionDetailScreen(
+                                        title: data.elementAt(index)['name'],
+                                        data: data.elementAt(index)['data']);
+                                  }))
+                                : Navigator.push(context,
+                                    MaterialPageRoute(builder: (ctx) {
+                                    return CategoryDetailScreen(
+                                      data: data.elementAt(index)['data'],
+                                      title: data
+                                          .elementAt(index)['name']
+                                          .toString()
+                                          .toUpperCase(),
+                                    );
+                                  }));
                           },
                           child: Stack(children: [
                             Padding(
@@ -44,17 +51,47 @@ class CategoryListView extends StatelessWidget {
                                     MediaQuery.of(context).size.height * 0.1,
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10)),
+                                    color: ColorResources()
+                                        .detailScreenContainerDark,
+                                    borderRadius: BorderRadius.circular(20)),
                                 child: Hero(
                                     tag: data.elementAt(index)['data'],
-                                    child: networkImages(data
-                                        .elementAt(index)['data']
-                                        .first['image_url']
-                                        .toString())),
+                                    child: networkImages(
+                                        data
+                                            .elementAt(index)['data']
+                                            .first['image_url']
+                                            .toString(),
+                                        BoxFit.fitWidth)),
                               ),
                             ),
-                            Positioned.fill(
-                              child: Align(
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.1,
+                                decoration: BoxDecoration(
+                                    color: ColorResources()
+                                        .detailScreenContainerDark,
+                                    borderRadius: BorderRadius.circular(20)),
+                              ),
+                            ),
+                            // Positioned.fill(
+                            //   child: Align(
+                            // customCategorySection(context, ClipRRect(
+                            //   borderRadius: BorderRadius.circular(20),
+                            //   child: Hero(
+                            //       tag: data.elementAt(index)['data'],
+                            //       child: networkImages(
+                            //           data
+                            //               .elementAt(index)['data']
+                            //               .first['image_url']
+                            //               .toString(),
+                            //           BoxFit.fitWidth)),
+                            // )),
+                            customCategorySection(
+                              context,
+                              Align(
                                   alignment: Alignment.center,
                                   child: Text(
                                     data
@@ -66,11 +103,23 @@ class CategoryListView extends StatelessWidget {
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   )),
-                            ),
+                            )
                           ])));
                 })),
         const Expanded(child: MyHomePage())
       ],
     );
   }
+}
+
+Padding customCategorySection(context, Widget child) {
+  return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.height * 0.1,
+          decoration: BoxDecoration(
+              color: ColorResources().detailScreenContainerDark,
+              borderRadius: BorderRadius.circular(20)),
+          child: child));
 }

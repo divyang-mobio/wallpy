@@ -7,15 +7,15 @@ bottomSheet(context, String title, List<SettingModel> bottomSheetData) {
   if (Platform.isIOS) {
     return CupertinoPageScaffold(
       child: CupertinoActionSheet(
-        title: Text(title, style: Theme.of(context).textTheme.headline5),
-        actions: <CupertinoActionSheetAction>[
-          for (var data in bottomSheetData)
-            CupertinoActionSheetAction(
-              child: Text(data.title),
-              onPressed: () => Navigator.pop(context, data.onclick),
-            ),
-        ],
-      ),
+          title: Text(title, style: Theme.of(context).textTheme.headline5),
+          actions: bottomSheetData
+              .map(
+                (data) => CupertinoActionSheetAction(
+                  child: Text(data.title),
+                  onPressed: () => Navigator.pop(context, data.onclick),
+                ),
+              )
+              .toList()),
     );
   } else {
     return showModalBottomSheet(

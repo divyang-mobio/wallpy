@@ -1,41 +1,43 @@
 import 'package:flutter/material.dart';
 import '../resources/resources.dart';
-import '../utils/store_data.dart';
-
-class ThemeProvider extends ChangeNotifier {
-  ThemeMode themeMode = ThemeMode.dark;
-
-  bool get isDarkMode => themeMode == ThemeMode.dark;
-
-  Future<void> theme() async {
-    PreferenceServices preferenceServices = PreferenceServices();
-    bool value = await preferenceServices.getDarkToggle();
-    themeMode = value ? ThemeMode.dark : ThemeMode.light;
-    notifyListeners();
-  }
-
-  void toggleTheme(bool isOn) {
-    PreferenceServices preferenceServices = PreferenceServices();
-    themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
-    preferenceServices.setDarkToggle(isOn);
-    notifyListeners();
-  }
-}
 
 class MyTheme {
   static final darkTheme = ThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: ColorResources().selectedItemInNavigationBarDark),
     fontFamily: TextResources().fontFamily,
-    scaffoldBackgroundColor: Colors.grey.shade700,
+    scaffoldBackgroundColor: ColorResources().scaffoldBackgroundColorDark,
     colorScheme: const ColorScheme.dark(),
-    primarySwatch: Colors.grey,
+    primarySwatch: ColorResources().primarySwatchDark,
+    appBarTheme: AppBarTheme(
+        titleTextStyle: TextStyle(
+            fontSize: 20,
+            color: ColorResources().appBarTextIconDark,
+            fontWeight: FontWeight.bold),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: ColorResources().appBarTextIconDark),
+        backgroundColor: ColorResources().appBarDark,
+        elevation: 0.0),
     textTheme: const TextTheme(
         headline1: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
   );
   static final lightTheme = ThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedItemColor: ColorResources().selectedItemInNavigationBar,
+    ),
     fontFamily: TextResources().fontFamily,
-    scaffoldBackgroundColor: Colors.white,
-    primarySwatch: Colors.grey,
+    scaffoldBackgroundColor: ColorResources().scaffoldBackgroundColor,
+    primarySwatch: ColorResources().primarySwatch,
     colorScheme: const ColorScheme.light(),
+    appBarTheme: AppBarTheme(
+        titleTextStyle: TextStyle(
+            fontSize: 20,
+            color: ColorResources().appBarTextIcon,
+            fontWeight: FontWeight.bold),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: ColorResources().appBarTextIcon),
+        backgroundColor: ColorResources().appBar,
+        elevation: 0.0),
     textTheme: const TextTheme(
         headline1: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
   );

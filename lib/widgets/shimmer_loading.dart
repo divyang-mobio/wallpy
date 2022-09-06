@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
-import 'theme.dart';
+import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../resources/resources.dart';
 import 'gridview.dart';
 import 'news_listview.dart';
 
 Shimmer shimmer(context, bool isGrid) {
   return Shimmer.fromColors(
-      baseColor: Provider.of<ThemeProvider>(context).isDarkMode
+      baseColor: BlocProvider.of<DarkModeBloc>(context).isDark
           ? ColorResources().shimmerBaseDark
           : ColorResources().shimmerBase,
-      highlightColor: Provider.of<ThemeProvider>(context).isDarkMode
+      highlightColor: BlocProvider.of<DarkModeBloc>(context).isDark
           ? ColorResources().shimmerHighlightDark
           : ColorResources().shimmerHighlight,
       child: isGrid ? gridView([], null, true) : listView([], true));
@@ -19,15 +19,15 @@ Shimmer shimmer(context, bool isGrid) {
 
 Shimmer categoryShimmer(BuildContext context) {
   return Shimmer.fromColors(
-      baseColor: Provider.of<ThemeProvider>(context).isDarkMode
+      baseColor: BlocProvider.of<DarkModeBloc>(context).isDark
           ? ColorResources().shimmerBaseDark
           : ColorResources().shimmerBase,
-      highlightColor: Provider.of<ThemeProvider>(context).isDarkMode
+      highlightColor: BlocProvider.of<DarkModeBloc>(context).isDark
           ? ColorResources().shimmerHighlightDark
           : ColorResources().shimmerHighlight,
       child: Column(
         children: [
-          Container(
+          SizedBox(
               height: MediaQuery.of(context).size.height * 0.14,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -48,6 +48,41 @@ Shimmer categoryShimmer(BuildContext context) {
                     );
                   })),
           Expanded(child: shimmer(context, true)),
+        ],
+      ));
+}
+
+Shimmer occasionShimmer(BuildContext context) {
+  return Shimmer.fromColors(
+      baseColor: BlocProvider.of<DarkModeBloc>(context).isDark
+          ? ColorResources().shimmerBaseDark
+          : ColorResources().shimmerBase,
+      highlightColor: BlocProvider.of<DarkModeBloc>(context).isDark
+          ? ColorResources().shimmerHighlightDark
+          : ColorResources().shimmerHighlight,
+      child: Column(
+        children: [
+          SizedBox(
+              height: MediaQuery.of(context).size.height * 0.2,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 7,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 20),
+                      child: Card(
+                        elevation: 1.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: SizedBox(
+                            //height: 100,
+                            width: MediaQuery.of(context).size.width * 0.36),
+                      ),
+                    );
+                  })),
+          //  Expanded(child: shimmer(context, true)),
         ],
       ));
 }

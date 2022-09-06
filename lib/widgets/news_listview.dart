@@ -26,7 +26,7 @@ cardView(context, Articles data) {
           SizedBox(
               height: 100,
               width: 100,
-              child: networkImages(data.urlToImage.toString())),
+              child: networkImages(data.urlToImage.toString(), null)),
           const SizedBox(width: 10),
           Flexible(
             child: Column(
@@ -37,10 +37,8 @@ cardView(context, Articles data) {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 5),
                 Text(data.publishedAt.toString(),
                     maxLines: 1, overflow: TextOverflow.ellipsis),
-                const SizedBox(height: 5),
                 Text(data.description.toString(),
                     maxLines: 2, overflow: TextOverflow.ellipsis)
               ],
