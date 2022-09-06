@@ -18,12 +18,14 @@ Visibility backIcon(context, bool isVis) {
         alignment: Alignment.topLeft,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: IconButton(
-              onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
-              icon: Icon(IconsResources().back,
-                  color: BlocProvider.of<DarkModeBloc>(context).isDark
-                      ? ColorResources().appBarTextIconDark
-                      : ColorResources().appBarTextIcon)),
+          child: SafeArea(
+            child: IconButton(
+                onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+                icon: Icon(IconsResources().back,
+                    color: BlocProvider.of<DarkModeBloc>(context).isDark
+                        ? ColorResources().appBarTextIconDark
+                        : ColorResources().appBarTextIcon)),
+          ),
         )),
   );
 }
