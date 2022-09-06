@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -16,13 +17,17 @@ uploadImage(context) async {
   if (permissionStatus.isGranted) {
     image = await imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      final kb = (await image.length() / 1024);
-      if (kb <= 100) {
+      final bytes = await image.readAsBytes();
+      final kiloByte = (bytes.lengthInBytes / 1024);
+      final size = await decodeImageFromList(bytes);
+      final wHRatio = (size.width / size.height).toStringAsFixed(2);
+      final hWRatio = (size.height / size.width).toStringAsFixed(2);
+      if (kiloByte <= 100 && (wHRatio == "1.78" || hWRatio == "1.78")) {
         try {
           var file = File((image.path).toString());
           var snapshot = await firebaseStorage
               .ref()
-              .child('image/${image.name}')
+              .child('${TextResources().imageStoreInStoragePath}${image.name}')
               .putFile(file);
           var downloadUrl = await snapshot.ref.getDownloadURL();
           BlocProvider.of<UploadImageBloc>(context)
@@ -33,7 +38,9 @@ uploadImage(context) async {
       } else {
         BlocProvider.of<UploadImageBloc>(context)
             .add(NotGivePermissionOrImage());
-        await alertDialog(context, TextResources().imgSizeMore);
+        (kiloByte <= 100)
+            ? await alertDialog(context, TextResources().imgSizeMore)
+            : await alertDialog(context, TextResources().imgAspectRatio);
       }
     } else {
       BlocProvider.of<UploadImageBloc>(context).add(NotGivePermissionOrImage());

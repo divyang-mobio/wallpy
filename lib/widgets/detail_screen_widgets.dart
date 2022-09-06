@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:oktoast/oktoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
@@ -57,9 +58,9 @@ Visibility allIcons(context, bool isVis, Widget child) {
   );
 }
 
-void snackBar(String data, context) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
-}
+// void snackBar(String data, context) {
+//   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
+// }
 
 Widget containerBuilder(List<Color> color) {
   return Container(
@@ -86,4 +87,8 @@ String generateRandomString() {
   String randomString =
       String.fromCharCodes(List.generate(5, (index) => r.nextInt(33) + 89));
   return randomString;
+}
+
+toast(String msg) {
+  return showToast(msg, position: ToastPosition.bottom);
 }

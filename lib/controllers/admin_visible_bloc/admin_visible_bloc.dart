@@ -9,14 +9,14 @@ part 'admin_visible_state.dart';
 
 class AdminVisibleBloc extends Bloc<AdminVisibleEvent, AdminVisibleState> {
   final user = FirebaseAuth.instance;
-  CheckAdminFireBase checkAdminFireBase;
+  CheckAdminFireStore checkAdminFireStore;
   PreferenceServices pref;
 
-  AdminVisibleBloc(this.checkAdminFireBase, this.pref)
+  AdminVisibleBloc(this.checkAdminFireStore, this.pref)
       : super(AdminVisibleLoading()) {
     on<SetAdmin>((event, emit) async {
       pref.setAdmin(
-          await checkAdminFireBase.getData(user.currentUser?.email ?? ""));
+          await checkAdminFireStore.getData(user.currentUser?.email ?? ""));
       (await pref.getAdmin())
           ? emit(AdminVisibleTrue())
           : emit(AdminVisibleFalse());

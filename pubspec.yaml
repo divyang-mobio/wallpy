@@ -60,8 +60,10 @@ dependencies:
   image_picker: ^0.8.5+3
   permission_handler: ^10.0.0
   uri_to_file: ^0.2.0
+  oktoast: ^3.2.0
+  json_annotation: ^4.6.0
 
-  
+
 #  flutter_wallpaper_manager: ^0.0.3
 #  async_wallpaper: ^1.0.1
 #  wallpaper_manager: ^1.0.10
@@ -76,6 +78,8 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  json_serializable: ^6.3.1
+  build_runner:
   flutter_launcher_icons: ^0.10.0
 
 flutter_icons:
@@ -103,7 +107,7 @@ flutter:
     - assets/images/
     - assets/black_preloading.gif
     - assets/preloading_dark.gif
-    - assets/successful.gif
+#    - assets/successful.gif
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

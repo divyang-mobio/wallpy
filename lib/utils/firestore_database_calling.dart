@@ -20,7 +20,9 @@ class FirebaseDatabase {
 
   Future<List<Object>> getAllData(String? category, bool isFavorite,
       String? query, bool isSearch, bool showAds) async {
-    final cat = (category == null && isFavorite == false && query == null)
+    final categoryInstance = (category == null &&
+            isFavorite == false &&
+            query == null)
         ? instances
         : (category != null && isFavorite == false && query == null)
             ? instances.where(TextResources().fireStoreImgCat,
@@ -46,8 +48,9 @@ class FirebaseDatabase {
     if (isSearch) {
       paginationData = null;
       isMore = true;
+      data = [];
     }
-    data.addAll(await getData(cat, showAds));
+    data.addAll(await getData(categoryInstance, showAds));
     return data;
   }
 
@@ -95,14 +98,14 @@ class FirebaseDatabase {
     return rawData;
   }
 
-  Future<List<Map>> getCategoryData() async {
+  getCategoryData(bool dataAndName) async {
     final instances = FirebaseFirestore.instance.collection("Category");
 
     QuerySnapshot querySnapshot = await instances.get();
 
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     Set<String> finalcategory = <String>{};
-
+    List<Map> finalproduct = [];
     List<Map<String, dynamic>> finalImage = [];
 
     for (var element in allData) {
@@ -115,39 +118,53 @@ class FirebaseDatabase {
       }
     }
 
-    for (var element in finalcategory) {
-      var img = await instances
-          .where(
-            "image_category",
-            arrayContains: element,
-          )
-          .get();
-      var data = img.docs.map((doc) => doc.data()).toList();
-      finalImage.add({'name': element, 'data': data});
-    }
+    if (dataAndName) {
+      for (var element in finalcategory) {
+        var img = await instances
+            .where(
+              "image_category",
+              arrayContains: element,
+            )
+            .get();
+        var data = img.docs.map((doc) => doc.data()).toList();
+        finalImage.add({'name': element, 'data': data});
+      }
 
-    List<Map> finalproduct = [];
-
-    for (var category in finalcategory) {
-      for (var data in finalImage) {
-        if (category.contains(data['name'])) {
-          finalproduct.add(data);
+      for (var category in finalcategory) {
+        for (var data in finalImage) {
+          if (category.contains(data['name'])) {
+            finalproduct.add(data);
+          }
         }
       }
     }
-    log('final product  ${finalproduct.toString()}');
-    return finalproduct;
+    // log('final product  ${finalproduct.toString()}');
+    // return finalproduct;
+
+    if (!dataAndName) {
+      finalcategory.add("other");
+    }
+    return dataAndName ? finalproduct : finalcategory;
   }
 }
 
-class FirebaseSave {
+class FireStoreForBackgroundService {
   final instances =
       FirebaseFirestore.instance.collection(TextResources().fireStoreCategory);
 
-  Future<List<DataModel>> getData() async {
+  Future<List<DataModel>> getAllData(bool isFavorite) async {
+    List<DataModel> data = [];
+    final cat = (isFavorite == false)
+        ? instances
+        : instances.where(TextResources().fireStoreImgFav, isEqualTo: true);
+    data.addAll(await getData(cat));
+    return data;
+  }
+
+  Future<List<DataModel>> getData(Query<Map<String, dynamic>> cat) async {
     List<DataModel>? rawData;
     var rawList =
-        await instances.limit(TextResources().itemLimit).get().then((value) {
+        await cat.limit(TextResources().itemLimit).get().then((value) {
       return value.docChanges.map((e) => e.doc.data());
     });
 
@@ -159,12 +176,12 @@ class FirebaseSave {
   }
 }
 
-class CheckAdminFireBase {
+class CheckAdminFireStore {
   final instances = FirebaseFirestore.instance.collection("admin");
 
-  Future<bool> getData(String category) async {
+  Future<bool> getData(String email) async {
     var rawList = await instances
-        .where("email", isEqualTo: category)
+        .where("email", isEqualTo: email)
         .limit(TextResources().itemLimit)
         .get()
         .then((value) => value.docChanges.map((e) => e.doc.data()));

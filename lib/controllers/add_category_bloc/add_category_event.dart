@@ -2,8 +2,17 @@ part of 'add_category_bloc.dart';
 
 abstract class AddCategoryEvent {}
 
-class AddCategory extends AddCategoryEvent {
-  List<String> myCategory;
+class ShowCategory extends AddCategoryEvent {}
 
-  AddCategory({required this.myCategory});
+class OnSelectCategory extends AddCategoryEvent {
+  String myCategory;
+
+  OnSelectCategory({required this.myCategory});
 }
+
+class OnSubmitCategory extends AddCategoryEvent {
+  String data;
+
+  OnSubmitCategory({required this.data});
+}
+

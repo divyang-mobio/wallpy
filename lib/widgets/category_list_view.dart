@@ -76,8 +76,22 @@ class CategoryListView extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20)),
                               ),
                             ),
-                            Positioned.fill(
-                              child: Align(
+                            // Positioned.fill(
+                            //   child: Align(
+                            // customCategorySection(context, ClipRRect(
+                            //   borderRadius: BorderRadius.circular(20),
+                            //   child: Hero(
+                            //       tag: data.elementAt(index)['data'],
+                            //       child: networkImages(
+                            //           data
+                            //               .elementAt(index)['data']
+                            //               .first['image_url']
+                            //               .toString(),
+                            //           BoxFit.fitWidth)),
+                            // )),
+                            customCategorySection(
+                              context,
+                              Align(
                                   alignment: Alignment.center,
                                   child: Text(
                                     data
@@ -89,11 +103,23 @@ class CategoryListView extends StatelessWidget {
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   )),
-                            ),
+                            )
                           ])));
                 })),
         const Expanded(child: MyHomePage())
       ],
     );
   }
+}
+
+Padding customCategorySection(context, Widget child) {
+  return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.height * 0.1,
+          decoration: BoxDecoration(
+              color: ColorResources().detailScreenContainerDark,
+              borderRadius: BorderRadius.circular(20)),
+          child: child));
 }

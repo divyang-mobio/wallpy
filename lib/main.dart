@@ -6,10 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
+import 'package:oktoast/oktoast.dart';
 import 'controllers/add_category_bloc/add_category_bloc.dart';
+import 'controllers/add_other_category_bloc/add_other_category_bloc.dart';
 import 'controllers/bottom_navigation_bloc/bottom_navigation_bloc.dart';
 import 'controllers/detail_screen_bloc/detail_screen_bloc.dart';
 import 'controllers/download_image_bloc/download_image_bloc.dart';
+import 'controllers/month_selected_bloc/month_selected_bloc.dart';
 import 'controllers/service_bloc/service_bloc.dart';
 import 'controllers/upload_data_fireStore_bloc/upload_data_fire_store_bloc.dart';
 import 'controllers/upload_image_bloc/upload_image_bloc.dart';
@@ -127,20 +130,12 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider<FirebaseDatabase>(
             create: (context) => (FirebaseDatabase())),
         RepositoryProvider<AuthRepository>(
-          create: (context) => AuthRepository(),
-        ),
-        RepositoryProvider<GoogleSignIn>(
-          create: (context) => GoogleSignIn(),
-        ),
-        RepositoryProvider<HttpService>(
-          create: (context) => HttpService(),
-        ),
-        RepositoryProvider<HttpRequests>(
-          create: (context) => HttpRequests(),
-        ),
+            create: (context) => AuthRepository()),
+        RepositoryProvider<GoogleSignIn>(create: (context) => GoogleSignIn()),
+        RepositoryProvider<HttpService>(create: (context) => HttpService()),
+        RepositoryProvider<HttpRequests>(create: (context) => HttpRequests()),
         RepositoryProvider<PreferenceServices>(
-          create: (context) => PreferenceServices(),
-        ),
+            create: (context) => PreferenceServices()),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -161,14 +156,20 @@ class _MyAppState extends State<MyApp> {
               create: (context) => GradiantBloc()
                 ..add(SelectedColor(
                     myColor: ColorResources().pickerGradiantDefault))),
+          BlocProvider<MonthSelectedBloc>(
+              create: (context) => MonthSelectedBloc(monthData)),
           BlocProvider<UploadImageBloc>(create: (context) => UploadImageBloc()),
           BlocProvider<AddCategoryBloc>(create: (context) => AddCategoryBloc()),
           BlocProvider<DownloadImageBloc>(
               create: (context) => DownloadImageBloc()),
+          BlocProvider<AddCategoryBloc>(
+              create: (context) => AddCategoryBloc()..add(ShowCategory())),
+          BlocProvider<AddOtherCategoryBloc>(
+              create: (context) => AddOtherCategoryBloc()),
           BlocProvider<UploadDataFireStoreBloc>(
               create: (context) => UploadDataFireStoreBloc()),
           BlocProvider<AdminVisibleBloc>(
-              create: (context) => AdminVisibleBloc(CheckAdminFireBase(),
+              create: (context) => AdminVisibleBloc(CheckAdminFireStore(),
                   RepositoryProvider.of<PreferenceServices>(context))
                 ..add(CheckAdmin())),
           BlocProvider<ServiceBloc>(
@@ -208,23 +209,27 @@ class _MyAppState extends State<MyApp> {
         child:
             BlocBuilder<DarkModeBloc, DarkModeState>(builder: (context, state) {
           if (state is DarkModeLoaded) {
-            return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: TextResources().appTitle,
-                themeMode: state.themeMode,
-                darkTheme: MyTheme.darkTheme,
-                theme: MyTheme.lightTheme,
-                onGenerateRoute: RouteGenerator.generateRoute,
-                initialRoute: initialRoute);
+            return OKToast(
+              child: MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: TextResources().appTitle,
+                  themeMode: state.themeMode,
+                  darkTheme: MyTheme.darkTheme,
+                  theme: MyTheme.lightTheme,
+                  onGenerateRoute: RouteGenerator.generateRoute,
+                  initialRoute: initialRoute),
+            );
           } else {
-            return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: TextResources().appTitle,
-                themeMode: ThemeMode.light,
-                darkTheme: MyTheme.darkTheme,
-                theme: MyTheme.lightTheme,
-                onGenerateRoute: RouteGenerator.generateRoute,
-                initialRoute: initialRoute);
+            return OKToast(
+              child: MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: TextResources().appTitle,
+                  themeMode: ThemeMode.light,
+                  darkTheme: MyTheme.darkTheme,
+                  theme: MyTheme.lightTheme,
+                  onGenerateRoute: RouteGenerator.generateRoute,
+                  initialRoute: initialRoute),
+            );
           }
         }),
       ),

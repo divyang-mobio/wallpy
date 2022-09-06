@@ -13,11 +13,12 @@ class GradiantScreen extends StatefulWidget {
 }
 
 class _GradiantScreenState extends State<GradiantScreen> {
-  List<Color> selectedColor = [];
+  List<Color> selectedColor = ColorResources().pickerGradiantDefault;
 
   MultipleChoiceBlockPicker selectColor() {
     return MultipleChoiceBlockPicker(
-      useInShowDialog: false,
+      layoutBuilder: _layoutBuilder,
+      useInShowDialog: true,
       pickerColors: selectedColor,
       onColorsChanged: (List<Color> colors) {
         selectedColor = colors;
@@ -30,21 +31,28 @@ class _GradiantScreenState extends State<GradiantScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 10),
+      child: Center(child:
           BlocBuilder<GradiantBloc, GradiantState>(builder: (context, state) {
-            if (state is GradiantInitial) {
-              return Container(
+        if (state is GradiantInitial) {
+          return Column(
+            children: [
+              const SizedBox(height: 10),
+              Container(
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                  height: MediaQuery.of(context).size.height * .4,
-                  width: MediaQuery.of(context).size.width * .5,
-                  child: Text(TextResources().applyNew));
-            } else if (state is GradiantLoaded) {
-              return GestureDetector(
+                  height: 338,
+                  width: 206,
+                  child: const Center(
+                      child: CircularProgressIndicator.adaptive())),
+              const SizedBox(height: 10),
+              selectColor()
+            ],
+          );
+        } else if (state is GradiantLoaded) {
+          return Column(
+            children: [
+              const SizedBox(height: 10),
+              GestureDetector(
                 onTap: () => Navigator.pushNamed(
                     context, TextResources().detailGradiantScreenRoute,
                     arguments: DetailGradiantScreenArgument(
@@ -56,38 +64,46 @@ class _GradiantScreenState extends State<GradiantScreen> {
                 child: Hero(
                   tag: 1,
                   child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            colors: (state.myColor.length < 2)
-                                ? (state.myColor.isEmpty)
-                                    ? ColorResources().pickerGradiantEmpty
-                                    : [state.myColor[0], state.myColor[0]]
-                                : state.myColor)),
-                    height: MediaQuery.of(context).size.height * .4,
-                    width: MediaQuery.of(context).size.width * .5,
-                  ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: (state.myColor.length < 2)
+                                  ? (state.myColor.isEmpty)
+                                      ? ColorResources().pickerGradiantEmpty
+                                      : [state.myColor[0], state.myColor[0]]
+                                  : state.myColor)),
+                      height: 338,
+                      width: 206),
                 ),
-              );
-            } else {
-              return Text(TextResources().noData);
-            }
-          }),
-          const SizedBox(height: 10),
-          BlocBuilder<GradiantBloc, GradiantState>(builder: (context, state) {
-            if (state is GradiantInitial) {
-              return selectColor();
-            } else if (state is GradiantLoaded) {
-              selectedColor = state.myColor;
-              return selectColor();
-            } else {
-              return Text(TextResources().noData);
-            }
-          }),
-        ],
-      )),
+              ),
+              const SizedBox(height: 10),
+              selectColor()
+            ],
+          );
+        } else {
+          return Text(TextResources().noData);
+        }
+      })),
     );
   }
+}
+
+Widget _layoutBuilder(
+    BuildContext context, List<Color> colors, PickerItem child) {
+  Orientation orientation = MediaQuery.of(context).orientation;
+
+  return SizedBox(
+    width: 300,
+    height: orientation == Orientation.portrait ? 360 : 200,
+    child: GridView.count(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: orientation == Orientation.portrait ? 4 : 6,
+      crossAxisSpacing: 5,
+      mainAxisSpacing: 5,
+      children: [for (Color color in colors) child(color)],
+    ),
+  );
 }

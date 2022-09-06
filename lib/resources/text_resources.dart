@@ -1,9 +1,11 @@
 part of 'resources.dart';
 
 class TextResources {
+  // AppBar title
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
-  final String categoryAppTitle = "Category";
+
+  // final String categoryAppTitle = "Category";
   final String adminAppTitle = "Admin";
   final String gradiantAppTitle = "Gradiant";
   final String favoriteAppTitle = "Favorite";
@@ -12,24 +14,27 @@ class TextResources {
   final String homeScreenLabel = "Home";
 
   final String categoryScreenLabel = "Category";
+  // final String categoryScreenLabel = "Category";
+  //bottom navigation bar name
   final String gradiantScreenLabel = "Gradiant";
   final String favouriteScreenLabel = "Favorite";
   final String settingScreenLabel = "Setting";
   final String newsScreenLabel = "News";
   final String splashScreenTile = "Wallpy";
   final String weatherTitle = "Weather";
-  final String latitude = "Latitude";
-  final String longitude = "Longitude";
+
+  // final String latitude = "Latitude";
+  // final String longitude = "Longitude";
   final String humidity = "Humidity";
   final String swWind = "SW Wind";
   final String visibility = "Visibility";
   final String pressure = "Air Pressure";
   final String noData = "Error No Data :(";
   final String downloadImage = "downloading";
-  final String successDownloaded = "Save Image";
-  final String colorPicker = 'Pick a color!';
-  final String colorPickerApply = "Applying";
-  final String colorPickerButton = "change color";
+  final String successImgDownloaded = "Save Image";
+  final String errorImgDownloaded = "Not Able To download Image";
+  final String errorWallpaperSetting = "Wallpaper Not Set";
+  final String successWallpaperSetting = "Gradiant Wallpaper Set";
   final String signInTitle = "Welcome  Back";
   final String signUpTitle = "Create Account";
   final String email = "Email";
@@ -48,9 +53,8 @@ class TextResources {
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToY5hNtemPEvOyyPKrWdVOZWR-gQBRI-ThmA&usqp=CAU";
   final String snackBarLoadingInPagination = 'Loading';
   final String snackBarAllDataFetchInPagination = 'All Data Fetch';
-  final String methodChannelName = "wallpyBackgroundService";
-  final String methodChannelCallingServiceName = "StartService";
-  final String methodChannelStopServiceName = "StopService";
+
+  //setting screen data
   final String bottomSheetTitle = "Select Screen";
   final String homeScreenWallpaper = "On Home Screen";
   final String lockScreenWallpaper = "On Lock Screen";
@@ -69,6 +73,7 @@ class TextResources {
   final String collectionTitle = "Collections";
   final String collectionDec =
       "Set wallpaper from Favorite/Random. By default it is Random.";
+
   final String emptyCart = "No Data in Favorite :(";
   final String blocError = "Error :(";
   final String categoryDetail = "CategoryDetails";
@@ -97,14 +102,15 @@ class TextResources {
   final String errorAtUploadImg = "Retry";
   final String uploadImgButton = "Upload Image";
   final String imgSizeMore = 'Image Size is more than 100kb';
+  final String imgAspectRatio = "pls upload image of aspect ratio of 16:9";
   final String imgIsNotSelected = 'No Image Path Received';
   final String permissionIsNotGiven =
       'Permission not granted. Try Again with permission access';
-  final String applyNew = "Apply";
-  final String uploadingImg = "Uploading....";
+  final String ifErrorHappenTimeOfRemoveImage = "Not Able to remove Image :(";
+  final String imageStoreInStoragePath = "image/";
 
 //Int type
-  final int adsInternalInList = 9;
+  final int adsInternalInList = 5;
   final int androidAlarmManagerId = 0;
   final int itemLimit = 5;
 
@@ -133,7 +139,7 @@ List<SettingModel> dialogDataForTimeLine = [
   SettingModel(title: "30 minutes", onclick: 30),
   SettingModel(title: "60 minutes", onclick: 60),
   SettingModel(title: "6 hours", onclick: 360),
-  SettingModel(title: "24 hours", onclick: 1440),
+  SettingModel(title: "24 hours", onclick: 1440)
 ];
 
 List<SettingModel> bottomSheetScreenData = [
@@ -149,7 +155,7 @@ List<SettingModel> bottomSheetScreenData = [
 ];
 
 List<SettingModel> dialogDataForCollection = [
-  SettingModel(title: "Random", onclick: "homeScreen"),
+  SettingModel(title: "Random", onclick: "random"),
   SettingModel(title: "Favorite", onclick: "favorite"),
 ];
 
@@ -196,53 +202,68 @@ List<NewsCategory> categoryData = [
       link:
           "https://newsapi.org/v2/everything?q=war&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
       imageLink:
-          "https://images.pexels.com/photos/264146/pexels-photo-264146.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+          "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/news_category_cover%2Fwar.jpg?alt=media&token=2da6d4e5-cd93-433c-834e-8e3ce7961401"),
   NewsCategory(
       title: "Car",
       link:
           "https://newsapi.org/v2/everything?q=car&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
       imageLink:
-          "https://images.pexels.com/photos/3221159/pexels-photo-3221159.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"),
+          "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/news_category_cover%2Fcar.jpg?alt=media&token=ebb7cc38-6426-45e9-95a2-393b53175a58"),
   NewsCategory(
       title: "Airplane",
       link:
           "https://newsapi.org/v2/everything?q=airplane&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
       imageLink:
-          "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+          "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/news_category_cover%2Fairplane.jpg?alt=media&token=d8c9974c-4441-4f86-9543-7058a21814b3"),
   NewsCategory(
       title: "Business",
       link:
           "https://newsapi.org/v2/everything?q=business&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
       imageLink:
-          "https://images.pexels.com/photos/3183198/pexels-photo-3183198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+          "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/news_category_cover%2Fbusiness.jpg?alt=media&token=f0b7476e-125f-4872-b7f6-ebcf8c1ea87b"),
   NewsCategory(
       title: "BitCoin",
       link:
           "https://newsapi.org/v2/everything?q=bitcoin&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
       imageLink:
-          "https://images.pexels.com/photos/730564/pexels-photo-730564.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+          "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/news_category_cover%2FBitCoin.jpg?alt=media&token=98a0f344-31f2-45e8-8bf7-96466d0555a8"),
   NewsCategory(
       title: "Sport",
       link:
           "https://newsapi.org/v2/everything?q=sport&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
       imageLink:
-          "https://images.pexels.com/photos/47730/the-ball-stadion-football-the-pitch-47730.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+          "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/news_category_cover%2FSport.jpg?alt=media&token=d5eca19a-f3d3-43ae-a4fe-d8c2459feb1f"),
   NewsCategory(
       title: "Stock Market",
       link:
           "https://newsapi.org/v2/everything?q=stock&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
       imageLink:
-          "https://images.pexels.com/photos/187041/pexels-photo-187041.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+          "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/news_category_cover%2FStock.jpg?alt=media&token=4b9a62b2-c9c8-4551-8a7d-b3b3d05612cf"),
   NewsCategory(
       title: "Tech",
       link:
           "https://newsapi.org/v2/everything?q=tech&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
       imageLink:
-          "https://images.pexels.com/photos/1181673/pexels-photo-1181673.jpeg?auto=compress&cs=tinysrgb&w=600"),
+          "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/news_category_cover%2FTech.jpg?alt=media&token=f9abf7d0-0b00-4e46-bdf0-f9d26a3c33b2"),
   NewsCategory(
       title: "Apple",
       link:
           "https://newsapi.org/v2/everything?q=apple&apiKey=1b20cae31e6d41eeab3fad233fbeecbd",
       imageLink:
-          "https://images.pexels.com/photos/434346/pexels-photo-434346.jpeg?auto=compress&cs=tinysrgb&w=600")
+          "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/news_category_cover%2FApple.jpg?alt=media&token=5090de5a-f070-4d85-9ba9-b6804c27748b")
+];
+
+List<String> monthData = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
 ];

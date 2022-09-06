@@ -11,7 +11,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     on<GetAllCategory>((event, emit) async {
       try {
         List<dynamic> data = [];
-        data.addAll(await _firebaseDatabase.getCategoryData());
+        data.addAll(await _firebaseDatabase.getCategoryData(true));
         emit(CategoryLoaded(data: data));
       } catch (e) {
         emit(CategoryError(error: e));
