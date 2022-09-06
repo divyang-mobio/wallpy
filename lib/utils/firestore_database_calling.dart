@@ -1,6 +1,9 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../resources/resources.dart';
 import '../models/data_model.dart';
+import 'dart:developer';
 
 class FirebaseDatabase {
   final instances =
@@ -83,13 +86,13 @@ class FirebaseDatabase {
         if (rawData.length != TextResources().itemLimit) {
           isMore = false;
         }
-        if (showAds) {
-          for (var i = rawData.length - 1;
-              i >= 1;
-              i -= TextResources().adsInternalInList) {
-            rawData.insert(i, "list");
-          }
-        }
+        // if (showAds) {
+        //   for (var i = rawData.length - 1;
+        //       i >= 1;
+        //       i -= TextResources().adsInternalInList) {
+        //     rawData.insert(i, "list");
+        //   }
+       // }
       }
     }
     return rawData;
@@ -135,6 +138,8 @@ class FirebaseDatabase {
         }
       }
     }
+    // log('final product  ${finalproduct.toString()}');
+    // return finalproduct;
 
     if (!dataAndName) {
       finalcategory.add("other");

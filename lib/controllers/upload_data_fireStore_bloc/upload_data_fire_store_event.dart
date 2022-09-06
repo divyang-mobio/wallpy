@@ -4,6 +4,7 @@ abstract class UploadDataFireStoreEvent {}
 
 class UploadData extends UploadDataFireStoreEvent {
   String url, name, months;
+
   List<String> category;
 
   UploadData(

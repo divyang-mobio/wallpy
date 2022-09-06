@@ -14,7 +14,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         data.addAll(await _firebaseDatabase.getCategoryData(true));
         emit(CategoryLoaded(data: data));
       } catch (e) {
-        emit(CategoryError());
+        emit(CategoryError(error: e));
       }
     });
   }

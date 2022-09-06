@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-import 'package:oktoast/oktoast.dart';
+
 
 import '../../resources/resources.dart';
 import '../../widgets/detail_screen_widgets.dart';

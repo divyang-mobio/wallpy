@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart ' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../controllers/detail_screen_bloc/detail_screen_bloc.dart';
 import '../controllers/download_image_bloc/download_image_bloc.dart';
 import '../controllers/favorite_bloc/favorite_bloc.dart';
@@ -18,6 +23,10 @@ class DetailScreen extends StatefulWidget {
   @override
   State<DetailScreen> createState() => _DetailScreenState();
 }
+
+String text = '';
+String subject = '';
+List<String> imagePaths = [];
 
 class _DetailScreenState extends State<DetailScreen> {
   Widget rowIcon() {
@@ -40,7 +49,8 @@ class _DetailScreenState extends State<DetailScreen> {
             },
             icon:
                 icons(context, IconsResources().setWallpaperFromDetailScreen)),
-        FavoriteIcon(dataModel: widget.dataModel)
+        FavoriteIcon(dataModel: widget.dataModel),
+        IconButton(onPressed: () => onShare(context), icon: Icon(Icons.share))
       ],
     );
   }
@@ -78,6 +88,22 @@ class _DetailScreenState extends State<DetailScreen> {
         ],
       ),
     );
+  }
+
+  void onShare(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final imageUrl = Uri.parse(widget.dataModel.url.toString());
+    final http.Response response = await http.get(imageUrl);
+    final bytes = response.bodyBytes;
+    final temp = await getTemporaryDirectory();
+    final path = '${temp.path}/${widget.dataModel.name}.jpg';
+
+    File file = await File(path).writeAsBytes(bytes);
+    print('urllllll....... ${widget.dataModel.url}');
+    print('imagePaths====${file.path}');
+    await Share.shareFiles([path],
+        subject: subject,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
   }
 }
 

@@ -13,6 +13,7 @@ class TextResources {
   final String newsAppTitle = "News";
   final String homeScreenLabel = "Home";
 
+  final String categoryScreenLabel = "Category";
   // final String categoryScreenLabel = "Category";
   //bottom navigation bar name
   final String gradiantScreenLabel = "Gradiant";
@@ -128,6 +129,7 @@ class TextResources {
   final String redirectScreen = "/redirect";
   final String onSearchNoDataFound = "No Data Found :(";
   final String searchHint = "Search";
+  final String ocassionScreenRoute = '/ocassion';
   final String placeHolderForLoadingImage = "assets/black_preloading.gif";
   final String placeHolderForLoadingImageDark = "assets/preloading_dark.gif";
 }

@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'source_model.dart';
 
