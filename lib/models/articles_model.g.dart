@@ -19,13 +19,3 @@ Articles _$ArticlesFromJson(Map<String, dynamic> json) => Articles(
           : Source.fromJson(json['source'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ArticlesToJson(Articles instance) => <String, dynamic>{
-      'author': instance.author,
-      'title': instance.title,
-      'description': instance.description,
-      'url': instance.url,
-      'urlToImage': instance.urlToImage,
-      'content': instance.content,
-      'publishedAt': instance.publishedAt,
-      'source': instance.source,
-    };

@@ -86,13 +86,13 @@ class FirebaseDatabase {
         if (rawData.length != TextResources().itemLimit) {
           isMore = false;
         }
-        if (showAds) {
-          for (var i = rawData.length - 1;
-              i >= 1;
-              i -= TextResources().adsInternalInList) {
-            rawData.insert(i, "list");
-          }
-        }
+        // if (showAds) {
+        //   for (var i = rawData.length - 1;
+        //       i >= 1;
+        //       i -= TextResources().adsInternalInList) {
+        //     rawData.insert(i, "list");
+        //   }
+       // }
       }
     }
     return rawData;
