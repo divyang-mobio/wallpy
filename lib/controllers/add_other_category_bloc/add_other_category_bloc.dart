@@ -1,9 +1,13 @@
 import 'package:bloc/bloc.dart';
 
+import '../../utils/firestore_database_calling.dart';
+
 part 'add_other_category_event.dart';
+
 part 'add_other_category_state.dart';
 
-class AddOtherCategoryBloc extends Bloc<AddOtherCategoryEvent, AddOtherCategoryState> {
+class AddOtherCategoryBloc
+    extends Bloc<AddOtherCategoryEvent, AddOtherCategoryState> {
   AddOtherCategoryBloc() : super(AddOtherCategoryInitial()) {
     on<AddNewCategory>((event, emit) {
       emit(AddOtherCategoryData(data: event.data));
