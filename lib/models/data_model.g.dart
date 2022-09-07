@@ -19,3 +19,13 @@ DataModel _$DataModelFromJson(Map<String, dynamic> json) => DataModel(
       wallpy_unm: json['wallpy_unm'] as String,
     );
 
+Map<String, dynamic> _$DataModelToJson(DataModel instance) => <String, dynamic>{
+      'image_id': instance.id,
+      'image_name': instance.name,
+      'image_uid': instance.uid,
+      'image_url': instance.url,
+      'wallpy_unm': instance.wallpy_unm,
+      'image_category': instance.category,
+      'image_fav': instance.fav,
+      'image_timestamp': DataModel._toJson(instance.timestamp),
+    };
