@@ -66,25 +66,10 @@ class MyHttpOverrides extends HttpOverrides {
       ..badCertificateCallback =
           (X509Certificate cert, String host, int port) => true; }}
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await AndroidAlarmManager.initialize();
   await Firebase.initializeApp();
-  HttpOverrides.global = MyHttpOverrides();
-  await HttpRequests().reqPermission();
-  Workmanager().initialize(
-    callbackDispatcher,
-    isInDebugMode: true,
-  );
-
-  Workmanager().registerPeriodicTask(
-    "1",
-    fetchBackground,
-    frequency: const Duration(minutes: 15),
-  );
-  // NotificationService.initialize();
-  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
-
+  await AndroidAlarmManager.initialize();
   runApp(const MyApp());
 }
 
@@ -98,10 +83,32 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String initialRoute = TextResources().splashScreenRoute;
 
+
+  initialized() async {
+
+    HttpOverrides.global = MyHttpOverrides();
+    await HttpRequests().reqPermission();
+    Workmanager().initialize(
+      callbackDispatcher,
+      isInDebugMode: true,
+    );
+    Workmanager().registerPeriodicTask(
+      "1",
+      fetchBackground,
+      frequency: const Duration(minutes: 15),
+    );
+    // NotificationService.initialize();
+    FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  }
   @override
   void initState() {
     super.initState();
 
+    initialized();
+    firebaseMessaging();
+  }
+
+  firebaseMessaging() {
     /// open app from terminated state
     FirebaseMessaging.instance.getInitialMessage().then((event) {
       if (event != null) {
