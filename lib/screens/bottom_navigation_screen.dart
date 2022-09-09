@@ -23,9 +23,7 @@ class BottomNavigationBarScreen extends StatefulWidget {
 
 class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
-    // MyHomePage(),
     CategoryScreen(),
-    GradiantScreen(),
     WeatherScreen(),
     FavouriteScreen(),
     NewsScreen(),
@@ -33,8 +31,6 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   ];
   static final List<String> _widgettitle = <String>[
     TextResources().appTitle,
-    // TextResources().categoryAppTitle,
-    TextResources().gradiantAppTitle,
     TextResources().weatherTitle,
     TextResources().favoriteAppTitle,
     TextResources().newsAppTitle,
@@ -55,7 +51,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
         return Scaffold(
           appBar: AppBar(
               automaticallyImplyLeading: false,
-              actions: (state.index == 5)
+              actions: (state.index == 4)
                   ? [
                       IconButton(
                           onPressed: () {
@@ -69,7 +65,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
                           },
                           icon: Icon(IconsResources().logOut))
                     ]
-                  : (state.index == 1 || state.index == 2 || state.index == 4)
+                  : (state.index == 1 || state.index == 3)
                       ? []
                       : [
                           IconButton(

@@ -7,8 +7,8 @@ import 'network_image.dart';
 ListView listView(List<Articles> data, bool isLoading) {
   return ListView.builder(
       shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemCount: isLoading ? 20 : data.length,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: isLoading ? 20 : data.length-5,
       itemBuilder: (context, index) => isLoading
           ? const Card(child: SizedBox(height: 90))
           : cardView(context, data[index]));

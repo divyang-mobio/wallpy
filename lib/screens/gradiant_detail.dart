@@ -24,7 +24,6 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
       children: [
         IconButton(
             onPressed: () async {
-              // snackBar(TextResources().downloadImage, context);
               BlocProvider.of<DownloadImageBloc>(context)
                   .add(DownloadImageOfGradiant(color: widget.myColor));
             },
@@ -35,7 +34,7 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
                   TextResources().bottomSheetTitle, bottomSheetScreenData);
               if (location != null) {
                 File file = await getWidgetToImage(widget.myColor);
-                wallpaperGradiantSetter(context, file, location);
+                wallpaperGradiantSetter(file, location);
               }
             },
             icon:

@@ -45,26 +45,25 @@ class _DetailNewsScreenState extends State<DetailNewsScreen> {
           children: [
             SizedBox(
                 height: 300,
-                width: double.infinity,
-                child: networkImages(widget.articles.urlToImage.toString(), null)),
+                width: MediaQuery.of(context).size.width,
+                child:
+                    networkImages(widget.articles.urlToImage.toString(), null)),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(widget.articles.publishedAt.toString()),
-                          const SizedBox(height: 5),
                           Text(
                               "${TextResources().source} ${(widget.articles.source?.name).toString()}"),
                         ],
                       ),
-                      const Expanded(child: SizedBox()),
                       Text(widget.articles.author.toString(),
                           overflow: TextOverflow.clip),
                     ],

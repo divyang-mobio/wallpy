@@ -59,13 +59,6 @@ void callbackDispatcher() {
   });
 }
 
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true; }}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -83,10 +76,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String initialRoute = TextResources().splashScreenRoute;
 
-
   initialized() async {
-
-    HttpOverrides.global = MyHttpOverrides();
     await HttpRequests().reqPermission();
     Workmanager().initialize(
       callbackDispatcher,
@@ -100,6 +90,7 @@ class _MyAppState extends State<MyApp> {
     // NotificationService.initialize();
     FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   }
+
   @override
   void initState() {
     super.initState();

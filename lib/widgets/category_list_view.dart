@@ -24,23 +24,29 @@ class CategoryListView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: InkWell(
                           onTap: () {
-                            data.elementAt(index)['name'] == 'occasion'
-                                ? Navigator.push(context,
-                                    MaterialPageRoute(builder: (ctx) {
-                                    return OccasionDetailScreen(
-                                        title: data.elementAt(index)['name'],
-                                        data: data.elementAt(index)['data']);
-                                  }))
-                                : Navigator.push(context,
-                                    MaterialPageRoute(builder: (ctx) {
-                                    return CategoryDetailScreen(
-                                      data: data.elementAt(index)['data'],
-                                      title: data
-                                          .elementAt(index)['name']
-                                          .toString()
-                                          .toUpperCase(),
-                                    );
-                                  }));
+                            if (data.elementAt(index)['name'] == 'occasion') {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (ctx) {
+                                return OccasionDetailScreen(
+                                    title: data.elementAt(index)['name'],
+                                    data: data.elementAt(index)['data']);
+                              }));
+                            } else if (data.elementAt(index)['name'] ==
+                                'gradiant') {
+                              Navigator.pushNamed(
+                                  context, TextResources().gradiantScreenRoute);
+                            } else {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (ctx) {
+                                return CategoryDetailScreen(
+                                  data: data.elementAt(index)['data'],
+                                  title: data
+                                      .elementAt(index)['name']
+                                      .toString()
+                                      .toUpperCase(),
+                                );
+                              }));
+                            }
                           },
                           child: Stack(children: [
                             Padding(
