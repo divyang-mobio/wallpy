@@ -1,12 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:wallpy/screens/bottom_navigation_screen.dart';
 import 'package:wallpy/screens/welcome_screen.dart';
 
-class RedirectScreen extends StatelessWidget {
+class RedirectScreen extends StatefulWidget {
+  const RedirectScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RedirectScreen> createState() => _RedirectScreenState();
+}
+
+class _RedirectScreenState extends State<RedirectScreen> {
   final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
-  RedirectScreen({Key? key}) : super(key: key);
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    FlutterNativeSplash.remove();
+  }
 
   @override
   Widget build(BuildContext context) {

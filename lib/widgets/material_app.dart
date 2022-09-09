@@ -8,19 +8,18 @@ import '../controllers/dark_mode_bloc/dark_mode_bloc.dart';
 import '../resources/resources.dart';
 
 class MaterialAppClass extends StatefulWidget {
-  MaterialAppClass({Key? key}) : super(key: key);
+  const MaterialAppClass({Key? key}) : super(key: key);
 
   @override
   State<MaterialAppClass> createState() => _MaterialAppClassState();
 }
 
 class _MaterialAppClassState extends State<MaterialAppClass> {
-  final String initialRoute = TextResources().splashScreenRoute;
+  final String initialRoute = TextResources().redirectScreen;
 
   @override
   void initState() {
     super.initState();
-    FlutterNativeSplash.remove();
   }
 
   @override
