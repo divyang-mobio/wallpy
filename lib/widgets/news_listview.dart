@@ -14,7 +14,7 @@ ListView listView(List<Articles> data, bool isLoading) {
           : cardView(context, data[index]));
 }
 
-cardView(context, Articles data) {
+GestureDetector cardView(context, Articles data) {
   return GestureDetector(
     onTap: () => Navigator.pushNamed(
         context, TextResources().detailNewsScreenRoute,
