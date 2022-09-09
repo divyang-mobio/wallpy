@@ -8,7 +8,7 @@ ListView listView(List<Articles> data, bool isLoading) {
   return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: isLoading ? 20 : data.length-5,
+      itemCount: isLoading ? 20 : data.length,
       itemBuilder: (context, index) => isLoading
           ? const Card(child: SizedBox(height: 90))
           : cardView(context, data[index]));
