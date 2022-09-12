@@ -13,7 +13,7 @@ class RedirectScreen extends StatefulWidget {
 }
 
 class _RedirectScreenState extends State<RedirectScreen> {
-  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
+  // final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
 
   @override
   void deactivate() {
@@ -23,32 +23,31 @@ class _RedirectScreenState extends State<RedirectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _fbApp,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Having an error');
-        } else if (snapshot.hasData) {
-          return StreamBuilder(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return const BottomNavigationBarScreen();
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Worng ID , Password")));
-                  return const WelcomeScreen();
-                } else {
-                  return const WelcomeScreen();
-                }
-              });
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
-    );
+    // return FutureBuilder(
+    //   future: _fbApp,
+    //   builder: (context, snapshot) {
+    //     if (snapshot.hasError) {
+    //       return const Text('Having an error');
+    //     } else if (snapshot.hasData) {
+    return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const BottomNavigationBarScreen();
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Worng ID , Password")));
+            return const WelcomeScreen();
+          } else {
+            return const WelcomeScreen();
+          }
+        });
+    // } else {
+    //   return const Center(child: CircularProgressIndicator());
+    // }
+    //     },
+    //   );
   }
 }

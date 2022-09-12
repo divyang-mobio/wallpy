@@ -55,7 +55,7 @@ class RouteGenerator {
       case "/Admin":
         return MaterialPageRoute(builder: (context) => const AdminScreen());
       case "/redirect":
-        return MaterialPageRoute(builder: (context) => const RedirectScreen());
+        return MaterialPageRoute(builder: (context) => RedirectScreen());
       case "/gradiant":
         return MaterialPageRoute(builder: (context) => const GradiantScreen());
       case "/newCategory":
