@@ -63,6 +63,7 @@ dependencies:
   oktoast: ^3.2.0
   json_annotation: ^4.6.0
   flutter_native_splash: ^2.2.9
+  image_cropper: ^3.0.0
 
 
 #  flutter_wallpaper_manager: ^0.0.3

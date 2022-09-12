@@ -60,7 +60,6 @@ class _AdminScreenState extends State<AdminScreen> {
       body: SingleChildScrollView(
         child: Center(
           child: Column(children: [
-            const SizedBox(height: 10),
             BlocBuilder<UploadImageBloc, UploadImageState>(builder: (_, state) {
               if (state is UploadImageInitial) {
                 return GestureDetector(

@@ -17,10 +17,6 @@ class MaterialAppClass extends StatefulWidget {
 class _MaterialAppClassState extends State<MaterialAppClass> {
   final String initialRoute = TextResources().redirectScreen;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

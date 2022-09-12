@@ -4,7 +4,7 @@ class TextResources {
   // AppBar title
   final String appTitle = "Wallpy";
   final String settingAppTitle = "Setting";
-
+  final String cropAppTitle = "Crop Screen";
   // final String categoryAppTitle = "Category";
   final String adminAppTitle = "Admin";
   final String gradiantAppTitle = "Gradiant";
@@ -103,6 +103,7 @@ class TextResources {
   final String uploadImgButton = "Upload Image";
   final String imgSizeMore = 'Image Size is more than 100kb';
   final String imgAspectRatio = "pls upload image of aspect ratio of 16:9";
+  final String croppingImgError = "Error at the time of Cropping";
   final String imgIsNotSelected = 'No Image Path Received';
   final String permissionIsNotGiven =
       'Permission not granted. Try Again with permission access';

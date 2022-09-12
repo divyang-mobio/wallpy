@@ -60,10 +60,6 @@ Visibility allIcons(context, bool isVis, Widget child) {
   );
 }
 
-// void snackBar(String data, context) {
-//   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
-// }
-
 Widget containerBuilder(List<Color> color) {
   return Container(
     height: double.infinity,
