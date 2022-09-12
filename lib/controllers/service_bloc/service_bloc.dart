@@ -25,7 +25,8 @@ class ServiceBloc extends Bloc<ServiceEvent, ServiceState> {
         pref.setToggle(true);
         wallpaperSetter(data[0].url, event.screen);
         await AndroidAlarmManager.periodic(const Duration(minutes: 1),
-            TextResources().androidAlarmManagerId, callWallpaperSetter);
+            TextResources().androidAlarmManagerId, callWallpaperSetter,
+            rescheduleOnReboot: true, allowWhileIdle: true);
       } else {
         final pref = PreferenceServices();
         pref.setToggle(false);
