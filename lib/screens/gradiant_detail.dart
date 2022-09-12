@@ -8,25 +8,19 @@ import '../widgets/wallpaper_setter.dart';
 import '../resources/resources.dart';
 import '../widgets/bottom_sheet.dart';
 
-class DetailGradiantScreen extends StatefulWidget {
+class DetailGradiantScreen extends StatelessWidget {
   const DetailGradiantScreen({Key? key, required this.myColor})
       : super(key: key);
   final List<Color> myColor;
 
-  @override
-  State<DetailGradiantScreen> createState() => _DetailGradiantScreenState();
-}
-
-class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
-  Widget rowIcon() {
+  Widget rowIcon(context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
             onPressed: () async {
-              // snackBar(TextResources().downloadImage, context);
               BlocProvider.of<DownloadImageBloc>(context)
-                  .add(DownloadImageOfGradiant(color: widget.myColor));
+                  .add(DownloadImageOfGradiant(color: myColor));
             },
             icon: icons(context, IconsResources().download)),
         IconButton(
@@ -34,8 +28,8 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
               int? location = await bottomSheet(context,
                   TextResources().bottomSheetTitle, bottomSheetScreenData);
               if (location != null) {
-                File file = await getWidgetToImage(widget.myColor);
-                wallpaperGradiantSetter(context, file, location);
+                File file = await getWidgetToImage(myColor);
+                wallpaperGradiantSetter(file, location);
               }
             },
             icon:
@@ -55,7 +49,7 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
                     .add(OnTab(isVis: false)),
             onLongPressEnd: (end) => BlocProvider.of<DetailScreenBloc>(context)
                 .add(OnTab(isVis: true)),
-            child: Hero(tag: 1, child: containerBuilder(widget.myColor)),
+            child: Hero(tag: 1, child: containerBuilder(myColor)),
           ),
           BlocBuilder<DetailScreenBloc, DetailScreenState>(
             builder: (context, state) => (state is DetailScreenLoaded)
@@ -64,8 +58,8 @@ class _DetailGradiantScreenState extends State<DetailGradiantScreen> {
           ),
           BlocBuilder<DetailScreenBloc, DetailScreenState>(
             builder: (context, state) => (state is DetailScreenLoaded)
-                ? allIcons(context, state.isVis, rowIcon())
-                : allIcons(context, true, rowIcon()),
+                ? allIcons(context, state.isVis, rowIcon(context))
+                : allIcons(context, true, rowIcon(context)),
           ),
         ],
       ),

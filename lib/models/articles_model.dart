@@ -1,6 +1,6 @@
 import 'dart:core';
-
 import 'package:json_annotation/json_annotation.dart';
+
 import 'source_model.dart';
 
 part 'articles_model.g.dart';
@@ -13,18 +13,17 @@ class Articles {
   Source? source;
 
   Articles(
-      {this.title = "",
-      this.author = "",
-      this.url = "",
-      this.description = "",
-      this.content = "",
-      this.publishedAt= "",
-      this.urlToImage = "",
+      {this.title,
+      this.author,
+      this.url,
+      this.description,
+      this.content,
+      this.publishedAt,
+      this.urlToImage,
       this.source});
 
   factory Articles.fromJson(Map<String, dynamic> json) =>
       _$ArticlesFromJson(json);
 
-  static _fromJson(String date) =>
-      date.substring(0, date.indexOf('T'));
+  static _fromJson(String date) => date.substring(0, date.indexOf('T'));
 }

@@ -7,8 +7,8 @@ part of 'source_model.dart';
 // **************************************************************************
 
 Source _$SourceFromJson(Map<String, dynamic> json) => Source(
-      id: json['id'] as String? ?? "",
-      name: json['name'] as String? ?? "",
+      id: json['id'] as String?,
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$SourceToJson(Source instance) => <String, dynamic>{

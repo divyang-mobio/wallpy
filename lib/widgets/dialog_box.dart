@@ -9,11 +9,10 @@ dialog(context, String title, List<SettingModel> dialogData) {
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
+              title: Text(title, style: Theme.of(context).textTheme.headline5),
               actions: dialogData
                   .map((data) => CupertinoDialogAction(
-                        onPressed: () {
-                          Navigator.pop(context, data.onclick);
-                        },
+                        onPressed: () => Navigator.pop(context, data.onclick),
                         child: Text(data.title),
                       ))
                   .toList());
@@ -28,9 +27,7 @@ dialog(context, String title, List<SettingModel> dialogData) {
               children: dialogData
                   .map(
                     (data) => SimpleDialogOption(
-                      onPressed: () {
-                        Navigator.pop(context, data.onclick);
-                      },
+                      onPressed: () => Navigator.pop(context, data.onclick),
                       child: Text(data.title),
                     ),
                   )

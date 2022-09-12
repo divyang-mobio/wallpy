@@ -7,14 +7,14 @@ import 'network_image.dart';
 ListView listView(List<Articles> data, bool isLoading) {
   return ListView.builder(
       shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: isLoading ? 20 : data.length,
       itemBuilder: (context, index) => isLoading
           ? const Card(child: SizedBox(height: 90))
           : cardView(context, data[index]));
 }
 
-cardView(context, Articles data) {
+GestureDetector cardView(context, Articles data) {
   return GestureDetector(
     onTap: () => Navigator.pushNamed(
         context, TextResources().detailNewsScreenRoute,

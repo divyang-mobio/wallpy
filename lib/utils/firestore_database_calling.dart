@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../resources/resources.dart';
 import '../models/data_model.dart';
@@ -92,7 +90,7 @@ class FirebaseDatabase {
         //       i -= TextResources().adsInternalInList) {
         //     rawData.insert(i, "list");
         //   }
-       // }
+        // }
       }
     }
     return rawData;
@@ -138,11 +136,19 @@ class FirebaseDatabase {
         }
       }
     }
-    // log('final product  ${finalproduct.toString()}');
-    // return finalproduct;
-
     if (!dataAndName) {
       finalcategory.add("other");
+    }
+    if (dataAndName) {
+      finalproduct.insert(0, {
+        'name': "gradiant",
+        'data': [
+          {
+            "image_url":
+                "https://firebasestorage.googleapis.com/v0/b/wallpy-72a92.appspot.com/o/image%2Fimage_picker2424713006920189922.png?alt=media&token=674d3c2f-9c19-434e-a0e9-fbb0ed08ab86"
+          }
+        ]
+      });
     }
     return dataAndName ? finalproduct : finalcategory;
   }

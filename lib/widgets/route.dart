@@ -8,6 +8,7 @@ import '../screens/bottom_navigation_screen.dart';
 import '../screens/detail_news_screen.dart';
 import '../screens/detail_screen.dart';
 import '../screens/gradiant_detail.dart';
+import '../screens/gradiant_screen.dart';
 import '../screens/main_screen.dart';
 import '../screens/news_category_list_screen.dart';
 import '../screens/search_screen.dart';
@@ -15,7 +16,6 @@ import '../screens/sign_in_screen.dart';
 import '../screens/sign_up_screen.dart';
 import '../screens/splash_screen.dart';
 import '../screens/welcome_screen.dart';
-
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings setting) {
     switch (setting.name) {
@@ -56,6 +56,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const AdminScreen());
       case "/redirect":
         return MaterialPageRoute(builder: (context) => RedirectScreen());
+      case "/gradiant":
+        return MaterialPageRoute(builder: (context) => const GradiantScreen());
       case "/newCategory":
         final args = setting.arguments as NewsCategory;
         return MaterialPageRoute(

@@ -34,6 +34,12 @@ class _AdminScreenState extends State<AdminScreen> {
     uploadImage(context);
   }
 
+  GestureDetector forUploadImage(String text) {
+    return GestureDetector(
+        onTap: () => uploadImagesToStorage(),
+        child: imageContainer(context, Center(child: Text(text))));
+  }
+
   void addNewCat() {
     BlocProvider.of<AddOtherCategoryBloc>(context)
         .add(AddNewCategory(data: textEditingController.text));
@@ -60,14 +66,9 @@ class _AdminScreenState extends State<AdminScreen> {
       body: SingleChildScrollView(
         child: Center(
           child: Column(children: [
-            const SizedBox(height: 10),
             BlocBuilder<UploadImageBloc, UploadImageState>(builder: (_, state) {
               if (state is UploadImageInitial) {
-                return GestureDetector(
-                  onTap: () => uploadImagesToStorage(),
-                  child: imageContainer(context,
-                      Center(child: Text(TextResources().uploadImgButton))),
-                );
+                return forUploadImage(TextResources().uploadImgButton);
               } else if (state is OnUploadButtonClick) {
                 return imageContainer(context,
                     const Center(child: CircularProgressIndicator.adaptive()));
@@ -76,12 +77,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 name = state.name;
                 return Stack(
                   children: [
-                    SizedBox(
-                        height: 338,
-                        width: 206,
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: networkImages(state.url, null))),
+                    displayUploadedImage(state.url),
                     IconButton(
                         onPressed: () async {
                           try {
@@ -105,11 +101,7 @@ class _AdminScreenState extends State<AdminScreen> {
                   ],
                 );
               } else if (state is UploadImageError) {
-                return GestureDetector(
-                  onTap: () => uploadImagesToStorage(),
-                  child: imageContainer(context,
-                      Center(child: Text(TextResources().errorAtUploadImg))),
-                );
+                return forUploadImage(TextResources().errorAtUploadImg);
               } else {
                 return imageContainer(
                     context, Center(child: Text(TextResources().noData)));
@@ -235,19 +227,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 );
               } else if (state is AddOtherCategoryData) {
                 myCategory = state.data;
-                return InkWell(
-                  onTap: () => BlocProvider.of<AddOtherCategoryBloc>(context)
-                      .add(RemoveCategory()),
-                  child: Chip(
-                    elevation: 20,
-                    padding: const EdgeInsets.all(8),
-                    shadowColor: BlocProvider.of<DarkModeBloc>(context).isDark
-                        ? ColorResources().chipShadowDark
-                        : ColorResources().chipShadow,
-                    label:
-                        Text(state.data, style: const TextStyle(fontSize: 20)),
-                  ),
-                );
+                return newCategoryData(context, state.data);
               } else if (state is AddOtherCategoryError) {
                 return Text(TextResources().blocError);
               } else {
@@ -313,3 +293,27 @@ Container imageContainer(context, Widget child) => Container(
     height: 338,
     width: 206,
     child: child);
+
+InkWell newCategoryData(context, String data) {
+  return InkWell(
+    onTap: () =>
+        BlocProvider.of<AddOtherCategoryBloc>(context).add(RemoveCategory()),
+    child: Chip(
+      elevation: 20,
+      padding: const EdgeInsets.all(8),
+      shadowColor: BlocProvider.of<DarkModeBloc>(context).isDark
+          ? ColorResources().chipShadowDark
+          : ColorResources().chipShadow,
+      label: Text(data, style: const TextStyle(fontSize: 20)),
+    ),
+  );
+}
+
+SizedBox displayUploadedImage(String url) {
+  return SizedBox(
+      height: 338,
+      width: 206,
+      child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: networkImages(url, null)));
+}

@@ -6,14 +6,9 @@ import '../widgets/category_tile.dart';
 import '../widgets/shimmer_loading.dart';
 import '../widgets/news_listview.dart';
 
-class NewsScreen extends StatefulWidget {
+class NewsScreen extends StatelessWidget {
   const NewsScreen({Key? key}) : super(key: key);
 
-  @override
-  State<NewsScreen> createState() => _NewsScreenState();
-}
-
-class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
