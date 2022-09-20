@@ -34,12 +34,6 @@ class _AdminScreenState extends State<AdminScreen> {
     uploadImage(context);
   }
 
-  GestureDetector forUploadImage(String text) {
-    return GestureDetector(
-        onTap: () => uploadImagesToStorage(),
-        child: imageContainer(context, Center(child: Text(text))));
-  }
-
   void addNewCat() {
     BlocProvider.of<AddOtherCategoryBloc>(context)
         .add(AddNewCategory(data: textEditingController.text));
@@ -68,7 +62,10 @@ class _AdminScreenState extends State<AdminScreen> {
           child: Column(children: [
             BlocBuilder<UploadImageBloc, UploadImageState>(builder: (_, state) {
               if (state is UploadImageInitial) {
-                return forUploadImage(TextResources().uploadImgButton);
+                return GestureDetector(
+                    onTap: () => uploadImagesToStorage(),
+                    child: imageContainer(context,
+                        Center(child: Text(TextResources().uploadImgButton))));
               } else if (state is OnUploadButtonClick) {
                 return imageContainer(context,
                     const Center(child: CircularProgressIndicator.adaptive()));
@@ -101,7 +98,10 @@ class _AdminScreenState extends State<AdminScreen> {
                   ],
                 );
               } else if (state is UploadImageError) {
-                return forUploadImage(TextResources().errorAtUploadImg);
+                return GestureDetector(
+                    onTap: () => uploadImagesToStorage(),
+                    child: imageContainer(context,
+                        Center(child: Text(TextResources().errorAtUploadImg))));
               } else {
                 return imageContainer(
                     context, Center(child: Text(TextResources().noData)));
