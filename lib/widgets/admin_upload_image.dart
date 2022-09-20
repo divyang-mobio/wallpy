@@ -31,15 +31,15 @@ void uploadImage(context) async {
           if (img != null) {
             uploadToFireStore(context, img.path, image.name);
           } else {
-            errorMethod(context, TextResources().croppingImgError);
+            errorMessage(context, TextResources().croppingImgError);
           }
         }
       }
     } else {
-      errorMethod(context, TextResources().imgIsNotSelected);
+      errorMessage(context, TextResources().imgIsNotSelected);
     }
   } else {
-    errorMethod(context, TextResources().permissionIsNotGiven);
+    errorMessage(context, TextResources().permissionIsNotGiven);
   }
 }
 
@@ -66,18 +66,20 @@ Future<CroppedFile?> cropImage(context, XFile imageFile) async =>
         uiSettings: [
           AndroidUiSettings(
               toolbarTitle: TextResources().cropAppTitle,
-              toolbarColor: BlocProvider.of<DarkModeBloc>(context).isDark
+              toolbarColor: BlocProvider
+                  .of<DarkModeBloc>(context)
+                  .isDark
                   ? ColorResources().appBarDark
                   : ColorResources().appBar,
-              toolbarWidgetColor: BlocProvider.of<DarkModeBloc>(context).isDark
+              toolbarWidgetColor: BlocProvider
+                  .of<DarkModeBloc>(context)
+                  .isDark
                   ? ColorResources().appBarTextIconDark
-                  : ColorResources().appBarTextIcon,
-              hideBottomControls: true),
-          IOSUiSettings(
-              title: TextResources().cropAppTitle, hidesNavigationBar: true),
+                  : ColorResources().appBarTextIcon),
+          IOSUiSettings(title: TextResources().cropAppTitle),
         ]);
 
-void errorMethod(context, title) async {
+void errorMessage(context, title) async {
   BlocProvider.of<UploadImageBloc>(context).add(NotGivePermissionOrImage());
   await alertDialog(context, title);
 }

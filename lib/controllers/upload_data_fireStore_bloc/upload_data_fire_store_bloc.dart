@@ -24,7 +24,7 @@ class UploadDataFireStoreBloc
           "image_timestamp": DateTime.now(),
           "image_uid": FirebaseAuth.instance.currentUser?.uid,
           "month": event.months,
-          "wallpy_unm": FirebaseAuth.instance.currentUser?.displayName
+          "wallpy_unm": FirebaseAuth.instance.currentUser?.displayName ?? ""
         });
         emit(UploadDataFireStoreSuccess());
       } catch (e) {
