@@ -31,15 +31,23 @@ void uploadImage(context) async {
           if (img != null) {
             uploadToFireStore(context, img.path, image.name);
           } else {
-            errorMessage(context, TextResources().croppingImgError);
+            BlocProvider.of<UploadImageBloc>(context)
+                .add(NotGivePermissionOrImage());
+            await alertDialog(context, TextResources().croppingImgError);
           }
         }
+      } else {
+        BlocProvider.of<UploadImageBloc>(context)
+            .add(NotGivePermissionOrImage());
+        await alertDialog(context, TextResources().imgSizeMore);
       }
     } else {
-      errorMessage(context, TextResources().imgIsNotSelected);
+      BlocProvider.of<UploadImageBloc>(context).add(NotGivePermissionOrImage());
+      await alertDialog(context, TextResources().imgIsNotSelected);
     }
   } else {
-    errorMessage(context, TextResources().permissionIsNotGiven);
+    BlocProvider.of<UploadImageBloc>(context).add(NotGivePermissionOrImage());
+    await alertDialog(context, TextResources().permissionIsNotGiven);
   }
 }
 
@@ -66,14 +74,10 @@ Future<CroppedFile?> cropImage(context, XFile imageFile) async =>
         uiSettings: [
           AndroidUiSettings(
               toolbarTitle: TextResources().cropAppTitle,
-              toolbarColor: BlocProvider
-                  .of<DarkModeBloc>(context)
-                  .isDark
+              toolbarColor: BlocProvider.of<DarkModeBloc>(context).isDark
                   ? ColorResources().appBarDark
                   : ColorResources().appBar,
-              toolbarWidgetColor: BlocProvider
-                  .of<DarkModeBloc>(context)
-                  .isDark
+              toolbarWidgetColor: BlocProvider.of<DarkModeBloc>(context).isDark
                   ? ColorResources().appBarTextIconDark
                   : ColorResources().appBarTextIcon),
           IOSUiSettings(title: TextResources().cropAppTitle),
