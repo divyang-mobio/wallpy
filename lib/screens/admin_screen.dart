@@ -74,7 +74,12 @@ class _AdminScreenState extends State<AdminScreen> {
                 name = state.name;
                 return Stack(
                   children: [
-                    displayUploadedImage(state.url),
+                    SizedBox(
+                    height: 338,
+                    width: 206,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: networkImages(state.url, null))),
                     IconButton(
                         onPressed: () async {
                           try {
@@ -227,7 +232,18 @@ class _AdminScreenState extends State<AdminScreen> {
                 );
               } else if (state is AddOtherCategoryData) {
                 myCategory = state.data;
-                return newCategoryData(context, state.data);
+                return InkWell(
+                    onTap: () => BlocProvider.of<AddOtherCategoryBloc>(context)
+                        .add(RemoveCategory()),
+                    child: Chip(
+                      elevation: 20,
+                      padding: const EdgeInsets.all(8),
+                      shadowColor: BlocProvider.of<DarkModeBloc>(context).isDark
+                          ? ColorResources().chipShadowDark
+                          : ColorResources().chipShadow,
+                      label: Text(state.data,
+                          style: const TextStyle(fontSize: 20)),
+                    ));
               } else if (state is AddOtherCategoryError) {
                 return Text(TextResources().blocError);
               } else {
@@ -293,27 +309,3 @@ Container imageContainer(context, Widget child) => Container(
     height: 338,
     width: 206,
     child: child);
-
-InkWell newCategoryData(context, String data) {
-  return InkWell(
-    onTap: () =>
-        BlocProvider.of<AddOtherCategoryBloc>(context).add(RemoveCategory()),
-    child: Chip(
-      elevation: 20,
-      padding: const EdgeInsets.all(8),
-      shadowColor: BlocProvider.of<DarkModeBloc>(context).isDark
-          ? ColorResources().chipShadowDark
-          : ColorResources().chipShadow,
-      label: Text(data, style: const TextStyle(fontSize: 20)),
-    ),
-  );
-}
-
-SizedBox displayUploadedImage(String url) {
-  return SizedBox(
-      height: 338,
-      width: 206,
-      child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: networkImages(url, null)));
-}
