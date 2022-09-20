@@ -91,19 +91,23 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   void onShare(BuildContext context) async {
-    final box = context.findRenderObject() as RenderBox?;
-    final imageUrl = Uri.parse(widget.dataModel.url.toString());
-    final http.Response response = await http.get(imageUrl);
-    final bytes = response.bodyBytes;
-    final temp = await getTemporaryDirectory();
-    final path = '${temp.path}/${widget.dataModel.name}.jpg';
+    try {
+      final box = context.findRenderObject() as RenderBox?;
+      final imageUrl = Uri.parse(widget.dataModel.url.toString());
+      final http.Response response = await http.get(imageUrl);
+      final bytes = response.bodyBytes;
+      final temp = await getTemporaryDirectory();
+      final path = '${temp.path}/${widget.dataModel.name}.jpg';
 
-    File file = await File(path).writeAsBytes(bytes);
-    print('urllllll....... ${widget.dataModel.url}');
-    print('imagePaths====${file.path}');
-    await Share.shareFiles([path],
-        subject: subject,
-        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      File file = await File(path).writeAsBytes(bytes);
+      print('urllllll....... ${widget.dataModel.url}');
+      print('imagePaths====${file.path}');
+      await Share.shareFiles([path],
+          subject: subject,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+    } catch (e) {
+      print('');
+    }
   }
 }
 
