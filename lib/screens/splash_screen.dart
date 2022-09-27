@@ -18,9 +18,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigation() async {
-    await Future.delayed(const Duration(seconds: 3)).whenComplete(() =>
-        Navigator.popAndPushNamed(context, TextResources().redirectScreen));
-  }
+    await Future
+        .delayed(const Duration(seconds: 0))
+        .whenComplete(() =>
+        Navigator.pushNamedAndRemoveUntil(
+            context, TextResources().redirectScreen, (r) => false));
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +31,14 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Text(
           TextResources().splashScreenTile,
-          style: Theme.of(context).textTheme.headline1?.copyWith(
-              color: BlocProvider.of<DarkModeBloc>(context).isDark
+          style: Theme
+              .of(context)
+              .textTheme
+              .headline1
+              ?.copyWith(
+              color: BlocProvider
+                  .of<DarkModeBloc>(context)
+                  .isDark
                   ? ColorResources().splashWordDark
                   : ColorResources().splashWord),
         ),
