@@ -23,6 +23,7 @@ void uploadImage(context) async {
       final size = await decodeImageFromList(bytes);
       final wHRatio = (size.width / size.height).toStringAsFixed(2);
       final hWRatio = (size.height / size.width).toStringAsFixed(2);
+      print("$kiloByte kb");
       if (kiloByte <= 100) {
         if (wHRatio == "1.78" || hWRatio == "1.78") {
           uploadToFireStore(context, image.path, image.name);

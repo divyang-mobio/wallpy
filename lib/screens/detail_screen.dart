@@ -125,7 +125,7 @@ class _FavoriteIconState extends State<FavoriteIcon> {
           });
           EasyDebounce.debounce(
               'debounce',
-              const Duration(seconds: 1),
+              const Duration(milliseconds:  10),
               () => BlocProvider.of<FavoriteBloc>(context).add(AddFavorite(
                   dataModel: widget.dataModel,
                   isFavorite: true,

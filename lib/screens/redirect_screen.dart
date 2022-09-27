@@ -29,21 +29,23 @@ class _RedirectScreenState extends State<RedirectScreen> {
     //     if (snapshot.hasError) {
     //       return const Text('Having an error');
     //     } else if (snapshot.hasData) {
-    return StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const BottomNavigationBarScreen();
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Worng ID , Password")));
-            return const WelcomeScreen();
-          } else {
-            return const WelcomeScreen();
-          }
-        });
+    return Scaffold(
+      body: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return const BottomNavigationBarScreen();
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Worng ID , Password")));
+              return const WelcomeScreen();
+            } else {
+              return const WelcomeScreen();
+            }
+          }),
+    );
     // } else {
     //   return const Center(child: CircularProgressIndicator());
     // }
